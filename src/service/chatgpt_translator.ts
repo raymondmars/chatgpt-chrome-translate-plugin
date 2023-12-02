@@ -1,25 +1,33 @@
 import OpenAI from 'openai';
 
 import { TargetLanguage, Translator } from "./translator";
+import { TranslateStore } from './store';
 
 const TIME_OUT_MS = 60000;
 
 export class ChatGPTTranslator implements Translator {
+
     public async translate(text: string, onMessage: (message: string) => void) {
+        const settings = await TranslateStore.getUserSettings();
+
+        if(settings.apiKey.trim() === '') {
+            onMessage(chrome.i18n.getMessage('chatGPTApiKeyRequired'));
+            return;
+        }
+
         const openai = new OpenAI({
-            apiKey: "",
-            baseURL: `https://gpt.navitechai.com/v1/`,
-            defaultHeaders: { 'X-Access-Code': "admin@admin.com" },
+            apiKey: settings.apiKey,
+            baseURL: settings.useProxy ? (settings.proxyUrl || '') : undefined,
+            defaultHeaders: settings.useCustomHeaders ? (settings.customHeaders || {}) : undefined,
             dangerouslyAllowBrowser: true,
             timeout: TIME_OUT_MS,
         });
               
         const stream = await openai.chat.completions.create({
-            model:  "gpt-3.5-turbo",
-            // model:  "gpt-4",
+            model: settings.llmMode ?? "gpt-3.5-turbo-1106",
             messages: [{
                 role: "system",
-                content: this.getPrompt(TargetLanguage.Chinese),
+                content: this.getPrompt(settings.targetTransLang),
             },
             {
                 role: "user",
@@ -47,10 +55,8 @@ export class ChatGPTTranslator implements Translator {
     }
 
     protected getPrompt(targetLang: TargetLanguage): string {
-        const prompt = `You are a translation expert, you've been involved in translating a variety of books and newspaper articles. Please translate the text I enter into easy-to-understand ${targetLang}, with appropriate embellishments to avoid the suspicion of machine translation.`
+        const prompt = `Please translate my text into clear ${targetLang}, adding nuances to seem less like machine translation. Only translate, no other output.`
+        console.log('use prompt: ', prompt)
         return prompt
-        // return `
-        // 你是一个翻译专家, 参与过各类书籍和报纸文章的翻译，请将我输入的文字翻译成通俗易懂的中文, 可以进行适当的润色，尽量避免机器翻译的嫌疑。
-        // `;
     }
 }

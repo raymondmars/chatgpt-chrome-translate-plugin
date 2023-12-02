@@ -1,0 +1,45 @@
+.custom_headers {
+  .operaton {
+    width: 100%;
+    text-align: left;
+    padding: 0px 0px 10px 0px;
+
+    a {
+      font-size: 14px;
+      color: grey;
+      cursor: pointer;
+      &:hover {
+        color: blue;
+      }
+      text-decoration: underline;
+    }
+  }
+
+  i {
+    cursor: pointer;
+    &:hover {
+      color: blue;
+    }
+    font-style: normal;
+  }
+  table {
+    width: 90%;
+    border-collapse: collapse;
+    th {
+      padding: 4px 2px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: dashed 2px silver;
+    }
+    td {
+      padding: 4px 2px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 400;
+      input {
+        padding: 2px 2px;
+      }
+    }
+  }
+}

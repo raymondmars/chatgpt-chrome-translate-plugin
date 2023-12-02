@@ -1,8 +1,6 @@
 import React from 'react';
 import { Root, createRoot } from 'react-dom/client';
 
-import { Translator, TranslatorType, createTranslator } from "./service/translator";
-
 import './content_script.global.scss';
 import CustomMenu from './content_components/custom_menu';
 import Translate from './content_components/translate';
@@ -13,7 +11,7 @@ class WebTranslateProcessor {
     private menuItemClassName = "__translator_menu_item__";
     private translateContainerClassName = "__translator_translate_container__";
 
-    constructor(translator: Translator) {
+    constructor() {
       const menuContainerId = "__translator_menu_container";
       if(!document.getElementById(menuContainerId)) {
         this.menuContainer = document.createElement("div");
@@ -26,7 +24,6 @@ class WebTranslateProcessor {
     }
 
     public run() {
-      console.log("WebTranslateProcessor.run ...");
       document.addEventListener('mouseup', (event: MouseEvent) => {
         const selection = document.getSelection();
         const target = event.target as HTMLElement;
@@ -37,7 +34,7 @@ class WebTranslateProcessor {
         if (selection && selection?.toString().trim().length > 0 && !selection.isCollapsed) {
           // const range = selection.getRangeAt(0);
           // const rect = range.getBoundingClientRect();
- 
+          console.log("target:", target);
           this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
         } else {
           if (selection && selection.isCollapsed) {
@@ -50,7 +47,7 @@ class WebTranslateProcessor {
     private showMenu(source: HTMLElement, selectedText: string, x: number, y: number) {
       const menuItems = [
         {
-          label: "Translate",
+          label: chrome.i18n.getMessage("menuTranslate"),
           onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
             e.preventDefault();
             e.stopPropagation();
@@ -59,7 +56,7 @@ class WebTranslateProcessor {
           }
         },
         {
-          label: "Copy",
+          label: chrome.i18n.getMessage("menuCopy"),
           onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
             e.preventDefault();
             e.stopPropagation();
@@ -100,4 +97,4 @@ class WebTranslateProcessor {
     }
 }
 
-(new WebTranslateProcessor(createTranslator(TranslatorType.ChatGPT))).run();
+(new WebTranslateProcessor()).run();

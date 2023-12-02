@@ -1,0 +1,50 @@
+{
+  "menuTranslate": {
+    "message": "Translate"
+  },
+  "menuCopy": {
+    "message": "Copy"
+  },
+  "translateLoading": {
+    "message": "Translate ..."
+  },
+  "chatGPTApiKeyRequired": {
+    "message": "Please set your OpenAI API key in the settings page."
+  },
+  "settingsTitle": {
+    "message": "Translation Bot - Settings"
+  },
+  "settingsTranslator": {
+    "message": "Translator"
+  },
+  "settingsAPIKey": {
+    "message": "API Key"
+  },
+  "settingsAPIKeyPlaceholder": {
+    "message": "Please input API Key"
+  },
+  "settingsUseProxy": {
+    "message": "Use Proxy"
+  },
+  "settingsProxy": {
+    "message": "Proxy"
+  },
+  "settingsProxyPlaceholder": {
+    "message": "Please input Proxy URL"
+  },
+  "settingsUseCustomHeaders": {
+    "message": "Use Custom Headers"
+  },
+  "settingsCustomHeaders": {
+    "message": "Custom Headers"
+  },
+  "settingsTranslateTo": {
+    "message": "Translate to this Language"
+  },
+  "settingsSave": {
+    "message": "Save"
+  },
+  "addRequestHeader": {
+    "message": "Add Request Header"
+  }
+}

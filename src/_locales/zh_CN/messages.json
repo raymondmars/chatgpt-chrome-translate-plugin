@@ -1,0 +1,50 @@
+{
+  "menuTranslate": {
+    "message": "翻译"
+  },
+  "menuCopy": {
+    "message": "复制"
+  },
+  "translateLoading": {
+    "message": "翻译中..."
+  },
+  "chatGPTApiKeyRequired": {
+    "message": "请在设置页面设置您的OpenAI API Key。"
+  },
+  "settingsTitle": {
+    "message": "智能翻译机器人-设置"
+  },
+  "settingsTranslator": {
+    "message": "翻译器"
+  },
+  "settingsAPIKey": {
+    "message": "API Key"
+  },
+  "settingsAPIKeyPlaceholder": {
+    "message": "请输入API Key"
+  },
+  "settingsUseProxy": {
+    "message": "使用第三方代理"
+  },
+  "settingsProxy": {
+    "message": "第三方代理"
+  },
+  "settingsProxyPlaceholder": {
+    "message": "请输入代理URL"
+  },
+  "settingsUseCustomHeaders": {
+    "message": "使用自定义 Request Header"
+  },
+  "settingsCustomHeaders": {
+    "message": "自定义 Request Header"
+  },
+  "settingsTranslateTo": {
+    "message": "翻译成这种语言"
+  },
+  "settingsSave": {
+    "message": "保存"
+  },
+  "addRequestHeader": {
+    "message": "添加请求 Header"
+  }
+}
