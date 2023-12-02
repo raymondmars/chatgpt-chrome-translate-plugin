@@ -1,0 +1,23 @@
+.translate {
+  padding: 12px !important;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  background-color: white;
+  color: black !important;
+  position: relative;
+  span.close {
+    position: absolute;
+    top: -1px;
+    right: 8px;
+    color: grey;
+    font-size: 18px !important;
+    &:hover {
+      color: black;
+      cursor: pointer;
+    }
+  }
+  .end {
+    margin-left: 10px;
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Transaction Bot",
+  "version": "1.0",
+  "permissions": [
+    "activeTab",
+    "cookies",
+    "storage",
+    "https://gpt.navitechai.com/*",
+    "http://localhost:8500/*"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["styles.css"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://gpt.navitechai.com http://localhost:8500; object-src 'self'",
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/16x16.png",
+      "48": "images/48x48.png",
+      "128": "images/128x128.png"
+    }
+  }
+}
