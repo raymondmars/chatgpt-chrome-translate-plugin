@@ -2,11 +2,23 @@
   "menuTranslate": {
     "message": "Translate"
   },
+  "menuTranslateWithSummarize": {
+    "message": "Summarize"
+  },
+  "menuIeltsReadingAnalysis": {
+    "message": "IELTS Reading Analysis"
+  },
   "menuCopy": {
     "message": "Copy"
   },
   "translateLoading": {
     "message": "Translate ..."
+  },
+  "summarizeLoading": {
+    "message": "Summarize ..."
+  },
+  "ieltsReadLoading": {
+    "message": "Processing ..."
   },
   "chatGPTApiKeyRequired": {
     "message": "Please set your OpenAI API key in the settings page."
@@ -14,8 +26,8 @@
   "settingsTitle": {
     "message": "Translation Bot - Settings"
   },
-  "settingsTranslator": {
-    "message": "Translator"
+  "settingsLLMTool": {
+    "message": "Select AI Tool"
   },
   "settingsAPIKey": {
     "message": "API Key"

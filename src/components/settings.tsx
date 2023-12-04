@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
 import styles from "./settings.scss";
-import { TranslateStore, UserSettings } from "../service/store";
-import { TargetLanguage, TranslatorType } from "../service/translator";
+import { LLMStore, UserSettings } from "../service/store";
+import { TargetLanguage, LLMType } from "../service/llm";
 
 import CustomHeaders from "./custom_headers";
 
@@ -13,12 +13,12 @@ const Settings = () => {
     useProxy: false,
     useCustomHeaders: false,
     targetTransLang: TargetLanguage.English,
-    translatorType: TranslatorType.ChatGPT
+    llmType: LLMType.ChatGPT
   });
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
-      const settings = await TranslateStore.getUserSettings();
+      const settings = await LLMStore.getUserSettings();
       console.log("settings", settings);
       setUserSettings(settings);
     }
@@ -60,7 +60,7 @@ const Settings = () => {
   const handleTranslatorTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUserSettings({
       ...userSettings,
-      translatorType: e.target.value as TranslatorType
+      llmType: e.target.value as LLMType
     });
     setDisableSaveButton(false);
   }
@@ -86,7 +86,7 @@ const Settings = () => {
   }
 
   const handleSave = () => {
-    TranslateStore.setUserSettings(userSettings);
+    LLMStore.setUserSettings(userSettings);
     setDisableSaveButton(true);
     window.setTimeout(() => window.close(), 300);
   }
@@ -98,9 +98,9 @@ const Settings = () => {
       <div className={styles.content}>
         <ul>
           <li>
-            <span>{chrome.i18n.getMessage("settingsTranslator")}</span>
+            <span>{chrome.i18n.getMessage("settingsLLMTool")}</span>
             <span>
-              <select value={userSettings.translatorType} onChange={handleTranslatorTypeChange}>
+              <select value={userSettings.llmType} onChange={handleTranslatorTypeChange}>
                 <option value="ChatGPT">ChatGPT</option>
               </select>
             </span>
@@ -155,8 +155,8 @@ const Settings = () => {
               <select value={userSettings.targetTransLang} onChange={handleTargetTransLangChange}>
                 <option value="Arabic">العربية</option>
                 <option value="Bulgarian">Български</option>
-                <option value="ChineseCN">简体中文</option>
-                <option value="ChineseTW">繁體中文</option>
+                <option value="Chinese">简体中文</option>
+                <option value="Traditional Chinese">繁體中文</option>
                 <option value="Croatian">Hrvatski</option>
                 <option value="Czech">Čeština</option>
                 <option value="Danish">Dansk</option>

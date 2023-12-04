@@ -8,14 +8,20 @@
   "translateLoading": {
     "message": "翻译中..."
   },
+  "summarizeLoading": {
+    "message": "总结中 ..."
+  },
+  "ieltsReadLoading": {
+    "message": "处理中 ..."
+  },
   "chatGPTApiKeyRequired": {
     "message": "请在设置页面设置您的OpenAI API Key。"
   },
   "settingsTitle": {
     "message": "智能翻译机器人-设置"
   },
-  "settingsTranslator": {
-    "message": "翻译器"
+  "settingsLLMTool": {
+    "message": "选择 AI 工具"
   },
   "settingsAPIKey": {
     "message": "API Key"

@@ -1,6 +1,7 @@
-import { ChatGPTTranslator } from "./chatgpt_translator";
+import { ChatGPT } from "./chatgpt";
 
-export enum TranslatorType {
+
+export enum LLMType {
   ChatGPT = 'ChatGPT',
 }
 
@@ -36,15 +37,18 @@ export enum TargetLanguage {
   Turkish = "Turkish",
 }
 
-export interface Translator {
+export interface LLM {
   translate(text: string, onMessage: (message: string) => void): void;
+  summary(text: string, onMessage: (message: string) => void): void;
+  ieltsReading(text: string, onMessage: (message: string) => void): void;
+  
   getEndIdentity(): string;
 }
 
-export const createTranslator = (type: TranslatorType): Translator => {
+export const createLLM = (type: LLMType): LLM => {
   switch (type) {
-    case TranslatorType.ChatGPT:
-      return new ChatGPTTranslator();
+    case LLMType.ChatGPT:
+      return new ChatGPT();
     default:
       throw new Error('Invalid translator type');
   }

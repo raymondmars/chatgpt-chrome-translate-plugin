@@ -4,6 +4,7 @@ import { Root, createRoot } from 'react-dom/client';
 import './content_script.global.scss';
 import CustomMenu from './content_components/custom_menu';
 import Translate from './content_components/translate';
+import { MenuAction } from './service/menu_action';
 
 class WebTranslateProcessor {
     private menuContainer: HTMLElement;
@@ -37,34 +38,67 @@ class WebTranslateProcessor {
           console.log("target:", target);
           this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
         } else {
-          if (selection && selection.isCollapsed) {
+          // if ((selection && selection.isCollapsed) || (selection && selection?.toString().trim().length === 0)) {
             this.hideMenu()
-          }
+          // }
         }
       });
     }
 
     private showMenu(source: HTMLElement, selectedText: string, x: number, y: number) {
+      const translateItem = {
+        label: chrome.i18n.getMessage("menuTranslate"),
+        onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
+          e.preventDefault();
+          e.stopPropagation();
+          this.hideMenu();
+          const translateNode = <Translate inputText={selectedText.trim()} action={MenuAction.Translate} />
+          this.processTranslate(source, translateNode);
+        }
+      }
+
+      // const translateWithSummarizeItem = {
+      //   label: chrome.i18n.getMessage("menuTranslateWithSummarize"),
+      //   onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     this.hideMenu();
+      //     const translateNode = <Translate inputText={selectedText.trim()} action={MenuAction.SummaryAndTranslate} />
+      //     this.processTranslate(source, translateNode);
+      //   }
+      // }
+
+      // const ieltsReadingItem = {
+      //   label: chrome.i18n.getMessage("menuIeltsReadingAnalysis"),
+      //   onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      //     this.hideMenu();
+      //     const translateNode = <Translate inputText={selectedText.trim()} action={MenuAction.IELTSReading} />
+      //     this.processTranslate(source, translateNode);
+      //   }
+      // }
+
+      const copyItem = {
+        label: chrome.i18n.getMessage("menuCopy"),
+        onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
+          e.preventDefault();
+          e.stopPropagation();
+          this.hideMenu();
+          this.processCopy(selectedText);
+        }
+      }
+
       const menuItems = [
-        {
-          label: chrome.i18n.getMessage("menuTranslate"),
-          onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.hideMenu();
-            this.processTranslate(source,selectedText);
-          }
-        },
-        {
-          label: chrome.i18n.getMessage("menuCopy"),
-          onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.hideMenu();
-            this.processCopy(selectedText);
-          }
-        },
+        translateItem
       ];
+
+      // if(this.isEnglish(selectedText.trim())) {
+      //   menuItems.push(ieltsReadingItem)
+      // }
+
+      menuItems.push(copyItem);
+
       this.menuRoot.render(<CustomMenu active={true} menuItems={menuItems} x={x} y={y} identityClassName={this.menuItemClassName} />);
     }
 
@@ -72,14 +106,15 @@ class WebTranslateProcessor {
       this.menuRoot.render(<CustomMenu active={false} identityClassName={this.menuItemClassName} />);
     }
 
-    private processTranslate(source: HTMLElement, text: string) {
+
+    private processTranslate(source: HTMLElement, renderNode: React.ReactElement) {
       if(source.getElementsByClassName(this.translateContainerClassName).length > 0) {
         source.getElementsByClassName(this.translateContainerClassName)[0].remove();
       }
 
       const div = document.createElement("div");
       div.className = this.translateContainerClassName;
-      createRoot(div).render(<Translate inputText={text} />);
+      createRoot(div).render(renderNode);
       source.appendChild(div);
     }
 

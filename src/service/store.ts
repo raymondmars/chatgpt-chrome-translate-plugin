@@ -1,4 +1,4 @@
-import { TargetLanguage, TranslatorType } from './translator';
+import { TargetLanguage, LLMType } from './llm';
 
 export interface UserSettings {
   apiKey: string;
@@ -8,7 +8,7 @@ export interface UserSettings {
   useCustomHeaders: boolean;
   customHeaders?: Record<string, string>;
   targetTransLang: TargetLanguage;
-  translatorType: TranslatorType;
+  llmType: LLMType;
 }
 
 export interface Store {
@@ -30,7 +30,7 @@ function getFromStorage(key: string): Promise<string> {
 
 const USER_SETTINGS_KEY = '__chrom_plugin_userSettings';
 
-class UserStore implements Store {
+class SettingsStore implements Store {
   async getUserSettings(): Promise<UserSettings> {
     const settings = await getFromStorage(USER_SETTINGS_KEY);
     if (settings) {
@@ -42,7 +42,7 @@ class UserStore implements Store {
       useProxy: false,
       useCustomHeaders: false,
       targetTransLang: TargetLanguage.English,
-      translatorType: TranslatorType.ChatGPT,
+      llmType: LLMType.ChatGPT,
     };
   }
 
@@ -53,4 +53,4 @@ class UserStore implements Store {
   }
 }
 
-export const TranslateStore = new UserStore();
+export const LLMStore = new SettingsStore();

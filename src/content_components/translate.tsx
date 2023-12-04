@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import styles from './translate.scss';
-import { TranslatorType, createTranslator } from '../service/translator';
-import { TranslateStore } from '../service/store';
+import { LLMType, createLLM } from '../service/llm';
+import { LLMStore } from '../service/store';
+import { MenuAction, getActionLoadingText } from '../service/menu_action';
 
-const Translate = (props: { inputText: string }) => {
+const Translate = (props: { inputText: string, action: MenuAction, endFlag?: ReactNode }) => {
+  const loadingText = getActionLoadingText(props.action)
+
   const [show, setShow] = React.useState<boolean>(true);
-  const [resultContent, setResultContent] = React.useState<string>(chrome.i18n.getMessage("translateLoading"));
+  const [resultContent, setResultContent] = React.useState<string>(loadingText);
   const [showEnd, setShowEnd] = React.useState<boolean>(false);
 
   const handleClickClose = (e: MouseEvent | React.MouseEvent<HTMLSpanElement>) => {
@@ -15,20 +18,37 @@ const Translate = (props: { inputText: string }) => {
   }
 
   useEffect(() => {
-    console.log("Translate...", props.inputText);
-    const funcTranslate = async () => {
-      const settings = await TranslateStore.getUserSettings();
-      const type = settings.translatorType || TranslatorType.ChatGPT;
-      const translator = createTranslator(type);
-      translator.translate(props.inputText, (result) => {
-        if(translator.getEndIdentity() === result) {
+    console.log("input text: ", props.inputText);
+    const startProcess = async () => {
+      const settings = await LLMStore.getUserSettings();
+      const type = settings.llmType || LLMType.ChatGPT;
+      const llm = createLLM(type);
+      let processFunc: (text: string, callback: (result: string) => void) => void ;
+
+      switch(props.action) {
+        case MenuAction.Translate:
+          processFunc = llm.translate;
+          break;
+        case MenuAction.SummaryAndTranslate:
+          processFunc = llm.summary;
+          break;
+        case MenuAction.IELTSReading:
+          processFunc = llm.ieltsReading;
+          break;
+        default:
+          processFunc = llm.translate;
+          break;
+      }
+
+      processFunc.bind(llm)(props.inputText, (result) => {
+        if(llm.getEndIdentity() === result) {
           setShowEnd(true);
           return;
         }
         setResultContent(result)
       });
     }
-    funcTranslate();
+    startProcess();
 
   }, [props.inputText]);
 
@@ -39,7 +59,7 @@ const Translate = (props: { inputText: string }) => {
       <span className={styles.close} onClick={handleClickClose}>&#x2715;</span>
       <div className={styles.result}>
         {resultContent}
-        { showEnd && <span className={styles.end}>&#x2752;</span>}
+        { showEnd && <span className={styles.end}>{props.endFlag ?? (<label>&#x2752;</label>)}</span>}
       </div>
     </div> }
     </>
