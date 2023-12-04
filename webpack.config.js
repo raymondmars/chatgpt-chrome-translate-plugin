@@ -51,11 +51,12 @@ module.exports = {
       patterns: [
         { from: 'manifest.json', to: '.' },
         { from: 'src/static/images', to: 'images' },
+        { from: 'src/_locales', to: '_locales'}
         // { from: 'src/static/styles.css', to: '.' },
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: 'styles.css',
+      filename: '[name].css',
       // filename: '[name].css',
       // chunkFilename: '[id].css',
     }),

@@ -1,9 +1,14 @@
 import React from 'react';
+import Settings from './settings';
+
+import styles from './home.scss';
 
 const Home = () => {
 
   return (
-    <h1>hello,world2222</h1>
+    <div className={styles.home}>
+      <Settings />
+    </div>
   )
 }
 

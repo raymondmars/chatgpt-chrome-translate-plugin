@@ -1,0 +1,64 @@
+.settings {
+  padding: 2px;
+  width: 100%;
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+  }
+  .content {
+    padding: 5px;
+    ul {
+      width: 100%;
+      display: table;
+      padding: 0px;
+      margin: 0px;
+      list-style: none;
+      li {
+        width: 100%;
+        display: table-row;
+        span {
+          display: table-cell;
+          box-sizing: border-box;
+          padding: 10px 0px;
+          img {
+            cursor: pointer;
+          }
+          label {
+            margin-right: 10px;
+          }
+        }
+        span:first-child {
+          width: 195px;
+          font-size: 14px;
+        }
+        input[type="text"], input[type="password"], input[type="email"], select {
+          font-size: 14px;
+          width: 100%;
+          max-width: 90% !important;
+          padding: 8px 8px;
+          border-radius: 5px;
+          border: solid 1px grey;
+          box-sizing: border-box; 
+        }
+        button {
+          font-size: 14px;
+          width: 100px;
+          padding: 8px 8px;
+          border-radius: 5px;
+          border: solid 2px #0550ae;
+          box-sizing: border-box; 
+          background-color: #0550ae;
+          color: white;
+          cursor: pointer;
+        }
+        button:disabled {
+          border: solid 2px grey;
+          background-color: grey;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+}

@@ -21,8 +21,8 @@ const CustomMenu = ({active, x, y, menuItems, identityClassName }:CustomMenuProp
 
   useEffect(() => {
     if (menuRef.current) {
-      menuRef.current.style.left = (x &&`${x - menuRef.current.clientWidth}px`) || '';
-      menuRef.current.style.top = (y && `${y - menuRef.current.clientHeight}px`) || '';
+      menuRef.current.style.left = (x &&`${x - menuRef.current.clientWidth - 10}px`) || '';
+      menuRef.current.style.top = (y && `${y - menuRef.current.clientHeight - 10}px`) || '';
     }
   }, [x, y])
 
