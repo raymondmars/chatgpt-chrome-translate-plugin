@@ -1,24 +1,31 @@
 .translate {
-  padding: 12px !important;
-  border: 2px dashed #ccc;
-  border-radius: 5px;
-  background-color: white;
-  color: black !important;
-  position: relative;
+  padding: 0px;
   span.close {
-    position: absolute;
-    top: 0px;
-    right: 8px;
-    color: grey;
-    font-size: 18px !important;
-    &:hover {
-      color: black;
-      cursor: pointer;
-    }
+    display: none;
+    margin-left: 10px;
   }
-  .end {
+  span.end {
+    display: contents;
     margin-left: 10px;
     font-size: 18px;
     color: grey !important;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black !important;
+    position: relative;
+    span.close {
+      display: contents;
+      color: rgb(97, 96, 96);
+      font-size: 18px !important;
+      &:hover {
+        color: black;
+        cursor: pointer;
+      }
+    }
+    span.end {
+      display: none;
+    }
   }
 }

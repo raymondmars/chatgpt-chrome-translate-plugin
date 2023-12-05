@@ -2,6 +2,9 @@
   "menuTranslate": {
     "message": "翻译"
   },
+  "menuTranslateInSelection": {
+    "message": "翻译并替换选中文字"
+  },
   "menuCopy": {
     "message": "复制"
   },

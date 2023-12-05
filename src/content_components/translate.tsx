@@ -36,10 +36,9 @@ const Translate = (props: { inputText: string }) => {
   return (
     <>
     { show && <div className={styles.translate}>
-      <span className={styles.close} onClick={handleClickClose}>&#x2715;</span>
       <div className={styles.result}>
         {resultContent}
-        { showEnd && <span className={styles.end}>&#x2752;</span>}
+        { showEnd && <><span className={styles.end}>&#x2752;</span><span className={styles.close} onClick={handleClickClose}>&#x2715;</span></>}
       </div>
     </div> }
     </>

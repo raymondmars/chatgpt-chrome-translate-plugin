@@ -4,6 +4,8 @@ import { Root, createRoot } from 'react-dom/client';
 import './content_script.global.scss';
 import CustomMenu from './content_components/custom_menu';
 import Translate from './content_components/translate';
+import { TranslateStore } from './service/store';
+import { TranslatorType, createTranslator } from './service/translator';
 
 class WebTranslateProcessor {
     private menuContainer: HTMLElement;
@@ -12,6 +14,8 @@ class WebTranslateProcessor {
     private translateContainerClassName = "__translator_translate_container__";
 
     constructor() {
+      console.log("current language:", chrome.i18n.getUILanguage());
+
       const menuContainerId = "__translator_menu_container";
       if(!document.getElementById(menuContainerId)) {
         this.menuContainer = document.createElement("div");
@@ -37,9 +41,14 @@ class WebTranslateProcessor {
           console.log("target:", target);
           this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
         } else {
-          if (selection && selection.isCollapsed) {
+          // if (selection && selection.isCollapsed) {
             this.hideMenu()
-          }
+          // }
+        }
+      });
+      document.addEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          this.hideMenu();
         }
       });
     }
@@ -53,6 +62,15 @@ class WebTranslateProcessor {
             e.stopPropagation();
             this.hideMenu();
             this.processTranslate(source,selectedText);
+          }
+        },
+        {
+          label: chrome.i18n.getMessage("menuTranslateInSelection"),
+          onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.hideMenu();
+            this.translateInSelection(source, selectedText);
           }
         },
         {
@@ -81,6 +99,28 @@ class WebTranslateProcessor {
       div.className = this.translateContainerClassName;
       createRoot(div).render(<Translate inputText={text} />);
       source.appendChild(div);
+    }
+
+    private async translateInSelection(source: HTMLElement, text: string) {
+      const selection = document.getSelection();
+      if(selection) {
+        const range = selection?.getRangeAt(0);
+        range?.deleteContents();
+        selection.removeAllRanges();
+      }
+
+      source.innerText = chrome.i18n.getMessage("translateLoading");
+
+      const settings = await TranslateStore.getUserSettings();
+      const type = settings.translatorType || TranslatorType.ChatGPT;
+      const translator = createTranslator(type);
+
+      translator.translate(text, (result) => {
+        if(translator.getEndIdentity() === result) {
+          return;
+        }
+        source.innerText = result;
+      });
     }
 
     private processCopy(text: string) {
