@@ -2,6 +2,9 @@
   "menuTranslate": {
     "message": "Translate"
   },
+  "menuTranslateInSelection": {
+    "message": "Translate in selection"
+  },
   "menuCopy": {
     "message": "Copy"
   },

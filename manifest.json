@@ -1,28 +1,33 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Translation Bot",
   "version": "1.0",
   "permissions": [
     "activeTab",
     "cookies",
-    "storage",
+    "storage"
+  ],
+  "host_permissions": [
     "https://gpt.navitechai.com/*",
     "http://localhost:8500/*",
     "https://api.openai.com/*"
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": ["styles.css"],
+      "css": ["popup.css", "contentScript.css"],
       "js": ["contentScript.js"]
     }
   ],
-  "content_security_policy": "script-src 'self' 'unsafe-eval' https://gpt.navitechai.com http://localhost:8500 https://api.openai.com; object-src 'self'",
-  "browser_action": {
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'",
+    "sandbox": "sandbox allow-scripts; script-src 'self' https://gpt.navitechai.com http://localhost:8500 https://api.openai.com; object-src 'self'"
+  },
+  "action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "images/16x16.png",
