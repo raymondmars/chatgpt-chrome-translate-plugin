@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import styles from "./settings.scss";
-import { TranslateStore, UserSettings } from "../service/store";
+import { ChatGPTModel, TranslateStore, UserSettings } from "../service/store";
 import { TargetLanguage, TranslatorType } from "../service/translator";
 
 import CustomHeaders from "./custom_headers";
@@ -13,7 +13,8 @@ const Settings = () => {
     useProxy: false,
     useCustomHeaders: false,
     targetTransLang: TargetLanguage.English,
-    translatorType: TranslatorType.ChatGPT
+    translatorType: TranslatorType.ChatGPT,
+    llmMode: "gpt-3.5-turbo-1106",
   });
 
   useEffect(() => {
@@ -65,6 +66,14 @@ const Settings = () => {
     setDisableSaveButton(false);
   }
 
+  const handleLLMModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setUserSettings({
+      ...userSettings,
+      llmMode: e.target.value as ChatGPTModel
+    });
+    setDisableSaveButton(false);
+  }
+
   const handleCustomHeadersChange = (headers: Record<string,string>) => {
     setUserSettings({
       ...userSettings,
@@ -99,18 +108,22 @@ const Settings = () => {
         <ul>
           <li>
             <span>{chrome.i18n.getMessage("settingsTranslator")}</span>
-            <span>
+            <span className={styles.models}>
               <select value={userSettings.translatorType} onChange={handleTranslatorTypeChange}>
                 <option value="ChatGPT">ChatGPT</option>
+              </select>
+              <select value={userSettings.llmMode} onChange={handleLLMModeChange}>
+                <option value="gpt-3.5-turbo-1106">gpt-3.5-turbo-1106</option>
+                <option value="gpt-4-1106-preview">gpt-4-1106-preview</option>
               </select>
             </span>
           </li>
           <li>
             <span>{chrome.i18n.getMessage("settingsAPIKey")}</span>
             <span>
-              <input type="password" 
-                value={userSettings.apiKey} 
-                placeholder={chrome.i18n.getMessage("settingsAPIKeyPlaceholder")} 
+              <input type="password"
+                value={userSettings.apiKey}
+                placeholder={chrome.i18n.getMessage("settingsAPIKeyPlaceholder")}
                 onChange={handleApiKeyChange}
                 onBlur={checkApiKey} />
             </span>
@@ -119,13 +132,13 @@ const Settings = () => {
             <span></span>
             <span>
               <label>
-                <input type="checkbox" 
-                  checked={userSettings.useProxy} 
+                <input type="checkbox"
+                  checked={userSettings.useProxy}
                   onChange={handleUseProxyChange} />{chrome.i18n.getMessage("settingsUseProxy")}
               </label>
               <label>
-                <input type="checkbox" 
-                  checked={userSettings.useCustomHeaders} 
+                <input type="checkbox"
+                  checked={userSettings.useCustomHeaders}
                   onChange={handleUseCustomHeadersChange} />{chrome.i18n.getMessage("settingsUseCustomHeaders")}
               </label>
             </span>
@@ -134,8 +147,8 @@ const Settings = () => {
             userSettings.useProxy && <li>
               <span>{chrome.i18n.getMessage("settingsProxy")}</span>
               <span>
-                <input type="text" 
-                  value={userSettings.proxyUrl} 
+                <input type="text"
+                  value={userSettings.proxyUrl}
                   onChange={handleProxyUrlChange}
                   placeholder={chrome.i18n.getMessage("settingsProxyPlaceholder")} />
               </span>
@@ -155,8 +168,8 @@ const Settings = () => {
               <select value={userSettings.targetTransLang} onChange={handleTargetTransLangChange}>
                 <option value="Arabic">العربية</option>
                 <option value="Bulgarian">Български</option>
-                <option value="ChineseCN">简体中文</option>
-                <option value="ChineseTW">繁體中文</option>
+                <option value="Chinese">简体中文</option>
+                <option value="Traditional Chinese">繁體中文</option>
                 <option value="Croatian">Hrvatski</option>
                 <option value="Czech">Čeština</option>
                 <option value="Danish">Dansk</option>

@@ -22,7 +22,7 @@ export class ChatGPTTranslator implements Translator {
             dangerouslyAllowBrowser: true,
             timeout: TIME_OUT_MS,
         });
-              
+
         const stream = await openai.chat.completions.create({
             model: settings.llmMode ?? "gpt-3.5-turbo-1106",
             messages: [{
@@ -55,7 +55,7 @@ export class ChatGPTTranslator implements Translator {
     }
 
     protected getPrompt(targetLang: TargetLanguage): string {
-        const prompt = `Please translate my text into clear ${targetLang}, adding nuances to seem less like machine translation. Only translate, no other output.`
+        const prompt = `Please translate my text into easy to understand ${targetLang}, adding nuances to seem less like machine translation. Only translate, no other output.`
         console.log('use prompt: ', prompt)
         return prompt
     }

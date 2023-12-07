@@ -1,8 +1,10 @@
 import { TargetLanguage, TranslatorType } from './translator';
 
+export type ChatGPTModel = 'gpt-3.5-turbo-1106' | 'gpt-4-1106-preview';
+
 export interface UserSettings {
   apiKey: string;
-  llmMode?: string;
+  llmMode: ChatGPTModel;
   useProxy: boolean;
   proxyUrl?: string;
   useCustomHeaders: boolean;
@@ -43,6 +45,7 @@ class UserStore implements Store {
       useCustomHeaders: false,
       targetTransLang: TargetLanguage.English,
       translatorType: TranslatorType.ChatGPT,
+      llmMode: 'gpt-3.5-turbo-1106',
     };
   }
 
