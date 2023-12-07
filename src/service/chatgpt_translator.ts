@@ -55,8 +55,7 @@ export class ChatGPTTranslator implements Translator {
     }
 
     protected getPrompt(targetLang: TargetLanguage): string {
-        const prompt = `Please translate my text into easy to understand ${targetLang}, adding nuances to seem less like machine translation. Only translate, no other output.`
-        console.log('use prompt: ', prompt)
+        const prompt = `You are a translation expert, Please translate my text into easy to understand ${targetLang}, adding nuances to seem less like machine translation. Only translate, no other output.`;
         return prompt
     }
 }

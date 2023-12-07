@@ -20,7 +20,6 @@ const Settings = () => {
   useEffect(() => {
     const funcGetUserSettings = async () => {
       const settings = await TranslateStore.getUserSettings();
-      console.log("settings", settings);
       setUserSettings(settings);
     }
     funcGetUserSettings();
@@ -94,6 +93,10 @@ const Settings = () => {
     setDisableSaveButton(userSettings.apiKey === "");
   }
 
+  const handleSendFeedback = () => {
+    chrome.tabs.create({ url: "mailto:translation-bot@navitechai.com"});
+  }
+
   const handleSave = () => {
     TranslateStore.setUserSettings(userSettings);
     setDisableSaveButton(true);
@@ -101,9 +104,10 @@ const Settings = () => {
   }
 
 
+
   return (
     <div className={styles.settings}>
-      <div className={styles.title}>{chrome.i18n.getMessage("settingsTitle")}</div>
+      <div className={styles.title}>Translation Bot - {chrome.i18n.getMessage("settingsTitle")}</div>
       <div className={styles.content}>
         <ul>
           <li>
@@ -115,6 +119,7 @@ const Settings = () => {
               <select value={userSettings.llmMode} onChange={handleLLMModeChange}>
                 <option value="gpt-3.5-turbo-1106">gpt-3.5-turbo-1106</option>
                 <option value="gpt-4-1106-preview">gpt-4-1106-preview</option>
+                <option value="gpt-4">gpt-4</option>
               </select>
             </span>
           </li>
@@ -205,6 +210,9 @@ const Settings = () => {
             </span>
           </li>
         </ul>
+        <div className={styles.contactUs}>
+          <a href="#" onClick={handleSendFeedback}>{chrome.i18n.getMessage("contactUs")}</a>
+        </div>
       </div>
     </div>
   )

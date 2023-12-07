@@ -2,6 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
   entry: {
@@ -62,5 +65,16 @@ module.exports = {
     }),
   ],
   mode: 'development',
-  devtool: 'cheap-module-source-map',
+  devtool: isProduction ? false : 'cheap-module-source-map',
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          output: {
+            ascii_only: true,
+          },
+        },
+      }),
+    ],
+  },
 };

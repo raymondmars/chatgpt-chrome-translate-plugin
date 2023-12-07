@@ -4,10 +4,11 @@
   .title {
     font-size: 18px;
     font-weight: bold;
-    padding: 5px;
+    padding: 5px 15px;
   }
   .content {
-    padding: 5px;
+    padding: 5px 15px;
+    position: relative;
     ul {
       width: 100%;
       display: table;
@@ -35,7 +36,7 @@
         input[type="text"], input[type="password"], input[type="email"], select {
           font-size: 14px;
           width: 100%;
-          max-width: 90% !important;
+          // max-width: 90% !important;
           padding: 8px 8px;
           border-radius: 5px;
           border: solid 1px grey;
@@ -58,7 +59,8 @@
           cursor: not-allowed;
         }
         .models {
-          max-width: 90% !important;
+          width: 100%;
+          // max-width: 90% !important;
           display: flex;
           justify-content: space-between;
           select {
@@ -67,6 +69,20 @@
           select:first-child {
             margin-right: 10px;
           }
+        }
+      }
+    }
+    .contactUs {
+      position: absolute;
+      bottom: 25px;
+      right: 15px;
+      a {
+        cursor: pointer;
+        color: silver;
+        text-decoration: none;
+        font-size: 12px;
+        &:hover {
+          color: blue;
         }
       }
     }

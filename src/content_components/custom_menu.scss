@@ -10,9 +10,10 @@
     padding: 0px;
     list-style: none !important;
     li {
+      font-size: 14px;
       list-style: none !important;
-      padding: 5px;
-      color: grey;
+      padding: 5px !important;
+      color: rgb(172, 172, 172);
       border-radius: 5px;
       &:hover {
         background-color: white;

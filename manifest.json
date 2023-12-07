@@ -1,16 +1,13 @@
 {
   "manifest_version": 3,
   "name": "Translation Bot",
+  "description": "Use AI tools(ChatGPT) to translate any selected text on the website into your set language.",
   "version": "1.0",
   "permissions": [
-    "activeTab",
-    "cookies",
     "storage"
   ],
   "host_permissions": [
-    "https://gpt.navitechai.com/*",
-    "http://localhost:8500/*",
-    "https://api.openai.com/*"
+    "https://*/*"
   ],
   "background": {
     "service_worker": "background.js",
@@ -34,6 +31,11 @@
       "48": "images/48x48.png",
       "128": "images/128x128.png"
     }
+  },
+  "icons": {
+    "16": "images/16x16.png",
+    "48": "images/48x48.png",
+    "128": "images/128x128.png"
   },
   "default_locale": "en"
 }
