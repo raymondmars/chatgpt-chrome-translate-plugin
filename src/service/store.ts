@@ -20,7 +20,7 @@ export interface Store {
 
 function getFromStorage(key: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    chrome.storage.local.get([key], (result) => {
+    chrome.storage.sync.get([key], (result) => {
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       } else {
@@ -50,7 +50,7 @@ class UserStore implements Store {
   }
 
   setUserSettings(settings: UserSettings): void {
-    chrome.storage.local.set({[USER_SETTINGS_KEY]: JSON.stringify(settings)}, () => {
+    chrome.storage.sync.set({[USER_SETTINGS_KEY]: JSON.stringify(settings)}, () => {
       console.log('settings saved.',chrome.runtime.lastError)
     });
   }
