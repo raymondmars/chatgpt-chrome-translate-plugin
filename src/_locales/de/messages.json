@@ -1,0 +1,56 @@
+{
+  "menuTranslate": {
+    "message": "Übersetzen"
+  },
+  "menuTranslateInSelection": {
+    "message": "Ausgewählten Text übersetzen und ersetzen"
+  },
+  "menuCopy": {
+    "message": "Kopieren"
+  },
+  "translateLoading": {
+    "message": "Übersetzung läuft..."
+  },
+  "chatGPTApiKeyRequired": {
+    "message": "Bitte setzen Sie Ihren OpenAI API-Schlüssel auf der Einstellungsseite."
+  },
+  "settingsTitle": {
+    "message": "Einstellungen"
+  },
+  "settingsTranslator": {
+    "message": "Übersetzer"
+  },
+  "settingsAPIKey": {
+    "message": "API-Schlüssel"
+  },
+  "settingsAPIKeyPlaceholder": {
+    "message": "Bitte geben Sie den OpenAI API-Schlüssel ein"
+  },
+  "settingsUseProxy": {
+    "message": "Proxy verwenden"
+  },
+  "settingsProxy": {
+    "message": "Proxy"
+  },
+  "settingsProxyPlaceholder": {
+    "message": "Bitte geben Sie die Proxy-URL ein"
+  },
+  "settingsUseCustomHeaders": {
+    "message": "Benutzerdefinierte HTTP-Header hinzufügen"
+  },
+  "settingsCustomHeaders": {
+    "message": "Benutzerdefinierte HTTP-Header"
+  },
+  "settingsTranslateTo": {
+    "message": "In diese Sprache übersetzen"
+  },
+  "settingsSave": {
+    "message": "Speichern"
+  },
+  "addRequestHeader": {
+    "message": "HTTP-Header hinzufügen"
+  },
+  "contactUs": {
+    "message": "Kontaktieren Sie uns"
+  }
+}

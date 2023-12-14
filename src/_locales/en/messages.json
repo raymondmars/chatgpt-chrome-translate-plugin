@@ -15,7 +15,7 @@
     "message": "Please set your OpenAI API key in the settings page."
   },
   "settingsTitle": {
-    "message": "Translation Bot - Settings"
+    "message": "Settings"
   },
   "settingsTranslator": {
     "message": "Translator"
@@ -24,7 +24,7 @@
     "message": "API Key"
   },
   "settingsAPIKeyPlaceholder": {
-    "message": "Please input API Key"
+    "message": "Please input OpenAI API Key"
   },
   "settingsUseProxy": {
     "message": "Use Proxy"
@@ -36,7 +36,7 @@
     "message": "Please input Proxy URL"
   },
   "settingsUseCustomHeaders": {
-    "message": "Use Custom Headers"
+    "message": "Add Custom Headers"
   },
   "settingsCustomHeaders": {
     "message": "Custom Headers"
@@ -49,5 +49,8 @@
   },
   "addRequestHeader": {
     "message": "Add Request Header"
+  },
+  "contactUs": {
+    "message": "Contact Us"
   }
 }

@@ -1,8 +1,10 @@
 import { TargetLanguage, TranslatorType } from './translator';
 
+export type ChatGPTModel = 'gpt-3.5-turbo-1106' | 'gpt-4-1106-preview' | 'gpt-4';
+
 export interface UserSettings {
   apiKey: string;
-  llmMode?: string;
+  llmMode: ChatGPTModel;
   useProxy: boolean;
   proxyUrl?: string;
   useCustomHeaders: boolean;
@@ -18,7 +20,7 @@ export interface Store {
 
 function getFromStorage(key: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    chrome.storage.local.get([key], (result) => {
+    chrome.storage.sync.get([key], (result) => {
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError);
       } else {
@@ -43,11 +45,12 @@ class UserStore implements Store {
       useCustomHeaders: false,
       targetTransLang: TargetLanguage.English,
       translatorType: TranslatorType.ChatGPT,
+      llmMode: 'gpt-3.5-turbo-1106',
     };
   }
 
   setUserSettings(settings: UserSettings): void {
-    chrome.storage.local.set({[USER_SETTINGS_KEY]: JSON.stringify(settings)}, () => {
+    chrome.storage.sync.set({[USER_SETTINGS_KEY]: JSON.stringify(settings)}, () => {
       console.log('settings saved.',chrome.runtime.lastError)
     });
   }

@@ -1,0 +1,56 @@
+{
+  "menuTranslate": {
+    "message": "Traduzir"
+  },
+  "menuTranslateInSelection": {
+    "message": "Traduzir e substituir o texto selecionado"
+  },
+  "menuCopy": {
+    "message": "Copiar"
+  },
+  "translateLoading": {
+    "message": "Traduzindo..."
+  },
+  "chatGPTApiKeyRequired": {
+    "message": "Por favor, defina sua chave API OpenAI na página de configurações."
+  },
+  "settingsTitle": {
+    "message": "Configurações"
+  },
+  "settingsTranslator": {
+    "message": "Tradutor"
+  },
+  "settingsAPIKey": {
+    "message": "Chave API"
+  },
+  "settingsAPIKeyPlaceholder": {
+    "message": "Por favor, insira a chave API OpenAI"
+  },
+  "settingsUseProxy": {
+    "message": "Usar Proxy"
+  },
+  "settingsProxy": {
+    "message": "Proxy"
+  },
+  "settingsProxyPlaceholder": {
+    "message": "Por favor, insira a URL do Proxy"
+  },
+  "settingsUseCustomHeaders": {
+    "message": "Adicionar Cabeçalhos HTTP Personalizados"
+  },
+  "settingsCustomHeaders": {
+    "message": "Cabeçalhos HTTP Personalizados"
+  },
+  "settingsTranslateTo": {
+    "message": "Traduzir para este idioma"
+  },
+  "settingsSave": {
+    "message": "Salvar"
+  },
+  "addRequestHeader": {
+    "message": "Adicionar Cabeçalho HTTP"
+  },
+  "contactUs": {
+    "message": "Fale Conosco"
+  }
+}

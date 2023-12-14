@@ -15,7 +15,7 @@ const Translate = (props: { inputText: string }) => {
   }
 
   useEffect(() => {
-    console.log("Translate...", props.inputText);
+    // console.log("Translate...", props.inputText);
     const funcTranslate = async () => {
       const settings = await TranslateStore.getUserSettings();
       const type = settings.translatorType || TranslatorType.ChatGPT;
@@ -38,7 +38,10 @@ const Translate = (props: { inputText: string }) => {
     { show && <div className={styles.translate}>
       <div className={styles.result}>
         {resultContent}
-        { showEnd && <><span className={styles.end}>&#x2752;</span><span className={styles.close} onClick={handleClickClose}>&#x2715;</span></>}
+        { showEnd && <>
+          <span className={styles.end}>&#x2752;</span>
+          <span className={styles.close} onClick={handleClickClose}>&#x2715;</span></>
+        }
       </div>
     </div> }
     </>

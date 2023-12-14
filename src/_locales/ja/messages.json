@@ -1,0 +1,56 @@
+{
+  "menuTranslate": {
+    "message": "翻訳"
+  },
+  "menuTranslateInSelection": {
+    "message": "選択したテキストを翻訳して置換"
+  },
+  "menuCopy": {
+    "message": "コピー"
+  },
+  "translateLoading": {
+    "message": "翻訳中..."
+  },
+  "chatGPTApiKeyRequired": {
+    "message": "設定ページでOpenAI APIキーを設定してください。"
+  },
+  "settingsTitle": {
+    "message": "設定"
+  },
+  "settingsTranslator": {
+    "message": "翻訳者"
+  },
+  "settingsAPIKey": {
+    "message": "APIキー"
+  },
+  "settingsAPIKeyPlaceholder": {
+    "message": "OpenAI APIキーを入力してください"
+  },
+  "settingsUseProxy": {
+    "message": "プロキシを使用する"
+  },
+  "settingsProxy": {
+    "message": "プロキシ"
+  },
+  "settingsProxyPlaceholder": {
+    "message": "プロキシURLを入力してください"
+  },
+  "settingsUseCustomHeaders": {
+    "message": "カスタムHTTPヘッダーを追加"
+  },
+  "settingsCustomHeaders": {
+    "message": "カスタムHTTPヘッダー"
+  },
+  "settingsTranslateTo": {
+    "message": "この言語に翻訳"
+  },
+  "settingsSave": {
+    "message": "保存"
+  },
+  "addRequestHeader": {
+    "message": "HTTPヘッダーを追加"
+  },
+  "contactUs": {
+    "message": "お問い合わせ"
+  }
+}

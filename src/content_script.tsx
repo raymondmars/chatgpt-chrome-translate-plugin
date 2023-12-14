@@ -14,8 +14,6 @@ class WebTranslateProcessor {
     private translateContainerClassName = "__translator_translate_container__";
 
     constructor() {
-      console.log("current language:", chrome.i18n.getUILanguage());
-
       const menuContainerId = "__translator_menu_container";
       if(!document.getElementById(menuContainerId)) {
         this.menuContainer = document.createElement("div");
@@ -38,7 +36,7 @@ class WebTranslateProcessor {
         if (selection && selection?.toString().trim().length > 0 && !selection.isCollapsed) {
           // const range = selection.getRangeAt(0);
           // const rect = range.getBoundingClientRect();
-          console.log("target:", target);
+          // console.log("target:", target);
           this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
         } else {
           // if (selection && selection.isCollapsed) {
@@ -124,7 +122,7 @@ class WebTranslateProcessor {
     }
 
     private processCopy(text: string) {
-      console.log("processCopy:", text);
+      // console.log("processCopy:", text);
       // copy to clipboard
       const input = document.createElement('textarea');
       input.style.position = 'fixed';
@@ -138,3 +136,4 @@ class WebTranslateProcessor {
 }
 
 (new WebTranslateProcessor()).run();
+
