@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Translation Bot",
+  "name": "ChatGPT Translation Bot",
   "description": "Use AI tools(ChatGPT) to translate any selected text on the website into your set language.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "permissions": [
     "storage"
   ],

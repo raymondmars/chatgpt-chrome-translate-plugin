@@ -21,6 +21,7 @@ const Settings = () => {
   useEffect(() => {
     const funcGetUserSettings = async () => {
       const settings = await TranslateStore.getUserSettings();
+      console.log('ok...', settings)
       setUserSettings(settings);
     }
     funcGetUserSettings();

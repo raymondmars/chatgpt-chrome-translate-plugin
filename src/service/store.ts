@@ -37,7 +37,11 @@ class UserStore implements Store {
   async getUserSettings(): Promise<UserSettings> {
     const settings = await getFromStorage(USER_SETTINGS_KEY);
     if (settings) {
-      return JSON.parse(settings) as UserSettings;
+      let cacheVal = JSON.parse(settings) as UserSettings;
+      if(cacheVal.showMenu === undefined) {
+        cacheVal.showMenu = true
+      }
+      return cacheVal
     }
 
     return {
