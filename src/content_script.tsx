@@ -5,7 +5,7 @@ import './content_script.global.scss';
 import CustomMenu from './content_components/custom_menu';
 import Translate from './content_components/translate';
 import { TranslateStore } from './service/store';
-import { TranslatorType, createTranslator } from './service/translator';
+import { TranslateMessageType, TranslatorType, createTranslator } from './service/translator';
 
 class WebTranslateProcessor {
     private menuContainer: HTMLElement;
@@ -113,17 +113,25 @@ class WebTranslateProcessor {
       const type = settings.translatorType || TranslatorType.ChatGPT;
       const translator = createTranslator(type);
 
-      translator.translate(text, (result) => {
-        if(translator.getEndIdentity() === result) {
-          return;
+      translator.translate(text, (result, type) => {
+        switch(type) {
+          case TranslateMessageType.Error:
+            source.style.color = "red";
+            source.style.fontWeight = "bold";
+            source.style.padding = "10px";
+            source.style.border = "1px solid grey";
+            source.innerText = result;
+            break;
+          case TranslateMessageType.Message:
+            source.innerText = result;
+            break;
+          case TranslateMessageType.End:
+            break;
         }
-        source.innerText = result;
       });
     }
 
     private processCopy(text: string) {
-      // console.log("processCopy:", text);
-      // copy to clipboard
       const input = document.createElement('textarea');
       input.style.position = 'fixed';
       input.style.opacity = '0';

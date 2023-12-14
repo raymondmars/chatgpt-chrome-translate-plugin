@@ -4,6 +4,12 @@ export enum TranslatorType {
   ChatGPT = 'ChatGPT',
 }
 
+export enum TranslateMessageType {
+  Message = 1,
+  End  = 2,
+  Error = 0,
+}
+
 export enum TargetLanguage {
   Arabic = "Arabic",
   Bulgarian = "Bulgarian",
@@ -37,8 +43,8 @@ export enum TargetLanguage {
 }
 
 export interface Translator {
-  translate(text: string, onMessage: (message: string) => void): void;
-  getEndIdentity(): string;
+  translate(text: string, onMessage: (message: string, type?: TranslateMessageType) => void): void;
+  // getEndIdentity(): string;
 }
 
 export const createTranslator = (type: TranslatorType): Translator => {
