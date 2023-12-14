@@ -94,7 +94,7 @@ const Settings = () => {
   }
 
   const handleSendFeedback = () => {
-    chrome.tabs.create({ url: "mailto:translation-bot@navitechai.com"});
+    chrome.tabs.create({ url: "mailto:i@raymondjiang.net"});
   }
 
   const handleSave = () => {

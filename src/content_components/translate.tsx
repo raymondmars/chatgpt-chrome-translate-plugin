@@ -48,7 +48,7 @@ const Translate = (props: { inputText: string }) => {
       <div className={showError ? styles.error : styles.result}>
         {resultContent}
         { showEnd && <>
-          <span className={styles.end}>&#x2752;</span>
+          {/* <span className={styles.end}>&#x2752;</span> */}
           <span className={styles.close} onClick={handleClickClose}>&#x2715;</span></>
         }
       </div>
