@@ -12,6 +12,8 @@ class WebTranslateProcessor {
     private menuRoot: Root;
     private menuItemClassName = "__translator_menu_item__";
     private translateContainerClassName = "__translator_translate_container__";
+    private currentSelection: string = "";
+    private currentSelectedElement: HTMLElement | null = null;
 
     constructor() {
       const menuContainerId = "__translator_menu_container";
@@ -25,10 +27,13 @@ class WebTranslateProcessor {
       this.menuRoot = createRoot(this.menuContainer)
     }
 
-    public run() {
+    public async run() {
+      const settings = await TranslateStore.getUserSettings();
+
       document.addEventListener('mouseup', (event: MouseEvent) => {
         const selection = document.getSelection();
         const target = event.target as HTMLElement;
+
         if(target.classList.contains(this.menuItemClassName)) {
           return;
         }
@@ -37,16 +42,43 @@ class WebTranslateProcessor {
           // const range = selection.getRangeAt(0);
           // const rect = range.getBoundingClientRect();
           // console.log("target:", target);
-          this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
+          if(settings.showMenu) {
+            this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
+          }
+
+          this.currentSelection = selection?.toString().trim();
+          this.currentSelectedElement = target;
         } else {
-          // if (selection && selection.isCollapsed) {
-            this.hideMenu()
-          // }
+          settings.showMenu && this.hideMenu()
         }
       });
+
+      document.addEventListener('selectionchange', () => {
+        const selection = document.getSelection();
+
+        if (!selection || selection.isCollapsed) {
+          if(this.currentSelection && this.currentSelectedElement) {
+            this.currentSelection = "";
+            this.currentSelectedElement = null;
+          }
+        }
+      });
+
       document.addEventListener('keydown', (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
-          this.hideMenu();
+          settings.showMenu && this.hideMenu()
+        }
+
+        if (event.key === 't') {
+          if(this.currentSelection && this.currentSelectedElement) {
+            this.processTranslate(this.currentSelectedElement, this.currentSelection);
+          }
+        }
+
+        if (event.ctrlKey && event.key === 't') {
+          if(this.currentSelection && this.currentSelectedElement) {
+            this.translateInSelection(this.currentSelectedElement, this.currentSelection);
+          }
         }
       });
     }
@@ -54,7 +86,7 @@ class WebTranslateProcessor {
     private showMenu(source: HTMLElement, selectedText: string, x: number, y: number) {
       const menuItems = [
         {
-          label: chrome.i18n.getMessage("menuTranslate"),
+          label: chrome.i18n.getMessage("menuTranslate") + " (T)",
           onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
             e.preventDefault();
             e.stopPropagation();
@@ -63,7 +95,7 @@ class WebTranslateProcessor {
           }
         },
         {
-          label: chrome.i18n.getMessage("menuTranslateInSelection"),
+          label: chrome.i18n.getMessage("menuTranslateInSelection") + " (Ctrl + T)",
           onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
             e.preventDefault();
             e.stopPropagation();
@@ -72,7 +104,7 @@ class WebTranslateProcessor {
           }
         },
         {
-          label: chrome.i18n.getMessage("menuCopy"),
+          label: chrome.i18n.getMessage("menuCopy") + " (Ctrl + C)",
           onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
             e.preventDefault();
             e.stopPropagation();

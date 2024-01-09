@@ -52,5 +52,11 @@
   },
   "contactUs": {
     "message": "Contact Us"
+  },
+  "settingsMenuControl": {
+    "message": "Menu Control"
+  },
+  "settingsShowMenu": {
+    "message": "Show context menu"
   }
 }

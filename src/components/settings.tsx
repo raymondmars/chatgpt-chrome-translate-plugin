@@ -15,6 +15,7 @@ const Settings = () => {
     targetTransLang: TargetLanguage.English,
     translatorType: TranslatorType.ChatGPT,
     llmMode: "gpt-3.5-turbo-1106",
+    showMenu: true,
   });
 
   useEffect(() => {
@@ -37,6 +38,14 @@ const Settings = () => {
     setUserSettings({
       ...userSettings,
       useProxy: e.target.checked
+    });
+    setDisableSaveButton(false);
+  }
+
+  const handleShowMenuChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserSettings({
+      ...userSettings,
+      showMenu: e.target.checked
     });
     setDisableSaveButton(false);
   }
@@ -167,6 +176,17 @@ const Settings = () => {
               </span>
             </li>
           }
+
+          <li>
+            <span>{chrome.i18n.getMessage("settingsMenuControl")}</span>
+            <span>
+              <label>
+                <input type="checkbox"
+                  checked={userSettings.showMenu}
+                  onChange={handleShowMenuChange} />{chrome.i18n.getMessage("settingsShowMenu")}
+              </label>
+            </span>
+          </li>
           <li>
             <span>{chrome.i18n.getMessage("settingsTranslateTo")}</span>
             <span>

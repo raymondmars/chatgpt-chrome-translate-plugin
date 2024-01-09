@@ -52,5 +52,11 @@
   },
   "contactUs": {
     "message": "联系我们"
+  },
+  "settingsMenuControl": {
+    "message": "菜单控制"
+  },
+  "settingsShowMenu": {
+    "message": "显示上下文菜单"
   }
 }
