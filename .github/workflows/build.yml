@@ -24,24 +24,31 @@ jobs:
     - name: Build
       run: yarn build
 
-    - name: Archive production artifacts
+    - name: Create ZIP File
+      run: zip -r ChatGPT_Translation_Bot.zip dist/
+
+    - name: Archive production artifact
       uses: actions/upload-artifact@v2
       with:
-        name: dist
-        path: dist/
+        name: ChatGPT_Translation_Bot.zip
+        path: ChatGPT_Translation_Bot.zip
 
   release:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Download artifacts
+    - name: Download artifact
       uses: actions/download-artifact@v2
       with:
-        name: dist
+        name: ChatGPT_Translation_Bot.zip
 
     - name: Create Release
       id: create_release
@@ -61,6 +68,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist/ChatGPT_Translation_Bot.zip
+        asset_path: ./ChatGPT_Translation_Bot.zip
         asset_name: ChatGPT_Translation_Bot.zip
         asset_content_type: application/zip
