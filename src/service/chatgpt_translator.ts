@@ -1,17 +1,17 @@
 import OpenAI from 'openai';
 
-import { TargetLanguage, Translator } from "./translator";
+import { TargetLanguage, TranslateMessageType, Translator } from "./translator";
 import { TranslateStore } from './store';
 
 const TIME_OUT_MS = 60000;
 
 export class ChatGPTTranslator implements Translator {
 
-    public async translate(text: string, onMessage: (message: string) => void) {
+    public async translate(text: string, onMessage: (message: string, type?: TranslateMessageType) => void) {
         const settings = await TranslateStore.getUserSettings();
 
         if(settings.apiKey.trim() === '') {
-            onMessage(chrome.i18n.getMessage('chatGPTApiKeyRequired'));
+            onMessage(chrome.i18n.getMessage('chatGPTApiKeyRequired'), TranslateMessageType.Error);
             return;
         }
 
@@ -44,15 +44,15 @@ export class ChatGPTTranslator implements Translator {
             const words = chunk.choices[0]?.delta?.content || ''
             if (words !== undefined) {
               responseText += words;
-              onMessage(responseText);
+              onMessage(responseText, TranslateMessageType.Message);
             }
         }
-        onMessage(this.getEndIdentity());
+        onMessage('', TranslateMessageType.End);
     }
 
-    public getEndIdentity(): string {
-        return ">[DONE]<";
-    }
+    // public getEndIdentity(): string {
+    //     return ">[DONE]<";
+    // }
 
     protected getPrompt(targetLang: TargetLanguage): string {
         const prompt = `You are a translation expert, Please translate my text into easy to understand ${targetLang}, adding nuances to seem less like machine translation. Only translate, no other output.`;

@@ -5,13 +5,15 @@ import './content_script.global.scss';
 import CustomMenu from './content_components/custom_menu';
 import Translate from './content_components/translate';
 import { TranslateStore } from './service/store';
-import { TranslatorType, createTranslator } from './service/translator';
+import { TranslateMessageType, TranslatorType, createTranslator } from './service/translator';
 
 class WebTranslateProcessor {
     private menuContainer: HTMLElement;
     private menuRoot: Root;
     private menuItemClassName = "__translator_menu_item__";
     private translateContainerClassName = "__translator_translate_container__";
+    private currentSelection: string = "";
+    private currentSelectedElement: HTMLElement | null = null;
 
     constructor() {
       const menuContainerId = "__translator_menu_container";
@@ -25,10 +27,13 @@ class WebTranslateProcessor {
       this.menuRoot = createRoot(this.menuContainer)
     }
 
-    public run() {
+    public async run() {
+      const settings = await TranslateStore.getUserSettings();
+
       document.addEventListener('mouseup', (event: MouseEvent) => {
         const selection = document.getSelection();
         const target = event.target as HTMLElement;
+
         if(target.classList.contains(this.menuItemClassName)) {
           return;
         }
@@ -37,16 +42,43 @@ class WebTranslateProcessor {
           // const range = selection.getRangeAt(0);
           // const rect = range.getBoundingClientRect();
           // console.log("target:", target);
-          this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
+          if(settings.showMenu) {
+            this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
+          }
+
+          this.currentSelection = selection?.toString().trim();
+          this.currentSelectedElement = target;
         } else {
-          // if (selection && selection.isCollapsed) {
-            this.hideMenu()
-          // }
+          settings.showMenu && this.hideMenu()
         }
       });
+
+      document.addEventListener('selectionchange', () => {
+        const selection = document.getSelection();
+
+        if (!selection || selection.isCollapsed) {
+          if(this.currentSelection && this.currentSelectedElement) {
+            this.currentSelection = "";
+            this.currentSelectedElement = null;
+          }
+        }
+      });
+
       document.addEventListener('keydown', (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
-          this.hideMenu();
+          settings.showMenu && this.hideMenu()
+        }
+
+        if (event.key === 't') {
+          if(this.currentSelection && this.currentSelectedElement) {
+            this.processTranslate(this.currentSelectedElement, this.currentSelection);
+          }
+        }
+
+        if (event.ctrlKey && event.key === 't') {
+          if(this.currentSelection && this.currentSelectedElement) {
+            this.translateInSelection(this.currentSelectedElement, this.currentSelection);
+          }
         }
       });
     }
@@ -54,7 +86,7 @@ class WebTranslateProcessor {
     private showMenu(source: HTMLElement, selectedText: string, x: number, y: number) {
       const menuItems = [
         {
-          label: chrome.i18n.getMessage("menuTranslate"),
+          label: chrome.i18n.getMessage("menuTranslate") + " (T)",
           onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
             e.preventDefault();
             e.stopPropagation();
@@ -63,7 +95,7 @@ class WebTranslateProcessor {
           }
         },
         {
-          label: chrome.i18n.getMessage("menuTranslateInSelection"),
+          label: chrome.i18n.getMessage("menuTranslateInSelection") + " (Ctrl + T)",
           onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
             e.preventDefault();
             e.stopPropagation();
@@ -72,7 +104,7 @@ class WebTranslateProcessor {
           }
         },
         {
-          label: chrome.i18n.getMessage("menuCopy"),
+          label: chrome.i18n.getMessage("menuCopy") + " (Ctrl + C)",
           onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
             e.preventDefault();
             e.stopPropagation();
@@ -113,17 +145,25 @@ class WebTranslateProcessor {
       const type = settings.translatorType || TranslatorType.ChatGPT;
       const translator = createTranslator(type);
 
-      translator.translate(text, (result) => {
-        if(translator.getEndIdentity() === result) {
-          return;
+      translator.translate(text, (result, type) => {
+        switch(type) {
+          case TranslateMessageType.Error:
+            source.style.color = "red";
+            source.style.fontWeight = "bold";
+            source.style.padding = "10px";
+            source.style.border = "1px solid grey";
+            source.innerText = result;
+            break;
+          case TranslateMessageType.Message:
+            source.innerText = result;
+            break;
+          case TranslateMessageType.End:
+            break;
         }
-        source.innerText = result;
       });
     }
 
     private processCopy(text: string) {
-      // console.log("processCopy:", text);
-      // copy to clipboard
       const input = document.createElement('textarea');
       input.style.position = 'fixed';
       input.style.opacity = '0';

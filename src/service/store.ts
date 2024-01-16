@@ -11,6 +11,7 @@ export interface UserSettings {
   customHeaders?: Record<string, string>;
   targetTransLang: TargetLanguage;
   translatorType: TranslatorType;
+  showMenu: boolean;
 }
 
 export interface Store {
@@ -36,7 +37,11 @@ class UserStore implements Store {
   async getUserSettings(): Promise<UserSettings> {
     const settings = await getFromStorage(USER_SETTINGS_KEY);
     if (settings) {
-      return JSON.parse(settings) as UserSettings;
+      let cacheVal = JSON.parse(settings) as UserSettings;
+      if(cacheVal.showMenu === undefined) {
+        cacheVal.showMenu = true
+      }
+      return cacheVal
     }
 
     return {
@@ -46,6 +51,7 @@ class UserStore implements Store {
       targetTransLang: TargetLanguage.English,
       translatorType: TranslatorType.ChatGPT,
       llmMode: 'gpt-3.5-turbo-1106',
+      showMenu: true,
     };
   }
 
