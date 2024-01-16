@@ -15,7 +15,7 @@ const Settings = () => {
     targetTransLang: TargetLanguage.English,
     translatorType: TranslatorType.ChatGPT,
     llmMode: "gpt-3.5-turbo-1106",
-    showMenu: true,
+    showMenu: false,
   });
 
   useEffect(() => {
