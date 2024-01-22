@@ -50,7 +50,7 @@
   "addRequestHeader": {
     "message": "添加 HTTP Header"
   },
-  "contactUs": {
-    "message": "聯繫我們"
+  "howToUse": {
+    "message": "如何使用?"
   }
 }

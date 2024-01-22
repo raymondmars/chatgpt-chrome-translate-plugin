@@ -50,7 +50,7 @@
   "addRequestHeader": {
     "message": "Ajouter un en-tête HTTP"
   },
-  "contactUs": {
-    "message": "Contactez-nous"
+  "howToUse": {
+    "message": "Comment l'utiliser"
   }
 }

@@ -50,8 +50,8 @@
   "addRequestHeader": {
     "message": "Add Request Header"
   },
-  "contactUs": {
-    "message": "Contact Us"
+  "howToUse": {
+    "message": "How to use it"
   },
   "settingsMenuControl": {
     "message": "Menu Control"
