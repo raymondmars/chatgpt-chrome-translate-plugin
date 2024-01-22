@@ -50,7 +50,7 @@
   "addRequestHeader": {
     "message": "HTTPヘッダーを追加"
   },
-  "contactUs": {
-    "message": "お問い合わせ"
+  "howToUse": {
+    "message": "それの使い方"
   }
 }

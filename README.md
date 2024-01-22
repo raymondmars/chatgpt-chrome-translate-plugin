@@ -23,6 +23,11 @@ Go to [ChatGPT Translation Bot](https://chromewebstore.google.com/detail/chatgpt
 
 ![how to config](/images/how-to-config.png)
 
+##### Other options:
+- If you use a proxy to access ChatGPT, you can check the `Use proxy` option and fill in a proxy address.
+if your proxy needs some custom headers, You can fill in the custom headers by checking the `Add custom headers` option.
+- If you want to show the context menu, you can check the `Show context menu` option. If you don't want to show it, You can use the shortcut key **t or T** to translate the selected text.
+
 ## How to use
 1. Select the text you want to translate.
 2. Click the menu item from the context menu.(A context menu will appear automatically when you select text.)

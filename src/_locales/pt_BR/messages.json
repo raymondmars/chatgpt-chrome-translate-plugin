@@ -50,7 +50,7 @@
   "addRequestHeader": {
     "message": "Adicionar Cabeçalho HTTP"
   },
-  "contactUs": {
-    "message": "Fale Conosco"
+  "howToUse": {
+    "message": "Como usá-lo"
   }
 }

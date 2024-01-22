@@ -50,8 +50,8 @@
   "addRequestHeader": {
     "message": "添加 HTTP Header"
   },
-  "contactUs": {
-    "message": "联系我们"
+  "howToUse": {
+    "message": "如何使用?"
   },
   "settingsMenuControl": {
     "message": "菜单控制"

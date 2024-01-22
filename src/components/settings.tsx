@@ -103,8 +103,8 @@ const Settings = () => {
     setDisableSaveButton(userSettings.apiKey === "");
   }
 
-  const handleSendFeedback = () => {
-    chrome.tabs.create({ url: "mailto:i@raymondjiang.net"});
+  const handlehowToUseAddress = () => {
+    chrome.tabs.create({ url: "https://github.com/raymondmars/chatgpt-chrome-translate-plugin"});
   }
 
   const handleSave = () => {
@@ -231,8 +231,8 @@ const Settings = () => {
             </span>
           </li>
         </ul>
-        <div className={styles.contactUs}>
-          <a href="#" onClick={handleSendFeedback}>{chrome.i18n.getMessage("contactUs")}</a>
+        <div className={styles.howToUse}>
+          <a href="#" onClick={handlehowToUseAddress}>{chrome.i18n.getMessage("howToUse")}</a>
         </div>
       </div>
     </div>
