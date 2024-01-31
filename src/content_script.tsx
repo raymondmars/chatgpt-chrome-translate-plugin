@@ -13,7 +13,8 @@ class WebTranslateProcessor {
     private menuItemClassName = "__translator_menu_item__";
     private translateContainerClassName = "__translator_translate_container__";
     private currentSelection: string = "";
-    private currentSelectedElement: HTMLElement | null = null;
+    private currentSelectedLastElement: HTMLElement | null = null;
+    // private needToOutputRootElement: HTMLElement | null = null;
 
     constructor() {
       const menuContainerId = "__translator_menu_container";
@@ -47,7 +48,19 @@ class WebTranslateProcessor {
           }
 
           this.currentSelection = selection?.toString().trim();
-          this.currentSelectedElement = target;
+          this.currentSelectedLastElement = target;
+
+          // process output root element
+          // this.needToOutputRootElement = document.createElement("div");
+          // const range = selection.getRangeAt(0);
+          // const elements = this.getElementsInRange(range);
+
+          // elements.forEach((element) => {
+          //   this.needToOutputRootElement?.appendChild(element.cloneNode(true));
+          // });
+
+          // console.log(this.needToOutputRootElement);
+
         } else {
           settings.showMenu && this.hideMenu()
         }
@@ -57,9 +70,10 @@ class WebTranslateProcessor {
         const selection = document.getSelection();
 
         if (!selection || selection.isCollapsed) {
-          if(this.currentSelection && this.currentSelectedElement) {
+          if(this.currentSelection && this.currentSelectedLastElement) {
             this.currentSelection = "";
-            this.currentSelectedElement = null;
+            this.currentSelectedLastElement = null;
+            // this.needToOutputRootElement = null;
           }
         }
       });
@@ -70,18 +84,51 @@ class WebTranslateProcessor {
         }
 
         if (event.key === 't') {
-          if(this.currentSelection && this.currentSelectedElement) {
-            this.processTranslate(this.currentSelectedElement, this.currentSelection);
+          if(this.currentSelection && this.currentSelectedLastElement) {
+            this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
           }
         }
 
         if (event.ctrlKey && event.key === 't') {
-          if(this.currentSelection && this.currentSelectedElement) {
-            this.translateInSelection(this.currentSelectedElement, this.currentSelection);
+          if(this.currentSelection && this.currentSelectedLastElement) {
+            this.translateInSelection(this.currentSelectedLastElement, this.currentSelection);
           }
         }
+
+        // if(event.ctrlKey && event.key === 'd') {
+        //   if(this.currentSelection && this.needToOutputRootElement) {
+        //     console.log('...toPNG', this.needToOutputRootElement);
+        //     toPng(this.needToOutputRootElement)
+        //     .then(function (dataUrl) {
+        //       if(dataUrl) {
+        //         var link = document.createElement('a');
+        //         link.download = 'translation-bot.png';
+        //         link.href = dataUrl;
+        //         link.click();
+        //       } else {
+        //         console.error('no dataUrl');
+        //       }
+
+        //     })
+        //     .catch(function (error) {
+        //       console.error('oops, something went wrong!', error);
+        //     });
+        //   }
+        // }
       });
     }
+
+    // private getElementsInRange(range: Range): Node[] {
+    //   const elements: Node[] = [];
+    //   const iterator = document.createNodeIterator(range.commonAncestorContainer, NodeFilter.SHOW_ELEMENT);
+    //   let node;
+    //   while ((node = iterator.nextNode())) {
+    //       if (range.intersectsNode(node)) {
+    //           elements.push(node);
+    //       }
+    //   }
+    //   return elements;
+    // }
 
     private showMenu(source: HTMLElement, selectedText: string, x: number, y: number) {
       const menuItems = [
@@ -101,15 +148,6 @@ class WebTranslateProcessor {
             e.stopPropagation();
             this.hideMenu();
             this.translateInSelection(source, selectedText);
-          }
-        },
-        {
-          label: chrome.i18n.getMessage("menuCopy") + " (Ctrl + C)",
-          onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.hideMenu();
-            this.processCopy(selectedText);
           }
         },
       ];
@@ -161,17 +199,6 @@ class WebTranslateProcessor {
             break;
         }
       });
-    }
-
-    private processCopy(text: string) {
-      const input = document.createElement('textarea');
-      input.style.position = 'fixed';
-      input.style.opacity = '0';
-      input.value = text;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('Copy');
-      document.body.removeChild(input);
     }
 }
 
