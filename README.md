@@ -2,13 +2,14 @@
 
 This extension uses the OpenAI ChatGPT API to translate the selected text into your desired language. It supports 20+ languages and can be used with a proxy.
 
-This is a completely free and open source project. You can config your api key in the settings page of the extension and can trust it to protect your privacy.
+This is a completely free and open source project. You can configure your api key in the settings page of the extension and can trust it to protect your privacy.
 
 ## Features
 - Automatically detect the language of the selected text and auto translate it into your desired language.
 - Support the context menu and shortcut key to translate the selected text.
 - Support proxy and custom headers for the people who use a proxy to access ChatGPT.
 - Support 20+ languages.
+- Can highlight the selected text, just like a marker pen.
 
 ## Installation
 Go to [ChatGPT Translation Bot](https://chromewebstore.google.com/detail/chatgpt-translation-bot/fglemdfemikhijpgojdobdgplbcfomdf) and install extension for your browser.
@@ -33,6 +34,13 @@ if your proxy needs some custom headers, You can fill in the custom headers by c
 4. Or you can use the shortcut keys **Ctrl + t** to translate the selected text. The translated text will replace the selected text.
 
 ![how to use](/images/how-to-use.png)
+
+5. You can use the shortcut keys **Ctrl + m** to highlight the selected text. the effects very like a marker pen.    
+If you want to undo it, you can use the shortcut keys **Ctrl + u** to undo the highlight.  
+
+![how to use](/images/highlight-text.png)
+
+Click this link to see the [demo video](https://www.youtube.com/watch?v=JLqsyhCxiBM).
 
 ## How to contribute
 * If you like it, please give it a star to support it.   

@@ -12,6 +12,8 @@ class WebTranslateProcessor {
     private menuRoot: Root;
     private menuItemClassName = "__translator_menu_item__";
     private translateContainerClassName = "__translator_translate_container__";
+    private selectedWordsMarkerClassName = "__selected_words_marker__";
+    private markerTagName = "mark";
     private currentSelection: string = "";
     private currentSelectedLastElement: HTMLElement | null = null;
     // private needToOutputRootElement: HTMLElement | null = null;
@@ -53,7 +55,7 @@ class WebTranslateProcessor {
           // process output root element
           // this.needToOutputRootElement = document.createElement("div");
           // const range = selection.getRangeAt(0);
-          // const elements = this.getElementsInRange(range);
+          // this.currentSelectedElements = this.getElementsInRange(range);
 
           // elements.forEach((element) => {
           //   this.needToOutputRootElement?.appendChild(element.cloneNode(true));
@@ -81,18 +83,32 @@ class WebTranslateProcessor {
       document.addEventListener('keydown', (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
           settings.showMenu && this.hideMenu()
+          return false;
         }
 
-        if (event.key === 't') {
-          if(this.currentSelection && this.currentSelectedLastElement) {
-            this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
-          }
+        if (event.key === 't' 
+            && this.currentSelection 
+            && this.currentSelectedLastElement) {
+          this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
+          return false;
         }
 
-        if (event.ctrlKey && event.key === 't') {
-          if(this.currentSelection && this.currentSelectedLastElement) {
-            this.translateInSelection(this.currentSelectedLastElement, this.currentSelection);
-          }
+        if (event.ctrlKey 
+            && event.key === 't' 
+            && this.currentSelection 
+            && this.currentSelectedLastElement) {
+          this.translateInSelection(this.currentSelectedLastElement, this.currentSelection);
+          return false;
+        }
+
+        if (event.ctrlKey && event.key === 'm' && this.currentSelection) {
+          this.addMarkerToSelection();
+          return false;
+        }
+
+        if (event.ctrlKey && event.key === 'u' && this.currentSelection) {
+          this.removeMarkerFromSelection();
+          return false;
         }
 
         // if(event.ctrlKey && event.key === 'd') {
@@ -199,6 +215,32 @@ class WebTranslateProcessor {
             break;
         }
       });
+    }
+
+    private addMarkerToSelection() {
+      const selection = document.getSelection();
+      if(selection && selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const marker = document.createElement(this.markerTagName);
+        marker.className = this.selectedWordsMarkerClassName;
+        marker.innerText = selection.toString();
+        range.surroundContents(marker);
+        selection.removeAllRanges();
+      }
+    }
+
+    private removeMarkerFromSelection() {
+      const selection = document.getSelection();
+      if(selection && selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const markerText = range.commonAncestorContainer as HTMLElement;
+        const marker = markerText.parentElement;
+        if(marker?.tagName.toLowerCase() === this.markerTagName &&
+          marker?.className === this.selectedWordsMarkerClassName){
+          const parent = marker.parentElement;
+          parent?.replaceChild(marker.firstChild as Node, marker);
+        }
+      }
     }
 }
 
