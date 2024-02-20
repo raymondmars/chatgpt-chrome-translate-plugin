@@ -12,7 +12,7 @@ class WebTranslateProcessor {
     private menuRoot: Root;
     private menuItemClassName = "__translator_menu_item__";
     private translateContainerClassName = "__translator_translate_container__";
-    private selectedWordsMarkerClassName = "__selected_words_marker__";
+    private selectedWordsMarkerClassName = "__selected_words_marker";
     private markerTagName = "mark";
     private currentSelection: string = "";
     private currentSelectedLastElement: HTMLElement | null = null;
@@ -90,6 +90,8 @@ class WebTranslateProcessor {
             && this.currentSelection 
             && this.currentSelectedLastElement) {
           this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
+          const computedStyle = window.getComputedStyle(this.currentSelectedLastElement);
+          console.log('color......', computedStyle.color);
           return false;
         }
 
@@ -101,12 +103,37 @@ class WebTranslateProcessor {
           return false;
         }
 
-        if (event.ctrlKey && event.key === 'm' && this.currentSelection) {
-          this.addMarkerToSelection();
+        if (((event.ctrlKey && event.key === 'm') || event.key === '1') && this.currentSelection) {
+          this.addMarkerToSelection('__selected_words_marker_1__');
           return false;
         }
 
-        if (event.ctrlKey && event.key === 'u' && this.currentSelection) {
+        if (event.key === '2' && this.currentSelection) {
+          this.addMarkerToSelection('__selected_words_marker_2__');
+          return false;
+        }
+
+        if (event.key === '3' && this.currentSelection) {
+          this.addMarkerToSelection('__selected_words_marker_3__');
+          return false;
+        }
+
+        if (event.key === '4' && this.currentSelection) {
+          this.addMarkerToSelection('__selected_words_marker_4__');
+          return false;
+        }
+
+        if (event.key === '5' && this.currentSelection) {
+          this.addMarkerToSelection('__selected_words_marker_5__');
+          return false;
+        }
+
+        if (event.key === '6' && this.currentSelection) {
+          this.addMarkerToSelection('__selected_words_marker_6__');
+          return false;
+        }
+
+        if (((event.ctrlKey && event.key === 'u') || event.key === '0') && this.currentSelection) {
           this.removeMarkerFromSelection();
           return false;
         }
@@ -217,12 +244,18 @@ class WebTranslateProcessor {
       });
     }
 
-    private addMarkerToSelection() {
+    private addMarkerToSelection(markerClassName: string) {
       const selection = document.getSelection();
       if(selection && selection.rangeCount > 0) {
+        const existedMarker = this.findMarkerInSelection(selection);
+        if(existedMarker && !existedMarker.classList.contains(markerClassName)) {
+          existedMarker.classList.add(markerClassName);
+          return;
+        }
+
         const range = selection.getRangeAt(0);
         const marker = document.createElement(this.markerTagName);
-        marker.className = this.selectedWordsMarkerClassName;
+        marker.className = markerClassName;
         marker.innerText = selection.toString();
         range.surroundContents(marker);
         selection.removeAllRanges();
@@ -232,15 +265,23 @@ class WebTranslateProcessor {
     private removeMarkerFromSelection() {
       const selection = document.getSelection();
       if(selection && selection.rangeCount > 0) {
-        const range = selection.getRangeAt(0);
-        const markerText = range.commonAncestorContainer as HTMLElement;
-        const marker = markerText.parentElement;
-        if(marker?.tagName.toLowerCase() === this.markerTagName &&
-          marker?.className === this.selectedWordsMarkerClassName){
-          const parent = marker.parentElement;
-          parent?.replaceChild(marker.firstChild as Node, marker);
+        const existedMarker = this.findMarkerInSelection(selection);
+        if(existedMarker) {
+          const parent = existedMarker.parentElement;
+          parent?.replaceChild(existedMarker.firstChild as Node, existedMarker);
         }
       }
+    }
+
+    private findMarkerInSelection(selection: Selection): HTMLElement | null {
+      const range = selection.getRangeAt(0);
+      const markerText = range.commonAncestorContainer as HTMLElement;
+      const marker = markerText.parentElement;
+      if(marker?.tagName.toLowerCase() === this.markerTagName &&
+      marker?.className.indexOf(this.selectedWordsMarkerClassName) >= 0) {
+        return marker;
+      }
+      return null;
     }
 }
 

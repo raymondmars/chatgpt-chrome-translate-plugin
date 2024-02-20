@@ -24,7 +24,7 @@ export class ChatGPTTranslator implements Translator {
         });
 
         const stream = await openai.chat.completions.create({
-            model: settings.llmMode ?? "gpt-3.5-turbo-1106",
+            model: settings.llmMode ?? "gpt-3.5-turbo-0125",
             messages: [{
                 role: "system",
                 content: this.getPrompt(settings.targetTransLang),

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import styles from "./settings.scss";
-import { ChatGPTModel, TranslateStore, UserSettings } from "../service/store";
+import { TranslateStore, UserSettings } from "../service/store";
 import { TargetLanguage, TranslatorType } from "../service/translator";
 
 import CustomHeaders from "./custom_headers";
@@ -14,7 +14,7 @@ const Settings = () => {
     useCustomHeaders: false,
     targetTransLang: TargetLanguage.English,
     translatorType: TranslatorType.ChatGPT,
-    llmMode: "gpt-3.5-turbo-1106",
+    llmMode: "gpt-3.5-turbo-0125",
     showMenu: false,
   });
 
@@ -78,7 +78,7 @@ const Settings = () => {
   const handleLLMModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUserSettings({
       ...userSettings,
-      llmMode: e.target.value as ChatGPTModel
+      llmMode: e.target.value 
     });
     setDisableSaveButton(false);
   }
@@ -127,8 +127,9 @@ const Settings = () => {
                 <option value="ChatGPT">ChatGPT</option>
               </select>
               <select value={userSettings.llmMode} onChange={handleLLMModeChange}>
-                <option value="gpt-3.5-turbo-1106">gpt-3.5-turbo-1106</option>
-                <option value="gpt-4-1106-preview">gpt-4-1106-preview</option>
+                <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
+                <option value="gpt-4-turbo-preview">gpt-4-turbo-preview</option>
+                <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
                 <option value="gpt-4">gpt-4</option>
               </select>
             </span>
