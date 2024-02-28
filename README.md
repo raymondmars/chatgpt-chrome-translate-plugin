@@ -35,8 +35,8 @@ if your proxy needs some custom headers, You can fill in the custom headers by c
 
 ![how to use](/images/how-to-use.png)
 
-5. You can number key **1, 2, 3, 4, 5** to color the selected text like a marker pen. To use the number **6** to add text shadow to the selected text. If you want to remove the highlight, you can use the number **0**.   
-The number 6 can be combined with 5 other numbers to form an overlay effect of color and font shadow.  
+5. You can use number key **1, 2, 3, 4, 5** to color the selected text like a marker pen. To use the number **6** to add text shadow to the selected text. If you want to remove the highlight, you can use the number **0**.   
+The number **6** can be combined with other numbers(**1, 2, 3, 4, 5**) to form an overlay effect of color and font shadow.  
 
 ![how to use](/images/highlight-1.png)
 
