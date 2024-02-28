@@ -2,8 +2,37 @@
   margin: 10px 0px;
 }
 
-.__selected_words_marker__ {
-  background-color: rgb(236, 250, 47) !important;
+.__selected_words_marker_1__ {
+  background-color: rgb(250, 247, 45) !important;
   padding: 2px 3px !important;
   border-radius: 6px !important;
+}
+
+.__selected_words_marker_2__ {
+  background-color: rgb(47, 250, 108) !important;
+  padding: 2px 3px !important;
+  border-radius: 6px !important;
+}
+.__selected_words_marker_3__ {
+  background-color: #FFA500 !important;
+  padding: 2px 3px !important;
+  border-radius: 6px !important;
+}
+
+.__selected_words_marker_4__ {
+  background-color: rgb(249, 60, 221) !important;
+  padding: 2px 3px !important;
+  border-radius: 6px !important;
+}
+
+.__selected_words_marker_5__ {
+  background-color: transparent !important;
+  padding: auto 3px !important;
+  text-decoration: underline 4px dotted #18076f !important;
+  text-underline-offset: 5px !important;
+}
+
+.__selected_words_marker_6__ {
+  padding: auto 3px !important;
+  text-shadow: 1px 1px 3px rgb(42 40 40 / 40%) !important;
 }
