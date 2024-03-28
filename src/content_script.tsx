@@ -42,26 +42,13 @@ class WebTranslateProcessor {
         }
 
         if (selection && selection?.toString().trim().length > 0 && !selection.isCollapsed) {
-          // const range = selection.getRangeAt(0);
-          // const rect = range.getBoundingClientRect();
-          // console.log("target:", target);
+
           if(settings.showMenu) {
             this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
           }
 
           this.currentSelection = selection?.toString().trim();
           this.currentSelectedLastElement = target;
-
-          // process output root element
-          // this.needToOutputRootElement = document.createElement("div");
-          // const range = selection.getRangeAt(0);
-          // this.currentSelectedElements = this.getElementsInRange(range);
-
-          // elements.forEach((element) => {
-          //   this.needToOutputRootElement?.appendChild(element.cloneNode(true));
-          // });
-
-          // console.log(this.needToOutputRootElement);
 
         } else {
           settings.showMenu && this.hideMenu()
@@ -80,98 +67,53 @@ class WebTranslateProcessor {
         }
       });
 
+      // Define a mapping from keys to marker methods
+      const keyToMarkerMethod: { [key: string]: Function } = {
+        '1': () => { this.markAsYellow() },
+        '2': () => { this.markAsCyanBlue() },
+        '3': () => { this.markAsOrgange() },
+        '4': () => { this.markAsPink() },
+        '5': () => { this.markAsBottomDotted() },
+        '6': () => { this.markAsShadowEffect() },
+        '0': () => { this.removeMarkerFromSelection() }
+      };
+
       document.addEventListener('keydown', (event: KeyboardEvent) => {
+        event.preventDefault();
+        
         if (event.key === 'Escape') {
           settings.showMenu && this.hideMenu()
           return false;
         }
 
-        if (event.key === 't' 
-            && this.currentSelection 
-            && this.currentSelectedLastElement) {
-          this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
-          const computedStyle = window.getComputedStyle(this.currentSelectedLastElement);
-          console.log('color......', computedStyle.color);
-          return false;
+        if (this.currentSelection && this.currentSelectedLastElement) {
+          if (event.key === 't') {
+            if (event.ctrlKey) {
+              this.translateInSelection(this.currentSelectedLastElement, this.currentSelection);
+            } else {
+              this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
+            }
+            return;
+          }
+      
+          if (event.ctrlKey && event.key === 'm') {
+            this.markAsYellow();
+            return;
+          }
+      
+          if (event.ctrlKey && event.key === 'u') {
+            this.removeMarkerFromSelection();
+            return;
+          }
+      
+          if (keyToMarkerMethod[event.key]) {
+            keyToMarkerMethod[event.key]();
+            return;
+          }
         }
-
-        if (event.ctrlKey 
-            && event.key === 't' 
-            && this.currentSelection 
-            && this.currentSelectedLastElement) {
-          this.translateInSelection(this.currentSelectedLastElement, this.currentSelection);
-          return false;
-        }
-
-        if (((event.ctrlKey && event.key === 'm') || event.key === '1') && this.currentSelection) {
-          this.addMarkerToSelection('__selected_words_marker_1__');
-          return false;
-        }
-
-        if (event.key === '2' && this.currentSelection) {
-          this.addMarkerToSelection('__selected_words_marker_2__');
-          return false;
-        }
-
-        if (event.key === '3' && this.currentSelection) {
-          this.addMarkerToSelection('__selected_words_marker_3__');
-          return false;
-        }
-
-        if (event.key === '4' && this.currentSelection) {
-          this.addMarkerToSelection('__selected_words_marker_4__');
-          return false;
-        }
-
-        if (event.key === '5' && this.currentSelection) {
-          this.addMarkerToSelection('__selected_words_marker_5__');
-          return false;
-        }
-
-        if (event.key === '6' && this.currentSelection) {
-          this.addMarkerToSelection('__selected_words_marker_6__');
-          return false;
-        }
-
-        if (((event.ctrlKey && event.key === 'u') || event.key === '0') && this.currentSelection) {
-          this.removeMarkerFromSelection();
-          return false;
-        }
-
-        // if(event.ctrlKey && event.key === 'd') {
-        //   if(this.currentSelection && this.needToOutputRootElement) {
-        //     console.log('...toPNG', this.needToOutputRootElement);
-        //     toPng(this.needToOutputRootElement)
-        //     .then(function (dataUrl) {
-        //       if(dataUrl) {
-        //         var link = document.createElement('a');
-        //         link.download = 'translation-bot.png';
-        //         link.href = dataUrl;
-        //         link.click();
-        //       } else {
-        //         console.error('no dataUrl');
-        //       }
-
-        //     })
-        //     .catch(function (error) {
-        //       console.error('oops, something went wrong!', error);
-        //     });
-        //   }
-        // }
       });
     }
 
-    // private getElementsInRange(range: Range): Node[] {
-    //   const elements: Node[] = [];
-    //   const iterator = document.createNodeIterator(range.commonAncestorContainer, NodeFilter.SHOW_ELEMENT);
-    //   let node;
-    //   while ((node = iterator.nextNode())) {
-    //       if (range.intersectsNode(node)) {
-    //           elements.push(node);
-    //       }
-    //   }
-    //   return elements;
-    // }
 
     private showMenu(source: HTMLElement, selectedText: string, x: number, y: number) {
       const menuItems = [
@@ -282,6 +224,30 @@ class WebTranslateProcessor {
         return marker;
       }
       return null;
+    }
+
+    private markAsYellow() {
+      this.addMarkerToSelection('__selected_words_marker_1__');
+    }
+
+    private markAsCyanBlue() {
+      this.addMarkerToSelection('__selected_words_marker_2__');
+    }
+
+    private markAsOrgange() {
+      this.addMarkerToSelection('__selected_words_marker_3__');
+    }
+
+    private markAsPink() {
+      this.addMarkerToSelection('__selected_words_marker_4__');
+    }
+
+    private markAsBottomDotted() {
+      this.addMarkerToSelection('__selected_words_marker_5__');
+    }
+
+    private markAsShadowEffect() {
+      this.addMarkerToSelection('__selected_words_marker_6__');
     }
 }
 
