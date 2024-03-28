@@ -7,6 +7,10 @@ import Translate from './content_components/translate';
 import { TranslateStore } from './service/store';
 import { TranslateMessageType, TranslatorType, createTranslator } from './service/translator';
 
+enum MarkerColor {
+  Yellow = 1,
+}
+
 class WebTranslateProcessor {
     private menuContainer: HTMLElement;
     private menuRoot: Root;
@@ -90,8 +94,8 @@ class WebTranslateProcessor {
             && this.currentSelection 
             && this.currentSelectedLastElement) {
           this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
-          const computedStyle = window.getComputedStyle(this.currentSelectedLastElement);
-          console.log('color......', computedStyle.color);
+          // const computedStyle = window.getComputedStyle(this.currentSelectedLastElement);
+          // console.log('color......', computedStyle.color);
           return false;
         }
 
@@ -138,40 +142,9 @@ class WebTranslateProcessor {
           return false;
         }
 
-        // if(event.ctrlKey && event.key === 'd') {
-        //   if(this.currentSelection && this.needToOutputRootElement) {
-        //     console.log('...toPNG', this.needToOutputRootElement);
-        //     toPng(this.needToOutputRootElement)
-        //     .then(function (dataUrl) {
-        //       if(dataUrl) {
-        //         var link = document.createElement('a');
-        //         link.download = 'translation-bot.png';
-        //         link.href = dataUrl;
-        //         link.click();
-        //       } else {
-        //         console.error('no dataUrl');
-        //       }
-
-        //     })
-        //     .catch(function (error) {
-        //       console.error('oops, something went wrong!', error);
-        //     });
-        //   }
-        // }
       });
     }
 
-    // private getElementsInRange(range: Range): Node[] {
-    //   const elements: Node[] = [];
-    //   const iterator = document.createNodeIterator(range.commonAncestorContainer, NodeFilter.SHOW_ELEMENT);
-    //   let node;
-    //   while ((node = iterator.nextNode())) {
-    //       if (range.intersectsNode(node)) {
-    //           elements.push(node);
-    //       }
-    //   }
-    //   return elements;
-    // }
 
     private showMenu(source: HTMLElement, selectedText: string, x: number, y: number) {
       const menuItems = [
