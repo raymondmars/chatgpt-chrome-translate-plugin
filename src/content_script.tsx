@@ -79,7 +79,7 @@ class WebTranslateProcessor {
       };
 
       document.addEventListener('keydown', (event: KeyboardEvent) => {
-        event.preventDefault();
+        // event.preventDefault();
         
         if (event.key === 'Escape') {
           settings.showMenu && this.hideMenu()
@@ -93,22 +93,22 @@ class WebTranslateProcessor {
             } else {
               this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
             }
-            return;
+            return false;
           }
       
           if (event.ctrlKey && event.key === 'm') {
             this.markAsYellow();
-            return;
+            return false;
           }
       
           if (event.ctrlKey && event.key === 'u') {
             this.removeMarkerFromSelection();
-            return;
+            return false;
           }
       
           if (keyToMarkerMethod[event.key]) {
             keyToMarkerMethod[event.key]();
-            return;
+            return false;
           }
         }
       });
