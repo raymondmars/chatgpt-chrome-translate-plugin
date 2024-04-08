@@ -62,6 +62,12 @@ To config proxy as the screenshot below:
 
 (**Attention** Wen can't guarantee the stability of this free proxy, if it doesn't work, you can try to use a VPN tool to access ChatGPT.)
 
+## Common issues   
+- **Can't translate the selected text and always show 'Translating...'**   
+
+  **Solution:** Please check your network connection and make sure the ChatGPT([chat.openai.com](https://chat.openai.com)) is accessible. If you need a VPN to access the ChatGPT, to confirm the VPN is turned on. If all of these didn't work, please to confirm you have pre-billed your OpenAI API account. Since a couple of months ago, OpenAI has changed its policy, you need to pre-bill your account to use the ChatGPT API.  
+
+
 ## How to contribute
 * If you like it, please give it a star to support it.   
 * If you have any questions or suggestions, please feel free to open an issue.    
