@@ -10,6 +10,7 @@ export interface UserSettings {
   targetTransLang: TargetLanguage;
   translatorType: TranslatorType;
   showMenu: boolean;
+  translateShortCut: string;
 }
 
 export interface Store {
@@ -50,6 +51,7 @@ class UserStore implements Store {
       translatorType: TranslatorType.ChatGPT,
       llmMode: 'gpt-3.5-turbo-0125',
       showMenu: false,
+      translateShortCut: 'T',
     };
   }
 

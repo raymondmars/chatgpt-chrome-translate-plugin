@@ -6,6 +6,8 @@ import { TargetLanguage, TranslatorType } from "../service/translator";
 
 import CustomHeaders from "./custom_headers";
 
+const MakerShortCuts = ['1', '2', '3', '4', '5', '6', '0']
+
 const Settings = () => {
   const [disableSaveButton, setDisableSaveButton] = React.useState<boolean>(true);
   const [userSettings, setUserSettings] = React.useState<UserSettings>({
@@ -16,12 +18,13 @@ const Settings = () => {
     translatorType: TranslatorType.ChatGPT,
     llmMode: "gpt-3.5-turbo-0125",
     showMenu: false,
+    translateShortCut: "T",
   });
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
       const settings = await TranslateStore.getUserSettings();
-      console.log('ok...', settings)
+      // console.log('ok...', settings)
       setUserSettings(settings);
     }
     funcGetUserSettings();
@@ -48,6 +51,31 @@ const Settings = () => {
       ...userSettings,
       showMenu: e.target.checked
     });
+    setDisableSaveButton(false);
+  }
+
+  const handleTranslateShortCutChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    let key = e.key.toUpperCase();
+
+    if (!/^[A-Z,0-9]$/.test(key)) {
+      return;
+    }
+
+    if (e.ctrlKey) key = 'Ctrl + ' + key;
+    if (e.shiftKey) key = 'Shift + ' + key;
+    if (e.metaKey) key = 'Cmd + ' + key;
+  
+    if (MakerShortCuts.includes(key)) {
+      return;
+    }
+  
+    setUserSettings({
+      ...userSettings,
+      translateShortCut: key
+    });
+  
     setDisableSaveButton(false);
   }
 
@@ -128,8 +156,8 @@ const Settings = () => {
               </select>
               <select value={userSettings.llmMode} onChange={handleLLMModeChange}>
                 <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
-                <option value="gpt-4-turbo-preview">gpt-4-turbo-preview</option>
                 <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                <option value="gpt-4-turbo">gpt-4-turbo</option>
                 <option value="gpt-4">gpt-4</option>
               </select>
             </span>
@@ -186,6 +214,16 @@ const Settings = () => {
                 <input type="checkbox"
                   checked={userSettings.showMenu}
                   onChange={handleShowMenuChange} />{chrome.i18n.getMessage("settingsShowMenu")}
+              </label>
+            </span>
+          </li>
+          <li>
+            <span>{chrome.i18n.getMessage("translateShortCut")}</span>
+            <span>
+              <label>
+                <input type="text"
+                  value={userSettings.translateShortCut}
+                  onKeyDown={handleTranslateShortCutChange} />
               </label>
             </span>
           </li>

@@ -52,5 +52,8 @@
   },
   "howToUse": {
     "message": "如何使用?"
+  },
+  "translateShortCut": {
+    "message": "翻譯快速鍵"
   }
 }

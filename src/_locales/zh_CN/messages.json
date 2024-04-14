@@ -58,5 +58,8 @@
   },
   "settingsShowMenu": {
     "message": "显示上下文菜单"
+  },
+  "translateShortCut": {
+    "message": "翻译快捷键"
   }
 }

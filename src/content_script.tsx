@@ -79,31 +79,22 @@ class WebTranslateProcessor {
       };
 
       document.addEventListener('keydown', (event: KeyboardEvent) => {
-        // event.preventDefault();
-        
         if (event.key === 'Escape') {
           settings.showMenu && this.hideMenu()
           return false;
         }
 
         if (this.currentSelection && this.currentSelectedLastElement) {
-          if (event.key === 't') {
-            if (event.ctrlKey) {
-              this.translateInSelection(this.currentSelectedLastElement, this.currentSelection);
-            } else {
-              this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
-            }
-            return false;
-          }
-      
-          if (event.ctrlKey && event.key === 'm') {
-            this.markAsYellow();
-            return false;
-          }
-      
-          if (event.ctrlKey && event.key === 'u') {
-            this.removeMarkerFromSelection();
-            return false;
+          let key = event.key.toUpperCase();
+
+          if (event.ctrlKey) key = 'Ctrl + ' + key;
+          if (event.shiftKey) key = 'Shift + ' + key;
+          if (event.metaKey) key = 'Cmd + ' + key;
+
+          const translateShortCut = settings.translateShortCut || 'T';
+          if (translateShortCut === key) {
+            this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
+            return;
           }
       
           if (keyToMarkerMethod[event.key]) {
