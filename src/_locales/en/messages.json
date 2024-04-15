@@ -58,5 +58,8 @@
   },
   "settingsShowMenu": {
     "message": "Show context menu"
+  },
+  "translateShortCut": {
+    "message": "Translate shortcut"
   }
 }

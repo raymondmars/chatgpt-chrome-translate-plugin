@@ -52,5 +52,8 @@
   },
   "howToUse": {
     "message": "Wie man es benutzt"
+  },
+  "translateShortCut": {
+    "message": "Verknüpfung übersetzen"
   }
 }

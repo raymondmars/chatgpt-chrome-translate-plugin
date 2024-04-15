@@ -32,8 +32,8 @@ if your proxy needs some custom headers, You can fill in the custom headers by c
 ## How to use
 1. Select the text you want to translate.
 2. Click the menu item from the context menu.(A context menu will appear automatically when you select text. The context menu only is shown when you check the `Show context menu` option in the settings page.)
-3. You can also use the shortcut keys **T** or **t** to translate the selected text. The translated text will then be appended after the selected text.
-4. Or you can use the shortcut keys **Ctrl + t** to translate the selected text. The translated text will replace the selected text.
+3. You can also use the shortcut keys **T** or **t** to translate the selected text. The translated text will then be appended after the selected text. The translation shortcut default to the **T** key, but you can change it in the settings page. 
+
 
 ![how to use](/images/how-to-use.png)
 

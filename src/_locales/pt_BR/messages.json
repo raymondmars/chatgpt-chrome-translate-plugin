@@ -52,5 +52,8 @@
   },
   "howToUse": {
     "message": "Como usá-lo"
+  },
+  "translateShortCut": {
+    "message": "Traduzir atalho"
   }
 }

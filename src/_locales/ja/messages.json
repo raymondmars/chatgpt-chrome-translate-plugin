@@ -52,5 +52,8 @@
   },
   "howToUse": {
     "message": "それの使い方"
+  },
+  "translateShortCut": {
+    "message": "ショートカットを翻訳"
   }
 }

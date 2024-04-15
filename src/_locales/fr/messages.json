@@ -52,5 +52,8 @@
   },
   "howToUse": {
     "message": "Comment l'utiliser"
+  },
+  "translateShortCut": {
+    "message": "Traduire le raccourci"
   }
 }

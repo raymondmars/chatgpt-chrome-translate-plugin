@@ -52,5 +52,8 @@
   },
   "howToUse": {
     "message": "Cómo usarlo"
+  },
+  "translateShortCut": {
+    "message": "Traducir atajo"
   }
 }
