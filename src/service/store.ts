@@ -49,7 +49,7 @@ class UserStore implements Store {
       useCustomHeaders: false,
       targetTransLang: TargetLanguage.English,
       translatorType: TranslatorType.ChatGPT,
-      llmMode: 'gpt-3.5-turbo-0125',
+      llmMode: 'gpt-4o-mini',
       showMenu: false,
       translateShortCut: 'T',
     };
