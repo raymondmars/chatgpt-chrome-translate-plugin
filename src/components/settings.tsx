@@ -155,6 +155,7 @@ const Settings = () => {
                 <option value="ChatGPT">ChatGPT</option>
               </select>
               <select value={userSettings.llmMode} onChange={handleLLMModeChange}>
+                <option value="gpt-4o-mini">gpt-4o-mini (cheapest)</option>
                 <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
                 <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
                 <option value="gpt-4o">gpt-4o</option>
