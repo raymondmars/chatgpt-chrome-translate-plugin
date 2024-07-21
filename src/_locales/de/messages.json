@@ -1,18 +1,9 @@
 {
-  "menuTranslate": {
-    "message": "Übersetzen"
-  },
-  "menuTranslateInSelection": {
-    "message": "Ausgewählten Text übersetzen und ersetzen"
-  },
-  "menuCopy": {
-    "message": "Kopieren"
-  },
   "translateLoading": {
-    "message": "Übersetzung läuft..."
+    "message": "Übersetzen..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "Bitte setzen Sie Ihren OpenAI API-Schlüssel auf der Einstellungsseite."
+    "message": "Bitte geben Sie Ihren OpenAI-API-Schlüssel auf der Einstellungsseite ein."
   },
   "settingsTitle": {
     "message": "Einstellungen"
@@ -24,7 +15,7 @@
     "message": "API-Schlüssel"
   },
   "settingsAPIKeyPlaceholder": {
-    "message": "Bitte geben Sie den OpenAI API-Schlüssel ein"
+    "message": "Bitte geben Sie den OpenAI-API-Schlüssel ein"
   },
   "settingsUseProxy": {
     "message": "Proxy verwenden"
@@ -36,10 +27,10 @@
     "message": "Bitte geben Sie die Proxy-URL ein"
   },
   "settingsUseCustomHeaders": {
-    "message": "Benutzerdefinierte HTTP-Header hinzufügen"
+    "message": "Benutzerdefinierte Header hinzufügen"
   },
   "settingsCustomHeaders": {
-    "message": "Benutzerdefinierte HTTP-Header"
+    "message": "Benutzerdefinierte Header"
   },
   "settingsTranslateTo": {
     "message": "In diese Sprache übersetzen"
@@ -48,12 +39,33 @@
     "message": "Speichern"
   },
   "addRequestHeader": {
-    "message": "HTTP-Header hinzufügen"
+    "message": "Anforderungsheader hinzufügen"
   },
   "howToUse": {
-    "message": "Wie man es benutzt"
+    "message": "Anleitung"
   },
-  "translateShortCut": {
-    "message": "Verknüpfung übersetzen"
+  "generalTranslation": {
+    "message": "Allgemeine Übersetzung"
+  },
+  "editableAreaTranslation": {
+    "message": "Übersetzung von editierbaren Bereichen"
+  },
+  "shortCut": {
+    "message": "Tastenkürzel"
+  },
+  "targetLanguage": {
+    "message": "Zielsprache"
+  },
+  "generalTransDesc": {
+    "message": "Zum Übersetzen von ausgewähltem Text auf Webseiten"
+  },
+  "editableTransDesc": {
+    "message": "Zum Übersetzen von Text in Eingabefeldern, Textbereichen usw., wie z.B. im Kommentarbereich von Facebook, YouTube, X, Reddit und dem Texteingabebereich von Gmail."
+  },
+  "editableTransUseTip": {
+    "message": "Wählen Sie einfach den Text mit Ihrer Maus oder den Tastenkombinationen (Cmd + A für macOS, Ctrl + A für Windows) aus, und verwenden Sie dann die hier konfigurierten Tastenkombinationen, um den eingegebenen Text sofort zu übersetzen."
+  },
+  "advancedFeatures": {
+    "message": "Erweiterte Funktionen"
   }
 }

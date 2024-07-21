@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styles from './translate.scss';
-import { TranslateMessageType, TranslatorType, createTranslator } from '../service/translator';
+import { TargetLanguage, TranslateMessageType, TranslatorType, createTranslator } from '../service/translator';
 import { TranslateStore } from '../service/store';
 
 const Translate = (props: { inputText: string }) => {
@@ -20,7 +20,7 @@ const Translate = (props: { inputText: string }) => {
       const settings = await TranslateStore.getUserSettings();
       const type = settings.translatorType || TranslatorType.ChatGPT;
       const translator = createTranslator(type);
-      translator.translate(props.inputText, (message, type) => {
+      translator.translate(props.inputText, settings.targetTransLang || TargetLanguage.English, (message, type) => {
         switch(type) {
           case TranslateMessageType.Error:
             setShowError(true);
