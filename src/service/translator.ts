@@ -43,8 +43,7 @@ export enum TargetLanguage {
 }
 
 export interface Translator {
-  translate(text: string, onMessage: (message: string, type?: TranslateMessageType) => void): void;
-  // getEndIdentity(): string;
+  translate(text: string, targetLng: TargetLanguage, onMessage: (message: string, type?: TranslateMessageType) => void): void;
 }
 
 export const createTranslator = (type: TranslatorType): Translator => {

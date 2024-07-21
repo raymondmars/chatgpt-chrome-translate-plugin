@@ -1,21 +1,12 @@
 {
-  "menuTranslate": {
-    "message": "Traducir"
-  },
-  "menuTranslateInSelection": {
-    "message": "Traducir y reemplazar el texto seleccionado"
-  },
-  "menuCopy": {
-    "message": "Copiar"
-  },
   "translateLoading": {
     "message": "Traduciendo..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "Por favor, configure su clave de API de OpenAI en la página de ajustes."
+    "message": "Por favor, configure su clave API de OpenAI en la página de configuración."
   },
   "settingsTitle": {
-    "message": "Configuración"
+    "message": "Configuraciones"
   },
   "settingsTranslator": {
     "message": "Traductor"
@@ -36,10 +27,10 @@
     "message": "Por favor, introduzca la URL del Proxy"
   },
   "settingsUseCustomHeaders": {
-    "message": "Añadir cabeceras HTTP personalizadas"
+    "message": "Agregar Encabezados Personalizados"
   },
   "settingsCustomHeaders": {
-    "message": "Cabeceras HTTP personalizadas"
+    "message": "Encabezados Personalizados"
   },
   "settingsTranslateTo": {
     "message": "Traducir a este idioma"
@@ -48,12 +39,33 @@
     "message": "Guardar"
   },
   "addRequestHeader": {
-    "message": "Añadir cabecera HTTP"
+    "message": "Agregar Encabezado de Solicitud"
   },
   "howToUse": {
     "message": "Cómo usarlo"
   },
-  "translateShortCut": {
-    "message": "Traducir atajo"
+  "generalTranslation": {
+    "message": "Traducción General"
+  },
+  "editableAreaTranslation": {
+    "message": "Traducción de Área Editable"
+  },
+  "shortCut": {
+    "message": "Atajo"
+  },
+  "targetLanguage": {
+    "message": "Idioma Objetivo"
+  },
+  "generalTransDesc": {
+    "message": "Para traducir el texto seleccionado en las páginas web"
+  },
+  "editableTransDesc": {
+    "message": "Para traducir el texto en campos de entrada, áreas de texto, etc., como el área de comentarios de Facebook, YouTube, X, Reddit y el área de entrada de texto de Gmail."
+  },
+  "editableTransUseTip": {
+    "message": "Simplemente seleccione el texto con el ratón o las teclas de acceso rápido (Cmd + A para macOS, Ctrl + A para Windows), y luego use las teclas de acceso rápido configuradas aquí para traducir inmediatamente el texto que ha introducido."
+  },
+  "advancedFeatures": {
+    "message": "Características avanzadas"
   }
 }

@@ -7,7 +7,7 @@ const TIME_OUT_MS = 60000;
 
 export class ChatGPTTranslator implements Translator {
 
-    public async translate(text: string, onMessage: (message: string, type?: TranslateMessageType) => void) {
+    public async translate(text: string, targetLng: TargetLanguage, onMessage: (message: string, type?: TranslateMessageType) => void) {
         const settings = await TranslateStore.getUserSettings();
 
         if(settings.apiKey.trim() === '') {
@@ -27,7 +27,7 @@ export class ChatGPTTranslator implements Translator {
             model: settings.llmMode ?? "gpt-4o-mini",
             messages: [{
                 role: "system",
-                content: this.getPrompt(settings.targetTransLang),
+                content: this.getPrompt(targetLng),
             },
             {
                 role: "user",

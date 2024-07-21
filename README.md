@@ -2,65 +2,57 @@
 
 This extension uses the OpenAI ChatGPT API to translate the selected text into your desired language. It supports 20+ languages and can be used with a proxy.
 
-This is a completely free and open source project. You can configure your api key in the settings page of the extension and can trust it to protect your privacy.
+This is a completely free and open source project. You can configure your api key in the settings page of the extension. It  will be stored locally and there is no risk of leakage.
 
 ## Features
 - Automatically detect the language of the selected text and auto translate it into your desired language.
-- Support the context menu and shortcut key to translate the selected text.
+- Support shortcut key to translate the selected text.
+- Support translate any editable area text, such as the text in the input box, text area, etc. such as Facebook, Youtube, X, and Reddit comment area, and Gmail text input area.
 - Support proxy and custom headers for the people who use a proxy to access ChatGPT.
 - Support 20+ languages.
-- Can highlight the selected text, just like a marker pen.
 
 ## Installation
 Go to [ChatGPT Translation Bot](https://chromewebstore.google.com/detail/chatgpt-translation-bot/fglemdfemikhijpgojdobdgplbcfomdf) and install extension for your browser.
 
 ## How to setting
-- Go to the settings page of the extension.
-- Fill in your OpenAI api key.
-- Select the language you want to translate to.
-- Click the save button.
-
-**Attention:** Whenever you changed the settings, you need to refresh the page to make the new settings take effect.
+- Open the Translation Bot settings.
+- Choose your preferred translator and model.
+- Enter your API Key.
+- Set your desired shortcuts and target languages for each translation type.
+- Click 'Save' to apply your settings. 
 
 ![how to config](/images/how-to-config.png)
 
-#### Other options:
+**Attention:** Whenever you change the shortcut keys, you need to refresh the page to make the new shortcut take effect.
+But if you change the target language, you don't need to refresh the page, the new language will take effect immediately.
+
+#### Advanced Features:
 - If you use a proxy to access ChatGPT, you can check the `Use proxy` option and fill in a proxy address.
 if your proxy needs some custom headers, You can fill in the custom headers by checking the `Add custom headers` option.
-- If you want to show the context menu, you can check the `Show context menu` option. If you don't want to show it, You can use the shortcut key **t or T** to translate the selected text.
+
 
 ## How to use
-1. Select the text you want to translate.
-2. Click the menu item from the context menu.(A context menu will appear automatically when you select text. The context menu only is shown when you check the `Show context menu` option in the settings page.)
-3. You can also use the shortcut keys **T** or **t** to translate the selected text. The translated text will then be appended after the selected text. The translation shortcut default to the **T** key, but you can change it in the settings page. 
+**1. General Translation (Non-editable Text):**
 
+  - Use this for translating selected text on web pages.
+  - Shortcut: Ctrl + Q
+  - Target Language: Set to your preferred language (e.g., 简体中文)
+  - How to use: Select any text on a webpage, then press Ctrl + Q to translate it instantly.
 
-![how to use](/images/how-to-use.png)
+**2. Editable Area Translation:**
 
-5. You can use number key **1, 2, 3, 4, 5** to color the selected text like a marker pen. To use the number **6** to add text shadow to the selected text. If you want to remove the highlight, you can use the number **0**.   
-The number **6** can be combined with other numbers(**1, 2, 3, 4, 5**) to form an overlay effect of color and font shadow.  
+  - Use this for translating text in input fields, comment areas, etc. (e.g., on Facebook, YouTube, Twitter, Reddit, or Gmail)
+  - Shortcut: Shift + Ctrl + L
+  - Target Language: Set to your desired output language (e.g., English)
+  - How to use: Select the text you've typed or paste text into an editable area, then press Shift + Ctrl + L to translate it immediately.
 
-![how to use](/images/highlight-1.png)
-
-![how to use](/images/highlight-2.png)
-
-![how to use](/images/highlight-3.png)
-
-![how to use](/images/highlight-4.png)
-
-![how to use](/images/highlight-5.png)
-
-![how to use](/images/highlight-6.png)
 
 Click this link to see the [demo video](https://www.youtube.com/watch?v=JLqsyhCxiBM).
 
 ## About use proxy in this extension  
 If you use a VPN tool to access ChatGPT or it's API, you need to turn on the VPN while using this extension. 
-But if you don't want to use a VPN, we provide this free proxy **https://common.navitechai.com/v1** to drive this extension, you can try it in your country. Hope it works for you.  
-To config proxy as the screenshot below: 
+If you use a proxy to access ChatGPT, you can fill in the proxy address in the settings page of this extension. (see below screenshot)
 ![config the proxy](/images/free-proxy.png)   
-
-(**Attention** Wen can't guarantee the stability of this free proxy, if it doesn't work, you can try to use a VPN tool to access ChatGPT.)
 
 ## Common issues   
 - **Can't translate the selected text and always show 'Translating...'**   
