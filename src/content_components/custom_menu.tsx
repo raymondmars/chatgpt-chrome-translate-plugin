@@ -1,3 +1,6 @@
+/* 
+  Warning: menu function has been deprecated
+*/
 import React, { useEffect } from 'react';
 import styles from './custom_menu.scss';
 

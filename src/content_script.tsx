@@ -6,17 +6,18 @@ import CustomMenu from './content_components/custom_menu';
 import Translate from './content_components/translate';
 import { TranslateStore } from './service/store';
 import { TranslateMessageType, TranslatorType, createTranslator } from './service/translator';
+import TextAreaProcessor from './service/textarea_processor';
+import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT } from './service/utils';
 
 class WebTranslateProcessor {
     private menuContainer: HTMLElement;
-    private menuRoot: Root;
     private menuItemClassName = "__translator_menu_item__";
     private translateContainerClassName = "__translator_translate_container__";
     private selectedWordsMarkerClassName = "__selected_words_marker";
     private markerTagName = "mark";
     private currentSelection: string = "";
     private currentSelectedLastElement: HTMLElement | null = null;
-    // private needToOutputRootElement: HTMLElement | null = null;
+
 
     constructor() {
       const menuContainerId = "__translator_menu_container";
@@ -27,7 +28,6 @@ class WebTranslateProcessor {
       } else {
         this.menuContainer = document.getElementById(menuContainerId) as HTMLElement;
       }
-      this.menuRoot = createRoot(this.menuContainer)
     }
 
     public async run() {
@@ -42,16 +42,8 @@ class WebTranslateProcessor {
         }
 
         if (selection && selection?.toString().trim().length > 0 && !selection.isCollapsed) {
-
-          if(settings.showMenu) {
-            this.showMenu(target, selection?.toString().trim(), event.pageX, event.pageY)
-          }
-
           this.currentSelection = selection?.toString().trim();
           this.currentSelectedLastElement = target;
-
-        } else {
-          settings.showMenu && this.hideMenu()
         }
       });
 
@@ -62,8 +54,11 @@ class WebTranslateProcessor {
           if(this.currentSelection && this.currentSelectedLastElement) {
             this.currentSelection = "";
             this.currentSelectedLastElement = null;
-            // this.needToOutputRootElement = null;
           }
+        }
+
+        if(selection) {
+          this.currentSelection = selection.toString().trim();
         }
       });
 
@@ -79,19 +74,21 @@ class WebTranslateProcessor {
       };
 
       document.addEventListener('keydown', (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-          settings.showMenu && this.hideMenu()
-          return false;
+
+        let key = event.key.toUpperCase();
+
+        if (event.ctrlKey) key = 'Ctrl + ' + key;
+        if (event.shiftKey) key = 'Shift + ' + key;
+        if (event.metaKey) key = 'Cmd + ' + key;
+
+        const translateInEditableShortCut = settings.translateInEditableShortCut || DEFAULT_EDITABLE_SHORT_CUT;
+        if(translateInEditableShortCut === key && this.currentSelection !== '') {
+          this.processTranslateInCommentOrPost(this.currentSelection);
+          return;
         }
 
         if (this.currentSelection && this.currentSelectedLastElement) {
-          let key = event.key.toUpperCase();
-
-          if (event.ctrlKey) key = 'Ctrl + ' + key;
-          if (event.shiftKey) key = 'Shift + ' + key;
-          if (event.metaKey) key = 'Cmd + ' + key;
-
-          const translateShortCut = settings.translateShortCut || 'T';
+          const translateShortCut = settings.translateShortCut || DEFAULT_GENERAL_SHORT_CUT;
           if (translateShortCut === key) {
             this.processTranslate(this.currentSelectedLastElement, this.currentSelection);
             return;
@@ -102,36 +99,7 @@ class WebTranslateProcessor {
             return false;
           }
         }
-      });
-    }
-
-
-    private showMenu(source: HTMLElement, selectedText: string, x: number, y: number) {
-      const menuItems = [
-        {
-          label: chrome.i18n.getMessage("menuTranslate") + " (T)",
-          onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.hideMenu();
-            this.processTranslate(source,selectedText);
-          }
-        },
-        {
-          label: chrome.i18n.getMessage("menuTranslateInSelection") + " (Ctrl + T)",
-          onClick: (e: MouseEvent | React.MouseEvent<HTMLLIElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            this.hideMenu();
-            this.translateInSelection(source, selectedText);
-          }
-        },
-      ];
-      this.menuRoot.render(<CustomMenu active={true} menuItems={menuItems} x={x} y={y} identityClassName={this.menuItemClassName} />);
-    }
-
-    private hideMenu() {
-      this.menuRoot.render(<CustomMenu active={false} identityClassName={this.menuItemClassName} />);
+      }, true);
     }
 
     private processTranslate(source: HTMLElement, text: string) {
@@ -145,36 +113,10 @@ class WebTranslateProcessor {
       source.appendChild(div);
     }
 
-    private async translateInSelection(source: HTMLElement, text: string) {
-      const selection = document.getSelection();
-      if(selection) {
-        const range = selection?.getRangeAt(0);
-        range?.deleteContents();
-        selection.removeAllRanges();
-      }
-
-      source.innerText = chrome.i18n.getMessage("translateLoading");
-
-      const settings = await TranslateStore.getUserSettings();
-      const type = settings.translatorType || TranslatorType.ChatGPT;
-      const translator = createTranslator(type);
-
-      translator.translate(text, (result, type) => {
-        switch(type) {
-          case TranslateMessageType.Error:
-            source.style.color = "red";
-            source.style.fontWeight = "bold";
-            source.style.padding = "10px";
-            source.style.border = "1px solid grey";
-            source.innerText = result;
-            break;
-          case TranslateMessageType.Message:
-            source.innerText = result;
-            break;
-          case TranslateMessageType.End:
-            break;
-        }
-      });
+    private processTranslateInCommentOrPost(text: string) {
+      console.log('text:', text);
+      const textareaProcessor = new TextAreaProcessor(text);
+      textareaProcessor.processTranslating();
     }
 
     private addMarkerToSelection(markerClassName: string) {

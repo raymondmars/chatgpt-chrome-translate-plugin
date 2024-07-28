@@ -1,4 +1,5 @@
 import { TargetLanguage, TranslatorType } from './translator';
+import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT } from './utils';
 
 export interface UserSettings {
   apiKey: string;
@@ -8,9 +9,10 @@ export interface UserSettings {
   useCustomHeaders: boolean;
   customHeaders?: Record<string, string>;
   targetTransLang: TargetLanguage;
+  editAareTargetTransLang: TargetLanguage;
   translatorType: TranslatorType;
-  showMenu: boolean;
   translateShortCut: string;
+  translateInEditableShortCut: string;
 }
 
 export interface Store {
@@ -37,9 +39,6 @@ class UserStore implements Store {
     const settings = await getFromStorage(USER_SETTINGS_KEY);
     if (settings) {
       let cacheVal = JSON.parse(settings) as UserSettings;
-      if(cacheVal.showMenu === undefined) {
-        cacheVal.showMenu = true
-      }
       return cacheVal
     }
 
@@ -48,10 +47,11 @@ class UserStore implements Store {
       useProxy: false,
       useCustomHeaders: false,
       targetTransLang: TargetLanguage.English,
+      editAareTargetTransLang: TargetLanguage.English,
       translatorType: TranslatorType.ChatGPT,
       llmMode: 'gpt-4o-mini',
-      showMenu: false,
-      translateShortCut: 'T',
+      translateShortCut: DEFAULT_GENERAL_SHORT_CUT,
+      translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
     };
   }
 
