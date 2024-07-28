@@ -67,5 +67,8 @@
   },
   "advancedFeatures": {
     "message": "高级功能"
+  },
+  "contactUs": {
+    "message": "联系我们"
   }
 }

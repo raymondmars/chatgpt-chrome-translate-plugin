@@ -111,15 +111,29 @@
     }
     .howToUse {
       position: absolute;
-      bottom: 25px;
+      bottom: 18px;
       right: 15px;
       a {
-        text-decoration: underline;
+        text-decoration: none;
         cursor: pointer;
         color: rgb(99, 99, 99);
         font-size: 14px;
         &:hover {
           color: blue;
+        }
+      }
+    }
+    .contactUs {
+      position: absolute;
+      bottom: 18px;
+      right: 130px;
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        color: rgb(99, 99, 99);
+        font-size: 14px;
+        &:hover {
+          color: red;
         }
       }
     }

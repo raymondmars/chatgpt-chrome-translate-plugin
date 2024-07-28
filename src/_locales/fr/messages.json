@@ -67,5 +67,8 @@
   },
   "advancedFeatures": {
     "message": "Fonctionnalités avancées"
+  },
+  "contactUs": {
+    "message": "Contactez-nous"
   }
 }

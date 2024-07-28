@@ -154,6 +154,10 @@ const Settings = () => {
     chrome.tabs.create({ url: "https://github.com/raymondmars/chatgpt-chrome-translate-plugin"});
   }
 
+  const handleContactUs = () => {
+    chrome.tabs.create({ url: "mailto:i@raymondjiang.net"});
+  }
+
   const handleSave = () => {
     TranslateStore.setUserSettings(userSettings);
     setDisableSaveButton(true);
@@ -329,6 +333,9 @@ const Settings = () => {
         </ul>
         <div className={styles.howToUse}>
           <a href="#" onClick={handlehowToUseAddress}>{chrome.i18n.getMessage("howToUse")}</a>
+        </div>
+        <div className={styles.contactUs}>
+          <a href="#" onClick={handleContactUs}>{chrome.i18n.getMessage("contactUs")}</a>
         </div>
       </div>
     </div>
