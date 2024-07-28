@@ -1,13 +1,4 @@
 {
-  "menuTranslate": {
-    "message": "Translate"
-  },
-  "menuTranslateInSelection": {
-    "message": "Translate in selection"
-  },
-  "menuCopy": {
-    "message": "Copy"
-  },
   "translateLoading": {
     "message": "Translate ..."
   },
@@ -53,13 +44,31 @@
   "howToUse": {
     "message": "How to use it"
   },
-  "settingsMenuControl": {
-    "message": "Menu Control"
+  "generalTranslation": {
+    "message": "General Translation"
   },
-  "settingsShowMenu": {
-    "message": "Show context menu"
+  "editableAreaTranslation": {
+    "message": "Editable Area Translation"
   },
-  "translateShortCut": {
-    "message": "Translate shortcut"
+  "shortCut": {
+    "message": "Shortcut"
+  },
+  "targetLanguage": {
+    "message": "Target Language"
+  },
+  "generalTransDesc": {
+    "message": "For translating selected text on web pages"
+  },
+  "editableTransDesc": {
+    "message": "For translating text in input fields, text areas etc. such as Facebook, Youtube, X, and Reddit comment area, and Gmail text input area."
+  },
+  "editableTransUseTip": {
+    "message": "Just select the text with your mouse or the shortcut keys (Cmd + A for macos, Ctrl + A for windows), and then use the shortcut keys configured here to translate the text you input immediately."
+  },
+  "advancedFeatures": {
+    "message": "Advanced Features"
+  },
+  "contactUs": {
+    "message": "Contact Us"
   }
 }

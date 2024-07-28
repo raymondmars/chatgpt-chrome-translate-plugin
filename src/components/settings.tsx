@@ -5,8 +5,10 @@ import { TranslateStore, UserSettings } from "../service/store";
 import { TargetLanguage, TranslatorType } from "../service/translator";
 
 import CustomHeaders from "./custom_headers";
+import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT } from "../service/utils";
 
 const MakerShortCuts = ['1', '2', '3', '4', '5', '6', '0']
+
 
 const Settings = () => {
   const [disableSaveButton, setDisableSaveButton] = React.useState<boolean>(true);
@@ -15,10 +17,11 @@ const Settings = () => {
     useProxy: false,
     useCustomHeaders: false,
     targetTransLang: TargetLanguage.English,
+    editAareTargetTransLang: TargetLanguage.English,
     translatorType: TranslatorType.ChatGPT,
     llmMode: "gpt-4o-mini",
-    showMenu: false,
-    translateShortCut: "T",
+    translateShortCut: DEFAULT_GENERAL_SHORT_CUT,
+    translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
   });
 
   useEffect(() => {
@@ -46,19 +49,7 @@ const Settings = () => {
     setDisableSaveButton(false);
   }
 
-  const handleShowMenuChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserSettings({
-      ...userSettings,
-      showMenu: e.target.checked
-    });
-    setDisableSaveButton(false);
-  }
-
-  const handleTranslateShortCutChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
-
-    let key = e.key.toUpperCase();
-
+  const saveShortCut = (e: React.KeyboardEvent<HTMLInputElement>, key: string, keyName: string) => {
     if (!/^[A-Z,0-9]$/.test(key)) {
       return;
     }
@@ -73,10 +64,30 @@ const Settings = () => {
   
     setUserSettings({
       ...userSettings,
-      translateShortCut: key
+      [keyName]: key
     });
   
     setDisableSaveButton(false);
+  }
+
+  const handleTranslateShortCutChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    let key = e.key.toUpperCase();
+    if(key === userSettings.translateInEditableShortCut) {
+      return;
+    }
+
+    saveShortCut(e, key, 'translateShortCut');
+  }
+
+  const handleTranslateInEditableShortCutChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    let key = e.key.toUpperCase();
+    if(key === userSettings.translateShortCut) {
+      return;
+    }
+
+    saveShortCut(e, key, 'translateInEditableShortCut');
   }
 
   const handleUseCustomHeadersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,6 +138,14 @@ const Settings = () => {
     setDisableSaveButton(false);
   }
 
+  const handleEditAreaTargetTransLangChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setUserSettings({
+      ...userSettings,
+      editAareTargetTransLang: e.target.value as TargetLanguage
+    });
+    setDisableSaveButton(false);
+  }
+
   const checkApiKey = () => {
     setDisableSaveButton(userSettings.apiKey === "");
   }
@@ -135,13 +154,51 @@ const Settings = () => {
     chrome.tabs.create({ url: "https://github.com/raymondmars/chatgpt-chrome-translate-plugin"});
   }
 
+  const handleContactUs = () => {
+    chrome.tabs.create({ url: "mailto:i@raymondjiang.net"});
+  }
+
   const handleSave = () => {
     TranslateStore.setUserSettings(userSettings);
     setDisableSaveButton(true);
     window.setTimeout(() => window.close(), 300);
   }
 
-
+  const languageOptions = () => {
+    return (
+      <>
+        <option value="Arabic">العربية</option>
+        <option value="Bulgarian">Български</option>
+        <option value="Chinese">简体中文</option>
+        <option value="Traditional Chinese">繁體中文</option>
+        <option value="Croatian">Hrvatski</option>
+        <option value="Czech">Čeština</option>
+        <option value="Danish">Dansk</option>
+        <option value="Dutch">Nederlands</option>
+        <option value="English">English</option>
+        <option value="Finnish">Suomi</option>
+        <option value="French">Français</option>
+        <option value="German">Deutsch</option>
+        <option value="Greek">Ελληνικά</option>
+        <option value="Hungarian">Magyar</option>
+        <option value="Indonesian">Indonesia</option>
+        <option value="Italian">Italiano</option>
+        <option value="Japanese">日本語</option>
+        <option value="Korean">한국어</option>
+        <option value="Norwegian">Norsk</option>
+        <option value="Polish">Polski</option>
+        <option value="Portuguese">Português</option>
+        <option value="Romanian">Română</option>
+        <option value="Russian">Русский</option>
+        <option value="Slovak">Slovenčina</option>
+        <option value="Slovenian">Slovenščina</option>
+        <option value="Spanish">Español</option>
+        <option value="Swedish">Svenska</option>
+        <option value="Thai">ไทย</option>
+        <option value="Turkish">Türkçe</option>      
+      </>
+    )
+  }
 
   return (
     <div className={styles.settings}>
@@ -174,8 +231,66 @@ const Settings = () => {
                 onBlur={checkApiKey} />
             </span>
           </li>
+          <li className={styles.divider}></li>
+          <li>
+            <span>{chrome.i18n.getMessage("generalTranslation")}</span>
+            <span className={styles.dualLabel}>
+              <div className={styles.labelgroup}>
+                <label>{chrome.i18n.getMessage("shortCut")}</label>
+                <label>
+                  <input type="text"
+                    value={userSettings.translateShortCut}
+                    onKeyDown={handleTranslateShortCutChange} />
+                </label>
+                <label>{chrome.i18n.getMessage("targetLanguage")}</label>
+                <label>
+                  <select value={userSettings.targetTransLang} onChange={handleTargetTransLangChange}>
+                    {languageOptions()}
+                  </select>
+                </label>
+              </div>
+            </span>
+          </li>
           <li>
             <span></span>
+            <span className={styles.tooltip}>
+              {chrome.i18n.getMessage("generalTransDesc")}
+            </span>
+          </li>
+          <li className={styles.divider}></li>
+          <li>
+            <span>{chrome.i18n.getMessage("editableAreaTranslation")}</span>
+            <span className={styles.dualLabel}>
+              <div className={styles.labelgroup}>
+                <label>{chrome.i18n.getMessage("shortCut")}</label>
+                <label>
+                  <input type="text"
+                    value={userSettings.translateInEditableShortCut}
+                    onKeyDown={handleTranslateInEditableShortCutChange} />
+                </label>
+                <label>{chrome.i18n.getMessage("targetLanguage")}</label>
+                <label>
+                  <select value={userSettings.editAareTargetTransLang} onChange={handleEditAreaTargetTransLangChange}>
+                    {languageOptions()}
+                  </select>
+                </label>
+              </div>
+            </span>
+          </li>
+          <li>
+            <span></span>
+            <span className={styles.tooltip}>
+              <p>
+              {chrome.i18n.getMessage("editableTransDesc")}
+              </p>
+              <p>
+              {chrome.i18n.getMessage("editableTransUseTip")}
+              </p>
+            </span>
+          </li>
+          <li className={styles.divider}></li>
+          <li>
+            <span>{chrome.i18n.getMessage("advancedFeatures")}</span>
             <span>
               <label>
                 <input type="checkbox"
@@ -208,63 +323,7 @@ const Settings = () => {
               </span>
             </li>
           }
-
-          <li>
-            <span>{chrome.i18n.getMessage("settingsMenuControl")}</span>
-            <span>
-              <label>
-                <input type="checkbox"
-                  checked={userSettings.showMenu}
-                  onChange={handleShowMenuChange} />{chrome.i18n.getMessage("settingsShowMenu")}
-              </label>
-            </span>
-          </li>
-          <li>
-            <span>{chrome.i18n.getMessage("translateShortCut")}</span>
-            <span>
-              <label>
-                <input type="text"
-                  value={userSettings.translateShortCut}
-                  onKeyDown={handleTranslateShortCutChange} />
-              </label>
-            </span>
-          </li>
-          <li>
-            <span>{chrome.i18n.getMessage("settingsTranslateTo")}</span>
-            <span>
-              <select value={userSettings.targetTransLang} onChange={handleTargetTransLangChange}>
-                <option value="Arabic">العربية</option>
-                <option value="Bulgarian">Български</option>
-                <option value="Chinese">简体中文</option>
-                <option value="Traditional Chinese">繁體中文</option>
-                <option value="Croatian">Hrvatski</option>
-                <option value="Czech">Čeština</option>
-                <option value="Danish">Dansk</option>
-                <option value="Dutch">Nederlands</option>
-                <option value="English">English</option>
-                <option value="Finnish">Suomi</option>
-                <option value="French">Français</option>
-                <option value="German">Deutsch</option>
-                <option value="Greek">Ελληνικά</option>
-                <option value="Hungarian">Magyar</option>
-                <option value="Indonesian">Indonesia</option>
-                <option value="Italian">Italiano</option>
-                <option value="Japanese">日本語</option>
-                <option value="Korean">한국어</option>
-                <option value="Norwegian">Norsk</option>
-                <option value="Polish">Polski</option>
-                <option value="Portuguese">Português</option>
-                <option value="Romanian">Română</option>
-                <option value="Russian">Русский</option>
-                <option value="Slovak">Slovenčina</option>
-                <option value="Slovenian">Slovenščina</option>
-                <option value="Spanish">Español</option>
-                <option value="Swedish">Svenska</option>
-                <option value="Thai">ไทย</option>
-                <option value="Turkish">Türkçe</option>
-              </select>
-            </span>
-          </li>
+          <li className={styles.divider}></li>
           <li>
             <span></span>
             <span>
@@ -274,6 +333,9 @@ const Settings = () => {
         </ul>
         <div className={styles.howToUse}>
           <a href="#" onClick={handlehowToUseAddress}>{chrome.i18n.getMessage("howToUse")}</a>
+        </div>
+        <div className={styles.contactUs}>
+          <a href="#" onClick={handleContactUs}>{chrome.i18n.getMessage("contactUs")}</a>
         </div>
       </div>
     </div>

@@ -1,13 +1,4 @@
 {
-  "menuTranslate": {
-    "message": "翻訳"
-  },
-  "menuTranslateInSelection": {
-    "message": "選択したテキストを翻訳して置換"
-  },
-  "menuCopy": {
-    "message": "コピー"
-  },
   "translateLoading": {
     "message": "翻訳中..."
   },
@@ -36,10 +27,10 @@
     "message": "プロキシURLを入力してください"
   },
   "settingsUseCustomHeaders": {
-    "message": "カスタムHTTPヘッダーを追加"
+    "message": "カスタムヘッダーを追加"
   },
   "settingsCustomHeaders": {
-    "message": "カスタムHTTPヘッダー"
+    "message": "カスタムヘッダー"
   },
   "settingsTranslateTo": {
     "message": "この言語に翻訳"
@@ -48,12 +39,36 @@
     "message": "保存"
   },
   "addRequestHeader": {
-    "message": "HTTPヘッダーを追加"
+    "message": "リクエストヘッダーを追加"
   },
   "howToUse": {
-    "message": "それの使い方"
+    "message": "使用方法"
   },
-  "translateShortCut": {
-    "message": "ショートカットを翻訳"
+  "generalTranslation": {
+    "message": "一般翻訳"
+  },
+  "editableAreaTranslation": {
+    "message": "編集可能エリアの翻訳"
+  },
+  "shortCut": {
+    "message": "ショートカット"
+  },
+  "targetLanguage": {
+    "message": "目標言語"
+  },
+  "generalTransDesc": {
+    "message": "ウェブページ上の選択したテキストを翻訳するための機能"
+  },
+  "editableTransDesc": {
+    "message": "入力フィールド、テキストエリアなどでテキストを翻訳するための機能。例えば、Facebook、YouTube、X、RedditのコメントエリアやGmailのテキスト入力エリア。"
+  },
+  "editableTransUseTip": {
+    "message": "マウスやショートカットキー（macOSの場合はCmd + A、Windowsの場合はCtrl + A）でテキストを選択し、ここで設定されたショートカットキーを使用して入力したテキストをすぐに翻訳します。"
+  },
+  "advancedFeatures": {
+    "message": "高度な機能"
+  },
+  "contactUs": {
+    "message": "お問い合わせ"
   }
 }

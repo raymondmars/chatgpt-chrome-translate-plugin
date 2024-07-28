@@ -1,18 +1,9 @@
 {
-  "menuTranslate": {
-    "message": "Traduzir"
-  },
-  "menuTranslateInSelection": {
-    "message": "Traduzir e substituir o texto selecionado"
-  },
-  "menuCopy": {
-    "message": "Copiar"
-  },
   "translateLoading": {
     "message": "Traduzindo..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "Por favor, defina sua chave API OpenAI na página de configurações."
+    "message": "Por favor, defina sua chave API do OpenAI na página de configurações."
   },
   "settingsTitle": {
     "message": "Configurações"
@@ -24,7 +15,7 @@
     "message": "Chave API"
   },
   "settingsAPIKeyPlaceholder": {
-    "message": "Por favor, insira a chave API OpenAI"
+    "message": "Por favor, insira a chave API do OpenAI"
   },
   "settingsUseProxy": {
     "message": "Usar Proxy"
@@ -33,27 +24,51 @@
     "message": "Proxy"
   },
   "settingsProxyPlaceholder": {
-    "message": "Por favor, insira a URL do Proxy"
+    "message": "Por favor, insira o URL do Proxy"
   },
   "settingsUseCustomHeaders": {
-    "message": "Adicionar Cabeçalhos HTTP Personalizados"
+    "message": "Adicionar Cabeçalhos Personalizados"
   },
   "settingsCustomHeaders": {
-    "message": "Cabeçalhos HTTP Personalizados"
+    "message": "Cabeçalhos Personalizados"
   },
   "settingsTranslateTo": {
-    "message": "Traduzir para este idioma"
+    "message": "Traduzir para este Idioma"
   },
   "settingsSave": {
     "message": "Salvar"
   },
   "addRequestHeader": {
-    "message": "Adicionar Cabeçalho HTTP"
+    "message": "Adicionar Cabeçalho de Solicitação"
   },
   "howToUse": {
-    "message": "Como usá-lo"
+    "message": "Como usar"
   },
-  "translateShortCut": {
-    "message": "Traduzir atalho"
+  "generalTranslation": {
+    "message": "Tradução Geral"
+  },
+  "editableAreaTranslation": {
+    "message": "Tradução de Área Editável"
+  },
+  "shortCut": {
+    "message": "Atalho"
+  },
+  "targetLanguage": {
+    "message": "Idioma Alvo"
+  },
+  "generalTransDesc": {
+    "message": "Para traduzir o texto selecionado nas páginas da web"
+  },
+  "editableTransDesc": {
+    "message": "Para traduzir o texto em campos de entrada, áreas de texto etc., como a área de comentários do Facebook, YouTube, X, Reddit e a área de entrada de texto do Gmail."
+  },
+  "editableTransUseTip": {
+    "message": "Basta selecionar o texto com o mouse ou as teclas de atalho (Cmd + A para macOS, Ctrl + A para Windows), e depois usar as teclas de atalho configuradas aqui para traduzir imediatamente o texto que você inseriu."
+  },
+  "advancedFeatures": {
+    "message": "Recursos avançados"
+  },
+  "contactUs": {
+    "message": "Contate-nos"
   }
 }

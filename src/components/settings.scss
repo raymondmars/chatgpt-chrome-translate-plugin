@@ -25,12 +25,45 @@
           img {
             cursor: pointer;
           }
+
           label {
             margin-right: 10px;
           }
+
+          &.dualLabel {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            .labelgroup {
+              display: flex;
+              align-items: center;
+              gap: 10px; 
+              label {
+                display: flex;
+                align-items: center;
+                margin-right: 0; 
+
+                &:first-child {
+                  flex-shrink: 0;
+                }
+
+                input, select {
+                  margin-left: 0px;
+                }
+
+                select {
+                  width: 110px;
+                }
+              }
+            }
+          }
+
+          p {
+            padding: 0px 0px;
+          }
         }
         span:first-child {
-          width: 195px;
+          width: 180px;
           font-size: 14px;
         }
         input[type="text"], input[type="password"], input[type="email"], select {
@@ -71,14 +104,17 @@
             margin-right: 10px;
           }
         }
+        span.tooltip {
+          color: grey;
+        }
       }
     }
     .howToUse {
       position: absolute;
-      bottom: 25px;
+      bottom: 18px;
       right: 15px;
       a {
-        text-decoration: underline;
+        text-decoration: none;
         cursor: pointer;
         color: rgb(99, 99, 99);
         font-size: 14px;
@@ -87,6 +123,42 @@
         }
       }
     }
+    .contactUs {
+      position: absolute;
+      bottom: 18px;
+      right: 130px;
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        color: rgb(99, 99, 99);
+        font-size: 14px;
+        &:hover {
+          color: red;
+        }
+      }
+    }
   }
 
+  .divider {
+    position: relative;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  
+  .divider::after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(0, 0, 0, 0.3) 10%,
+      rgba(0, 0, 0, 0.3) 90%,
+      transparent
+    );
+  }
 }

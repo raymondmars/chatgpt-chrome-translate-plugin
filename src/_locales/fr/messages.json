@@ -1,18 +1,9 @@
 {
-  "menuTranslate": {
-    "message": "Traduire"
-  },
-  "menuTranslateInSelection": {
-    "message": "Traduire et remplacer le texte sélectionné"
-  },
-  "menuCopy": {
-    "message": "Copier"
-  },
   "translateLoading": {
     "message": "Traduction en cours..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "Veuillez configurer votre clé API OpenAI dans la page des paramètres."
+    "message": "Veuillez définir votre clé API OpenAI dans la page des paramètres."
   },
   "settingsTitle": {
     "message": "Paramètres"
@@ -24,7 +15,7 @@
     "message": "Clé API"
   },
   "settingsAPIKeyPlaceholder": {
-    "message": "Veuillez saisir la clé API OpenAI"
+    "message": "Veuillez entrer la clé API OpenAI"
   },
   "settingsUseProxy": {
     "message": "Utiliser un proxy"
@@ -33,27 +24,51 @@
     "message": "Proxy"
   },
   "settingsProxyPlaceholder": {
-    "message": "Veuillez saisir l'URL du proxy"
+    "message": "Veuillez entrer l'URL du proxy"
   },
   "settingsUseCustomHeaders": {
-    "message": "Ajouter des en-têtes HTTP personnalisés"
+    "message": "Ajouter des en-têtes personnalisés"
   },
   "settingsCustomHeaders": {
-    "message": "En-têtes HTTP personnalisés"
+    "message": "En-têtes personnalisés"
   },
   "settingsTranslateTo": {
     "message": "Traduire dans cette langue"
   },
   "settingsSave": {
-    "message": "Sauvegarder"
+    "message": "Enregistrer"
   },
   "addRequestHeader": {
-    "message": "Ajouter un en-tête HTTP"
+    "message": "Ajouter un en-tête de requête"
   },
   "howToUse": {
     "message": "Comment l'utiliser"
   },
-  "translateShortCut": {
-    "message": "Traduire le raccourci"
+  "generalTranslation": {
+    "message": "Traduction générale"
+  },
+  "editableAreaTranslation": {
+    "message": "Traduction de zone éditable"
+  },
+  "shortCut": {
+    "message": "Raccourci"
+  },
+  "targetLanguage": {
+    "message": "Langue cible"
+  },
+  "generalTransDesc": {
+    "message": "Pour traduire le texte sélectionné sur les pages Web"
+  },
+  "editableTransDesc": {
+    "message": "Pour traduire le texte dans les champs de saisie, les zones de texte, etc., tels que les zones de commentaire de Facebook, YouTube, X, Reddit et la zone de saisie de texte de Gmail."
+  },
+  "editableTransUseTip": {
+    "message": "Il suffit de sélectionner le texte avec votre souris ou les raccourcis clavier (Cmd + A pour macOS, Ctrl + A pour Windows), puis d'utiliser les raccourcis configurés ici pour traduire immédiatement le texte que vous avez saisi."
+  },
+  "advancedFeatures": {
+    "message": "Fonctionnalités avancées"
+  },
+  "contactUs": {
+    "message": "Contactez-nous"
   }
 }

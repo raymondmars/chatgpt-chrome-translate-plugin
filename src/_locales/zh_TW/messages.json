@@ -1,18 +1,9 @@
 {
-  "menuTranslate": {
-    "message": "翻譯"
-  },
-  "menuTranslateInSelection": {
-    "message": "翻譯並替換選中文字"
-  },
-  "menuCopy": {
-    "message": "複製"
-  },
   "translateLoading": {
-    "message": "正在翻譯..."
+    "message": "翻譯中..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "請在設置頁面中設置您的OpenAI API密鑰。"
+    "message": "請在設置頁面中設置您的 OpenAI API 密鑰。"
   },
   "settingsTitle": {
     "message": "設置"
@@ -21,10 +12,10 @@
     "message": "翻譯器"
   },
   "settingsAPIKey": {
-    "message": "API密鑰"
+    "message": "API 密鑰"
   },
   "settingsAPIKeyPlaceholder": {
-    "message": "請輸入OpenAI API密鑰"
+    "message": "請輸入 OpenAI API 密鑰"
   },
   "settingsUseProxy": {
     "message": "使用代理"
@@ -33,27 +24,51 @@
     "message": "代理"
   },
   "settingsProxyPlaceholder": {
-    "message": "請輸入代理URL"
+    "message": "請輸入代理 URL"
   },
   "settingsUseCustomHeaders": {
-    "message": "添加自定義 HTTP Header"
+    "message": "添加自定義 Headers"
   },
   "settingsCustomHeaders": {
-    "message": "自定義 HTTP Header"
+    "message": "自定義 Headers"
   },
   "settingsTranslateTo": {
-    "message": "翻譯成這種語言"
+    "message": "翻譯成該語言"
   },
   "settingsSave": {
     "message": "保存"
   },
   "addRequestHeader": {
-    "message": "添加 HTTP Header"
+    "message": "添加請求頭"
   },
   "howToUse": {
-    "message": "如何使用?"
+    "message": "使用方法"
   },
-  "translateShortCut": {
-    "message": "翻譯快速鍵"
+  "generalTranslation": {
+    "message": "通用翻譯"
+  },
+  "editableAreaTranslation": {
+    "message": "可編輯區域翻譯"
+  },
+  "shortCut": {
+    "message": "快捷鍵"
+  },
+  "targetLanguage": {
+    "message": "目標語言"
+  },
+  "generalTransDesc": {
+    "message": "用於翻譯網頁上選中的文本"
+  },
+  "editableTransDesc": {
+    "message": "用於翻譯輸入字段、文本區域等中的文本，例如 Facebook、YouTube、X、Reddit 評論區和 Gmail 文本輸入區。"
+  },
+  "editableTransUseTip": {
+    "message": "只需用鼠標或快捷鍵（macOS 為 Cmd + A，Windows 為 Ctrl + A）選擇文本，然後使用在這裡配置的快捷鍵立即翻譯您輸入的文本。"
+  },
+  "advancedFeatures": {
+    "message": "高級特性"
+  },
+  "contactUs": {
+    "message": "聯繫我們"
   }
 }

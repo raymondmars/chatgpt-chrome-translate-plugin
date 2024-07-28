@@ -1,30 +1,21 @@
 {
-  "menuTranslate": {
-    "message": "翻译"
-  },
-  "menuTranslateInSelection": {
-    "message": "翻译并替换选中文字"
-  },
-  "menuCopy": {
-    "message": "复制"
-  },
   "translateLoading": {
-    "message": "正在翻译..."
+    "message": "翻译中..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "请在设置页面中设置您的OpenAI API密钥。"
+    "message": "请在设置页面中设置您的 OpenAI API 密钥。"
   },
   "settingsTitle": {
     "message": "设置"
   },
   "settingsTranslator": {
-    "message": "翻译器"
+    "message": "翻译引擎"
   },
   "settingsAPIKey": {
-    "message": "API密钥"
+    "message": "API 密钥"
   },
   "settingsAPIKeyPlaceholder": {
-    "message": "请输入OpenAI API密钥"
+    "message": "请输入 OpenAI API 密钥"
   },
   "settingsUseProxy": {
     "message": "使用代理"
@@ -33,33 +24,51 @@
     "message": "代理"
   },
   "settingsProxyPlaceholder": {
-    "message": "请输入代理URL"
+    "message": "请输入代理 URL"
   },
   "settingsUseCustomHeaders": {
-    "message": "添加自定义 HTTP Header"
+    "message": "添加自定义 Headers"
   },
   "settingsCustomHeaders": {
-    "message": "自定义 HTTP Header"
+    "message": "自定义 Headers"
   },
   "settingsTranslateTo": {
-    "message": "翻译成这种语言"
+    "message": "翻译成该语言"
   },
   "settingsSave": {
     "message": "保存"
   },
   "addRequestHeader": {
-    "message": "添加 HTTP Header"
+    "message": "添加请求 Header"
   },
   "howToUse": {
-    "message": "如何使用?"
+    "message": "使用方法"
   },
-  "settingsMenuControl": {
-    "message": "菜单控制"
+  "generalTranslation": {
+    "message": "通用翻译"
   },
-  "settingsShowMenu": {
-    "message": "显示上下文菜单"
+  "editableAreaTranslation": {
+    "message": "可编辑区域翻译"
   },
-  "translateShortCut": {
-    "message": "翻译快捷键"
+  "shortCut": {
+    "message": "快捷键"
+  },
+  "targetLanguage": {
+    "message": "目标语言"
+  },
+  "generalTransDesc": {
+    "message": "用于翻译网页上选中的文本"
+  },
+  "editableTransDesc": {
+    "message": "用于翻译输入字段、文本区域等中的文本，例如 Facebook、YouTube、X、Reddit 评论区和 Gmail 文本输入区。"
+  },
+  "editableTransUseTip": {
+    "message": "只需用鼠标或快捷键（macOS 为 Cmd + A，Windows 为 Ctrl + A）选中文本，然后使用在这里配置的快捷键翻译您输入的文本。"
+  },
+  "advancedFeatures": {
+    "message": "高级功能"
+  },
+  "contactUs": {
+    "message": "联系我们"
   }
 }
