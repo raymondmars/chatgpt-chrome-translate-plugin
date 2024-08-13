@@ -2,7 +2,9 @@
   padding: 0px;
   span.close {
     display: none;
-    margin-left: 10px;
+    position: absolute;
+    right: 10px;
+    bottom: -2px;
   }
   span.end {
     display: inline-block;
@@ -12,7 +14,8 @@
   }
   &:hover {
     cursor: pointer;
-    background-color: white;
+    // background-color: white;
+    background: transparent !important;
     color: black !important;
     position: relative;
     span.close {
@@ -31,6 +34,7 @@
 
   .result {
     background: transparent !important;
+    position: relative;
   }
 
   .error {
@@ -40,5 +44,6 @@
     color: red;
     font-weight: 600;
     border: solid 1px grey;
+    position: relative;
   }
 }
