@@ -7,6 +7,8 @@ const TIME_OUT_MS = 60000;
 
 export class ChatGPTTranslator implements Translator {
 
+    private shouldBeRemovedCharacters = ['```html', '```', 'html']
+
     public async translate(text: string, targetLng: TargetLanguage, onMessage: (message: string, type?: TranslateMessageType) => void) {
         const settings = await TranslateStore.getUserSettings();
 
@@ -42,7 +44,7 @@ export class ChatGPTTranslator implements Translator {
 
         for await (const chunk of stream) {
             const words = chunk.choices[0]?.delta?.content || ''
-            if (words !== undefined) {
+            if (words !== undefined && this.shouldBeRemovedCharacters.indexOf(words.trim()) === -1) {
               responseText += words;
               onMessage(responseText, TranslateMessageType.Message);
             }
@@ -55,7 +57,7 @@ export class ChatGPTTranslator implements Translator {
     // }
 
     protected getPrompt(targetLang: TargetLanguage): string {
-        const prompt = `You are a translation expert, Please translate my text into easy to understand ${targetLang}, adding nuances to seem less like machine translation. Only translate, no other output.`;
+        const prompt = `You are a translation expert, Please translate my text into easy to understand ${targetLang}, avoid machine translation sense. Output in HTML format and keep the paragraph formatting of the original text.`;
         return prompt
     }
 }
