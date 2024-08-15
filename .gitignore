@@ -13,3 +13,4 @@
 .env
 *.log
 dist.zip
+.release.guide.md
