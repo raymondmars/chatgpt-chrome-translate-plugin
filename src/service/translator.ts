@@ -42,8 +42,13 @@ export enum TargetLanguage {
   Turkish = "Turkish",
 }
 
+export enum OutputFormat {
+  HTML = "HTML",
+  PlainText = "PlainText",
+}
+
 export interface Translator {
-  translate(text: string, targetLng: TargetLanguage, onMessage: (message: string, type?: TranslateMessageType) => void): void;
+  translate(text: string, targetLng: TargetLanguage, outputFormat: OutputFormat, onMessage: (message: string, type?: TranslateMessageType) => void): void;
 }
 
 export const createTranslator = (type: TranslatorType): Translator => {

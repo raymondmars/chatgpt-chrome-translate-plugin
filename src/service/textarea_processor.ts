@@ -1,5 +1,5 @@
 import { TranslateStore } from "./store";
-import { createTranslator, TargetLanguage, TranslateMessageType, TranslatorType } from "./translator";
+import { createTranslator, OutputFormat, TargetLanguage, TranslateMessageType, TranslatorType } from "./translator";
 
 export default class TextAreaProcessor {
   private targetText: string;
@@ -32,7 +32,7 @@ export default class TextAreaProcessor {
     this.setTextToElement(chrome.i18n.getMessage("translateLoading"));
 
     let returnText = '';
-    translator.translate(this.targetText, settings.editAareTargetTransLang || TargetLanguage.English, (result, type) => {
+    translator.translate(this.targetText, settings.editAareTargetTransLang || TargetLanguage.English, OutputFormat.PlainText, (result, type) => {
       switch(type) {
         case TranslateMessageType.Error:
           this.setTextToElement('error:' + result)
