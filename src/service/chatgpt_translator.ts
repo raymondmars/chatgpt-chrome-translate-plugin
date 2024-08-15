@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 
-import { TargetLanguage, TranslateMessageType, Translator } from "./translator";
+import { OutputFormat, TargetLanguage, TranslateMessageType, Translator } from "./translator";
 import { TranslateStore } from './store';
 
 const TIME_OUT_MS = 60000;
@@ -9,7 +9,7 @@ export class ChatGPTTranslator implements Translator {
 
     private shouldBeRemovedCharacters = ['```html', '```', 'html']
 
-    public async translate(text: string, targetLng: TargetLanguage, onMessage: (message: string, type?: TranslateMessageType) => void) {
+    public async translate(text: string, targetLng: TargetLanguage, outputFormat: OutputFormat, onMessage: (message: string, type?: TranslateMessageType) => void) {
         const settings = await TranslateStore.getUserSettings();
 
         if(settings.apiKey.trim() === '') {
@@ -29,7 +29,7 @@ export class ChatGPTTranslator implements Translator {
             model: settings.llmMode ?? "gpt-4o-mini",
             messages: [{
                 role: "system",
-                content: this.getPrompt(targetLng),
+                content: this.getPrompt(targetLng, outputFormat),
             },
             {
                 role: "user",
@@ -56,8 +56,16 @@ export class ChatGPTTranslator implements Translator {
     //     return ">[DONE]<";
     // }
 
-    protected getPrompt(targetLang: TargetLanguage): string {
-        const prompt = `You are a translation expert, Please translate my text into easy to understand ${targetLang}, avoid machine translation sense. Output in HTML format and keep the paragraph formatting of the original text.`;
-        return prompt
+    protected getPrompt(targetLang: TargetLanguage, outputFormat: OutputFormat): string {
+        const plainTextPrompt = `You are a translation expert, Please translate my text into easy to understand ${targetLang}, avoid machine translation sense. Only translate, no other output.`;
+
+        switch (outputFormat) {
+            case OutputFormat.HTML:
+                return `You are a translation expert, Please translate my text into easy to understand ${targetLang}, avoid machine translation sense. Output in HTML format and keep the paragraph formatting of the original text.`;
+            case OutputFormat.PlainText:
+                return plainTextPrompt;
+            default:
+                return plainTextPrompt;
+        }
     }
 }
