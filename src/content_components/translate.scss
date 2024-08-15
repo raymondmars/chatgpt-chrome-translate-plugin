@@ -14,16 +14,13 @@
   }
   &:hover {
     cursor: pointer;
-    // background-color: white;
     background: transparent !important;
-    color: black !important;
     position: relative;
     span.close {
       display: inline-block;
       color: rgb(97, 96, 96);
       font-size: 18px !important;
       &:hover {
-        color: black;
         cursor: pointer;
       }
     }
