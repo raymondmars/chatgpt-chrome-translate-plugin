@@ -1,5 +1,10 @@
 import { TargetLanguage, TranslatorType } from './translator';
-import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT } from './utils';
+import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT, DEFAULT_HOVER_ONOFF_SHORT_CUT } from './utils';
+
+export enum TextSelectionMethod {
+  MouseSelection = 1,
+  HoverOverText = 2,
+}
 
 export interface UserSettings {
   apiKey: string;
@@ -13,6 +18,8 @@ export interface UserSettings {
   translatorType: TranslatorType;
   translateShortCut: string;
   translateInEditableShortCut: string;
+  selectionMethod: TextSelectionMethod;
+  hoverOnOffShortCut: string;
 }
 
 export interface Store {
@@ -39,7 +46,9 @@ class UserStore implements Store {
     const settings = await getFromStorage(USER_SETTINGS_KEY);
     if (settings) {
       let cacheVal = JSON.parse(settings) as UserSettings;
-      return cacheVal
+      cacheVal.selectionMethod = cacheVal.selectionMethod || TextSelectionMethod.MouseSelection;
+      cacheVal.hoverOnOffShortCut = cacheVal.hoverOnOffShortCut || DEFAULT_HOVER_ONOFF_SHORT_CUT;
+      return cacheVal;
     }
 
     return {
@@ -52,6 +61,8 @@ class UserStore implements Store {
       llmMode: 'gpt-4o-mini',
       translateShortCut: DEFAULT_GENERAL_SHORT_CUT,
       translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
+      selectionMethod: TextSelectionMethod.MouseSelection,
+      hoverOnOffShortCut: DEFAULT_HOVER_ONOFF_SHORT_CUT,
     };
   }
 

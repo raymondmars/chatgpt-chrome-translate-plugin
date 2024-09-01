@@ -2,7 +2,7 @@
   padding: 2px;
   width: 100%;
   .title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     padding: 5px 15px;
   }
@@ -21,7 +21,7 @@
         span {
           display: table-cell;
           box-sizing: border-box;
-          padding: 10px 0px;
+          padding: 8px 0px;
           img {
             cursor: pointer;
           }
@@ -40,8 +40,9 @@
               gap: 10px; 
               label {
                 display: flex;
-                align-items: center;
+                align-items: unset;
                 margin-right: 0; 
+                text-align: right;
 
                 &:first-child {
                   flex-shrink: 0;
@@ -60,6 +61,12 @@
 
           p {
             padding: 0px 0px;
+            margin: 5px 0px;
+          }
+
+          input[type="radio"] {
+            padding: 0px 0px;
+            cursor: pointer;
           }
         }
         span:first-child {
@@ -70,15 +77,15 @@
           font-size: 14px;
           width: 100%;
           // max-width: 90% !important;
-          padding: 8px 8px;
-          border-radius: 5px;
+          padding: 5px 5px;
+          border-radius: 3px;
           border: solid 1px grey;
           box-sizing: border-box;
         }
         button {
           font-size: 14px;
-          width: 100px;
-          padding: 8px 8px;
+          width: 90px;
+          padding: 7px 7px;
           border-radius: 5px;
           border: solid 2px #0550ae;
           box-sizing: border-box;
@@ -93,7 +100,6 @@
         }
         .models {
           width: 100%;
-          // max-width: 90% !important;
           display: flex;
           justify-content: space-between;
           select {
@@ -106,6 +112,7 @@
         }
         span.tooltip {
           color: grey;
+          font-size: 13px;
         }
       }
     }

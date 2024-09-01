@@ -35,16 +35,26 @@ if your proxy needs some custom headers, You can fill in the custom headers by c
 **1. General Translation (Non-editable Text):**
 
   - Use this for translating selected text on web pages.
-  - Shortcut: Ctrl + Q
+  - Shortcut: Ctrl + Q (default)
   - Target Language: Set to your preferred language (e.g., 简体中文)
   - How to use: Select any text on a webpage, then press Ctrl + Q to translate it instantly.
+
+  **1.1 Text Selection Method:**    
+  Support two ways to select the text that you want to translate.   
+
+  (1) **Mouse Selection (default)** - Use the mouse to select text.        
+
+  (2) **Hover Over Text** - When the mouse hovers over the text, these contents will be selected automatically.      
+  **Note:** Since this is a feature that can easily cause page clutter, a shortcut key is provided to turn this feature on or off. This feature is turned off by default even when this mode is selected. You need to press this shortcut key to enable this feature. Pressing this shortcut key again after turning it on will turn it off.   
+
+  ![how to config](/images/how-to-config-1.png)   
 
 **2. Editable Area Translation:**
 
   - Use this for translating text in input fields, comment areas, etc. (e.g., on Facebook, YouTube, Twitter, Reddit, or Gmail)
-  - Shortcut: Shift + Ctrl + L
+  - Shortcut: Shift + Ctrl + L (default)
   - Target Language: Set to your desired output language (e.g., English)
-  - How to use: Select the text you've typed or paste text into an editable area, then press Shift + Ctrl + L to translate it immediately.
+  - How to use: Select the text you've typed or paste text into an editable area, then press Shift + Ctrl + L (default) to translate it immediately.
 
 
 Click this link to see the [demo video](https://www.youtube.com/watch?v=tr90eCvougE).
