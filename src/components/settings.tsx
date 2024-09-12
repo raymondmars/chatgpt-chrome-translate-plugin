@@ -1,13 +1,11 @@
 import React, { useEffect } from "react";
 
 import styles from "./settings.scss";
-import { TranslateStore, UserSettings } from "../service/store";
+import { TextSelectionMethod, TranslateStore, UserSettings } from "../service/store";
 import { TargetLanguage, TranslatorType } from "../service/translator";
 
 import CustomHeaders from "./custom_headers";
-import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT } from "../service/utils";
-
-const MakerShortCuts = ['1', '2', '3', '4', '5', '6', '0']
+import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT, DEFAULT_HOVER_ONOFF_SHORT_CUT } from "../service/utils";
 
 
 const Settings = () => {
@@ -22,12 +20,13 @@ const Settings = () => {
     llmMode: "gpt-4o-mini",
     translateShortCut: DEFAULT_GENERAL_SHORT_CUT,
     translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
+    selectionMethod: TextSelectionMethod.MouseSelection,
+    hoverOnOffShortCut: DEFAULT_HOVER_ONOFF_SHORT_CUT,
   });
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
       const settings = await TranslateStore.getUserSettings();
-      // console.log('ok...', settings)
       setUserSettings(settings);
     }
     funcGetUserSettings();
@@ -58,10 +57,6 @@ const Settings = () => {
     if (e.shiftKey) key = 'Shift + ' + key;
     if (e.metaKey) key = 'Cmd + ' + key;
   
-    if (MakerShortCuts.includes(key)) {
-      return;
-    }
-  
     setUserSettings({
       ...userSettings,
       [keyName]: key
@@ -88,6 +83,16 @@ const Settings = () => {
     }
 
     saveShortCut(e, key, 'translateInEditableShortCut');
+  }
+
+  const handleHoverOnOffShortCutChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    let key = e.key.toUpperCase();
+    if(key === userSettings.translateShortCut) {
+      return;
+    }
+
+    saveShortCut(e, key, 'hoverOnOffShortCut');
   }
 
   const handleUseCustomHeadersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,6 +167,14 @@ const Settings = () => {
     TranslateStore.setUserSettings(userSettings);
     setDisableSaveButton(true);
     window.setTimeout(() => window.close(), 300);
+  }
+
+  const handleSelectionMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserSettings({
+      ...userSettings,
+      selectionMethod: parseInt(e.target.value) as TextSelectionMethod
+    });
+    setDisableSaveButton(false);
   }
 
   const languageOptions = () => {
@@ -251,6 +264,42 @@ const Settings = () => {
               </div>
             </span>
           </li>
+          <li>
+            <span>{chrome.i18n.getMessage("textSelectionMethod")}</span>
+            <span className={styles.dualLabel}>
+              <div className={styles.labelgroup}>
+                <label>
+                  <input type="radio" 
+                    name="selectMethod" 
+                    checked={userSettings.selectionMethod === TextSelectionMethod.MouseSelection} 
+                    onChange={handleSelectionMethodChange} value={1} /> {chrome.i18n.getMessage("mouseSelection")}
+                </label>
+                <label></label>
+                <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <label>
+                  <input type="radio"
+                    name="selectMethod" 
+                    checked={userSettings.selectionMethod === TextSelectionMethod.HoverOverText} 
+                    onChange={handleSelectionMethodChange} value={2} /> {chrome.i18n.getMessage("hoverOverText")}
+                </label>
+              </div>
+            </span>
+          </li>
+          { userSettings.selectionMethod === TextSelectionMethod.HoverOverText && <li>
+            <span></span>
+            <span className={styles.dualLabel}>
+              <div className={styles.labelgroup}>
+                <label>&nbsp;&nbsp;</label>
+                <label>&nbsp;&nbsp;&nbsp;</label>
+                <label>{chrome.i18n.getMessage("hoverOnOffShortCut")}</label>
+                <label>
+                  <input className={styles.hovershortcut} type="text" 
+                    value={userSettings.hoverOnOffShortCut}
+                    onKeyDown={handleHoverOnOffShortCutChange} />
+                </label>
+              </div>
+            </span>
+          </li> }
           <li>
             <span></span>
             <span className={styles.tooltip}>

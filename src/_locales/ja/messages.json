@@ -70,5 +70,17 @@
   },
   "contactUs": {
     "message": "お問い合わせ"
+  },
+  "textSelectionMethod": {
+    "message": "テキスト選択方法"
+  },
+  "mouseSelection": {
+    "message": "マウス選択（デフォルト）"
+  },
+  "hoverOverText": {
+    "message": "テキストにカーソルを合わせる"
+  },
+  "hoverOnOffShortCut": {
+    "message": "ホバーのオン/オフショートカット"
   }
 }

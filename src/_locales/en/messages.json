@@ -70,5 +70,17 @@
   },
   "contactUs": {
     "message": "Contact Us"
+  },
+  "textSelectionMethod": {
+    "message": "Text Selection Method"
+  },
+  "mouseSelection": {
+    "message": "Mouse Selection (default)"
+  },
+  "hoverOverText": {
+    "message": "Hover Over Text"
+  },
+  "hoverOnOffShortCut": {
+    "message": "Hover On/Off Shortcut"
   }
 }

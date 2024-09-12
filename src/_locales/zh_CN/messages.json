@@ -70,5 +70,17 @@
   },
   "contactUs": {
     "message": "联系我们"
+  },
+  "textSelectionMethod": {
+    "message": "文本选择方法"
+  },
+  "mouseSelection": {
+    "message": "鼠标选择（默认）"
+  },
+  "hoverOverText": {
+    "message": "悬停文本"
+  },
+  "hoverOnOffShortCut": {
+    "message": "悬停开关快捷键"
   }
 }

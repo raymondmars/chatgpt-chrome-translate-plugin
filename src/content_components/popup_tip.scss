@@ -1,0 +1,17 @@
+.popup_tip {
+  position: fixed !important;
+  z-index: 999999999 !important;
+  font-family:  Verdana, 'arial', sans-serif !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+
+  padding: 18px 18px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+  background-color: black;
+  color: white;
+  border-radius: 20px;
+  border: solid 2px white;
+}

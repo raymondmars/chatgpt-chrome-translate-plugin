@@ -70,5 +70,17 @@
   },
   "contactUs": {
     "message": "Contáctanos"
+  },
+  "textSelectionMethod": {
+    "message": "Método de selección de texto"
+  },
+  "mouseSelection": {
+    "message": "Selección con ratón (predeterminado)"
+  },
+  "hoverOverText": {
+    "message": "Pasar el cursor sobre el texto"
+  },
+  "hoverOnOffShortCut": {
+    "message": "Atajo para activar/desactivar hover"
   }
 }

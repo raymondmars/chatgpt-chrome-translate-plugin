@@ -70,5 +70,17 @@
   },
   "contactUs": {
     "message": "聯繫我們"
+  },
+  "textSelectionMethod": {
+    "message": "文字選擇方法"
+  },
+  "mouseSelection": {
+    "message": "滑鼠選擇（預設）"
+  },
+  "hoverOverText": {
+    "message": "懸停文字"
+  },
+  "hoverOnOffShortCut": {
+    "message": "懸停開關快捷鍵"
   }
 }
