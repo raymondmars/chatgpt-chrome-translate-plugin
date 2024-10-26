@@ -40,6 +40,7 @@ export enum TargetLanguage {
   Swedish = "Swedish",
   Thai = "Thai",
   Turkish = "Turkish",
+  Vietnamese = "Vietnamese",
 }
 
 export enum OutputFormat {

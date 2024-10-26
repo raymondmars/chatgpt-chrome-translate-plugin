@@ -198,6 +198,7 @@ const Settings = () => {
         <option value="Italian">Italiano</option>
         <option value="Japanese">日本語</option>
         <option value="Korean">한국어</option>
+        <option value="Vietnamese">Tiếng Việt</option>
         <option value="Norwegian">Norsk</option>
         <option value="Polish">Polski</option>
         <option value="Portuguese">Português</option>
