@@ -40,6 +40,7 @@ export enum TargetLanguage {
   Swedish = "Swedish",
   Thai = "Thai",
   Turkish = "Turkish",
+  Ukrainian = "Ukrainian",
   Vietnamese = "Vietnamese",
 }
 
