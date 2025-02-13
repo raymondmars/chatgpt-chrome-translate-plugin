@@ -3,7 +3,13 @@
     "message": "翻译中..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "请在设置页面中设置您的 OpenAI API 密钥。"
+    "message": "请在设置页面中配置您的 OpenAI API 密钥。"
+  },
+  "deepSeekApiKeyRequired": {
+    "message": "请在设置页面中配置您的 DeepSeek API 密钥。"
+  },
+  "geminiApiKeyRequired": {
+    "message": "请在设置页面中配置您的 Gemini API 密钥。"
   },
   "settingsTitle": {
     "message": "设置"
@@ -82,5 +88,8 @@
   },
   "hoverOnOffShortCut": {
     "message": "悬停开关快捷键"
+  },
+  "dialect": {
+    "message": "方言"
   }
 }

@@ -5,6 +5,12 @@
   "chatGPTApiKeyRequired": {
     "message": "Please set your OpenAI API key in the settings page."
   },
+  "deepSeekApiKeyRequired": {
+    "message": "Please set your DeepSeek API key in the settings page."
+  },
+  "geminiApiKeyRequired": {
+    "message": "Please set your Gemini API key in the settings page."
+  },
   "settingsTitle": {
     "message": "Settings"
   },
@@ -82,5 +88,8 @@
   },
   "hoverOnOffShortCut": {
     "message": "Hover On/Off Shortcut"
+  },
+  "dialect": {
+    "message": "Dialect"
   }
 }

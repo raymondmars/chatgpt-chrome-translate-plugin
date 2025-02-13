@@ -8,6 +8,31 @@ import CustomHeaders from "./custom_headers";
 import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT, DEFAULT_HOVER_ONOFF_SHORT_CUT } from "../service/utils";
 
 
+const TranslatorDefaultModel: Record<TranslatorType, string> = {
+  [TranslatorType.ChatGPT]: "gpt-4o-mini",
+  [TranslatorType.DeepSeek]: "deepseek-chat",
+  [TranslatorType.Gemini]: "gemini-2.0-flash",
+}
+
+const ChineseDialectOptions = () => {
+  return (
+    <>
+      <option value="">普通话</option>
+      <option value="上海话">上海话</option>
+      <option value="四川话">四川话</option>
+      <option value="重庆话">重庆话</option>
+      <option value="天津话">天津话</option>
+      <option value="河南话">河南话</option>
+      <option value="陕西话">陕西话</option>
+      <option value="山西话">山西话</option>
+      <option value="湖南话">湖南话</option>
+      <option value="湖北话">湖北话</option>
+      <option value="粤语">粤语</option>
+      <option value="闽南语">闽南语</option>
+    </>
+  )
+}
+
 const Settings = () => {
   const [disableSaveButton, setDisableSaveButton] = React.useState<boolean>(true);
   const [userSettings, setUserSettings] = React.useState<UserSettings>({
@@ -22,11 +47,36 @@ const Settings = () => {
     translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
     selectionMethod: TextSelectionMethod.MouseSelection,
     hoverOnOffShortCut: DEFAULT_HOVER_ONOFF_SHORT_CUT,
+    translatorAPIKeys: {
+      [TranslatorType.ChatGPT]: "",
+      [TranslatorType.DeepSeek]: "",
+      [TranslatorType.Gemini]: ""
+    }
   });
+
+  const modelOptions = {
+    [TranslatorType.ChatGPT]: <>
+      <option value="gpt-4o-mini">gpt-4o-mini (cheapest)</option>
+      <option value="gpt-4o">gpt-4o</option>
+      <option value="gpt-4-turbo">gpt-4-turbo</option>
+      <option value="gpt-4">gpt-4</option>
+      <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
+      <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+    </>,
+    [TranslatorType.DeepSeek]: <>
+      <option value="deepseek-chat">deepseek-chat</option>
+      <option value="deepseek-reasoner">deepseek-reasoner</option>
+    </>,
+    [TranslatorType.Gemini]: <>
+      <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+      <option value="gemini-2.0-flash-thinking-exp-01-21">gemini-2.0-flash-thinking-exp-01-21</option>
+    </>
+  }
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
       const settings = await TranslateStore.getUserSettings();
+      // console.log('ok...', settings);
       setUserSettings(settings);
     }
     funcGetUserSettings();
@@ -36,7 +86,10 @@ const Settings = () => {
   const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserSettings({
       ...userSettings,
-      apiKey: e.target.value
+      translatorAPIKeys: {
+        ...userSettings.translatorAPIKeys,
+        [userSettings.translatorType]: e.target.value
+      }
     });
   }
 
@@ -56,12 +109,12 @@ const Settings = () => {
     if (e.ctrlKey) key = 'Ctrl + ' + key;
     if (e.shiftKey) key = 'Shift + ' + key;
     if (e.metaKey) key = 'Cmd + ' + key;
-  
+
     setUserSettings({
       ...userSettings,
       [keyName]: key
     });
-  
+
     setDisableSaveButton(false);
   }
 
@@ -112,17 +165,20 @@ const Settings = () => {
   }
 
   const handleTranslatorTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const translatorType = e.target.value as TranslatorType;
     setUserSettings({
       ...userSettings,
-      translatorType: e.target.value as TranslatorType
+      translatorType: translatorType,
+      llmMode: TranslatorDefaultModel[translatorType],
     });
+
     setDisableSaveButton(false);
   }
 
   const handleLLMModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUserSettings({
       ...userSettings,
-      llmMode: e.target.value 
+      llmMode: e.target.value,
     });
     setDisableSaveButton(false);
   }
@@ -143,6 +199,14 @@ const Settings = () => {
     setDisableSaveButton(false);
   }
 
+  const handleGeneralAreaDialectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setUserSettings({
+      ...userSettings,
+      generalAreaDialect: e.target.value as TargetLanguage
+    });
+    setDisableSaveButton(false);
+  }
+
   const handleEditAreaTargetTransLangChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUserSettings({
       ...userSettings,
@@ -152,7 +216,7 @@ const Settings = () => {
   }
 
   const checkApiKey = () => {
-    setDisableSaveButton(userSettings.apiKey === "");
+    setDisableSaveButton(userSettings.translatorAPIKeys[userSettings.translatorType] === "");
   }
 
   const handlehowToUseAddress = () => {
@@ -225,22 +289,21 @@ const Settings = () => {
             <span className={styles.models}>
               <select value={userSettings.translatorType} onChange={handleTranslatorTypeChange}>
                 <option value="ChatGPT">ChatGPT</option>
+                <option value="DeepSeek">DeepSeek</option>
+                {/* <option value="Gemini">Gemini</option> */}
               </select>
-              <select value={userSettings.llmMode} onChange={handleLLMModeChange}>
-                <option value="gpt-4o-mini">gpt-4o-mini (cheapest)</option>
-                <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
-                <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-                <option value="gpt-4o">gpt-4o</option>
-                <option value="gpt-4-turbo">gpt-4-turbo</option>
-                <option value="gpt-4">gpt-4</option>
-              </select>
+              {
+                <select value={userSettings.llmMode} onChange={handleLLMModeChange}>
+                  {modelOptions[userSettings.translatorType]}
+                </select>
+              }
             </span>
           </li>
           <li>
             <span>{chrome.i18n.getMessage("settingsAPIKey")}</span>
             <span>
               <input type="password"
-                value={userSettings.apiKey}
+                value={userSettings.translatorAPIKeys[userSettings.translatorType] || ''}
                 placeholder={chrome.i18n.getMessage("settingsAPIKeyPlaceholder")}
                 onChange={handleApiKeyChange}
                 onBlur={checkApiKey} />
@@ -266,22 +329,40 @@ const Settings = () => {
               </div>
             </span>
           </li>
+
+          { userSettings.translatorType === TranslatorType.DeepSeek && userSettings.targetTransLang === TargetLanguage.ChineseCN && <li>
+            <span></span>
+            <span className={styles.dualLabel}>
+              <div className={styles.labelgroup}>
+                <label>{chrome.i18n.getMessage("dialect")}&nbsp;&nbsp;</label>
+                <label>
+                  <select value={userSettings.generalAreaDialect || ''} onChange={handleGeneralAreaDialectChange}>
+                    {ChineseDialectOptions()}
+                  </select>
+                </label>
+                <label></label>
+                <label></label>
+              </div>
+            </span>
+          </li>
+          }
+
           <li>
             <span>{chrome.i18n.getMessage("textSelectionMethod")}</span>
             <span className={styles.dualLabel}>
               <div className={styles.labelgroup}>
                 <label>
-                  <input type="radio" 
-                    name="selectMethod" 
-                    checked={userSettings.selectionMethod === TextSelectionMethod.MouseSelection} 
+                  <input type="radio"
+                    name="selectMethod"
+                    checked={userSettings.selectionMethod === TextSelectionMethod.MouseSelection}
                     onChange={handleSelectionMethodChange} value={1} /> {chrome.i18n.getMessage("mouseSelection")}
                 </label>
                 <label></label>
                 <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <label>
                   <input type="radio"
-                    name="selectMethod" 
-                    checked={userSettings.selectionMethod === TextSelectionMethod.HoverOverText} 
+                    name="selectMethod"
+                    checked={userSettings.selectionMethod === TextSelectionMethod.HoverOverText}
                     onChange={handleSelectionMethodChange} value={2} /> {chrome.i18n.getMessage("hoverOverText")}
                 </label>
               </div>
@@ -295,7 +376,7 @@ const Settings = () => {
                 <label>&nbsp;&nbsp;&nbsp;</label>
                 <label>{chrome.i18n.getMessage("hoverOnOffShortCut")}</label>
                 <label>
-                  <input className={styles.hovershortcut} type="text" 
+                  <input className={styles.hovershortcut} type="text"
                     value={userSettings.hoverOnOffShortCut}
                     onKeyDown={handleHoverOnOffShortCutChange} />
                 </label>

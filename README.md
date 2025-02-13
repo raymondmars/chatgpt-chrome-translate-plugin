@@ -1,6 +1,6 @@
 ### ChatGPT Translation Bot
 
-This extension uses the OpenAI ChatGPT API to translate the selected text into your desired language. It supports 20+ languages and can be used with a proxy.
+This extension uses the (OpenAI ChatGPT, DeepSeek) API to translate the selected text into your desired language. It supports 20+ languages and can be used with a proxy.
 
 This is a completely free and open source project. You can configure your api key in the settings page of the extension. It  will be stored locally and there is no risk of leakage.
 

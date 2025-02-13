@@ -20,6 +20,8 @@ export interface UserSettings {
   translateInEditableShortCut: string;
   selectionMethod: TextSelectionMethod;
   hoverOnOffShortCut: string;
+  translatorAPIKeys: Record<TranslatorType, string>;
+  generalAreaDialect?: string;
 }
 
 export interface Store {
@@ -48,6 +50,9 @@ class UserStore implements Store {
       let cacheVal = JSON.parse(settings) as UserSettings;
       cacheVal.selectionMethod = cacheVal.selectionMethod || TextSelectionMethod.MouseSelection;
       cacheVal.hoverOnOffShortCut = cacheVal.hoverOnOffShortCut || DEFAULT_HOVER_ONOFF_SHORT_CUT;
+      cacheVal.translatorAPIKeys = cacheVal.translatorAPIKeys || {
+        [TranslatorType.ChatGPT]: cacheVal.apiKey,
+      };
       return cacheVal;
     }
 
@@ -63,6 +68,11 @@ class UserStore implements Store {
       translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
       selectionMethod: TextSelectionMethod.MouseSelection,
       hoverOnOffShortCut: DEFAULT_HOVER_ONOFF_SHORT_CUT,
+      translatorAPIKeys: {
+        [TranslatorType.ChatGPT]: '',
+        [TranslatorType.DeepSeek]: '',
+        [TranslatorType.Gemini]: '',
+      }
     };
   }
 
