@@ -22,7 +22,7 @@ export class GeminiTranslator implements Translator {
         
         const openai = new OpenAI({
             apiKey: apiKey,
-            baseURL: settings.useProxy && settings.proxyUrl?.trim() !== '' ? settings.proxyUrl : 'https://generativelanguage.googleapis.com/v1beta/',
+            baseURL: settings.useProxy && settings.proxyUrl?.trim() !== '' ? settings.proxyUrl : 'https://geminiproxy.raymondjiang.net/v1beta/openai/',
             defaultHeaders: headers,
             dangerouslyAllowBrowser: true,
             timeout: TIME_OUT_MS,
@@ -47,7 +47,9 @@ export class GeminiTranslator implements Translator {
         let responseText = "";
 
         for await (const chunk of stream) {
-            const words = chunk.choices[0]?.delta?.content || ''
+            let words = chunk.choices[0]?.delta?.content || ''
+            words = words.replace(/html\n/g, '');
+            words = words.replace(/```/g, '');
             if (words !== undefined && this.shouldBeRemovedCharacters.indexOf(words.trim()) === -1) {
               responseText += words;
               onMessage(responseText, TranslateMessageType.Message);

@@ -41,7 +41,7 @@ export default class TextAreaProcessor {
           returnText = result;
           break;
         case TranslateMessageType.End:
-          console.log('end:', returnText);
+          // console.log('end:', returnText);
           this.selectAllText();
           setTimeout(() => {
             this.deleteSelection();
