@@ -1,7 +1,11 @@
 import { ChatGPTTranslator } from "./chatgpt_translator";
+import { DeepSeekTranslator } from "./deepseek_translator";
+import { GeminiTranslator } from "./gemini_translator";
 
 export enum TranslatorType {
   ChatGPT = 'ChatGPT',
+  DeepSeek = 'DeepSeek',
+  Gemini = 'Gemini'
 }
 
 export enum TranslateMessageType {
@@ -57,6 +61,10 @@ export const createTranslator = (type: TranslatorType): Translator => {
   switch (type) {
     case TranslatorType.ChatGPT:
       return new ChatGPTTranslator();
+    case TranslatorType.DeepSeek:
+      return new DeepSeekTranslator();
+    case TranslatorType.Gemini:
+      return new GeminiTranslator();
     default:
       throw new Error('Invalid translator type');
   }
