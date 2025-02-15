@@ -12,7 +12,7 @@ export class DeepSeekTranslator implements Translator {
     public async translate(text: string, targetLng: TargetLanguage, outputFormat: OutputFormat, onMessage: (message: string, type?: TranslateMessageType) => void) {
         const settings = await TranslateStore.getUserSettings();
 
-        const apiKey = settings.translatorAPIKeys[TranslatorType.DeepSeek].trim()
+        const apiKey = settings.translatorAPIKeys[TranslatorType.DeepSeek] || '';
         if(apiKey === '') {
             onMessage(chrome.i18n.getMessage('deepSeekApiKeyRequired'), TranslateMessageType.Error);
             return;

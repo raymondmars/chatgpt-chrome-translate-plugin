@@ -1,22 +1,23 @@
-### ChatGPT Translation Bot
+### AI Translation Bot
+([English](README.md) | [简体中文](README-zh.md))
 
-This extension uses the (OpenAI ChatGPT, DeepSeek) API to translate the selected text into your desired language. It supports 20+ languages and can be used with a proxy.
+This extension uses multiple AI models (such as DeepSeek, Gemini, ChatGPT) via their respective APIs to translate the selected text into your desired language. It supports 20+ languages and can be used with a proxy.
 
-This is a completely free and open source project. You can configure your api key in the settings page of the extension. It  will be stored locally and there is no risk of leakage.
+This is a completely free and open-source project. You can configure your API key in the settings page of the extension. It will be stored locally, ensuring no risk of leakage.
 
 ## Features
-- Automatically detect the language of the selected text and auto translate it into your desired language.
-- Support shortcut key to translate the selected text.
-- Support translate any editable area text, such as the text in the input box, text area, etc. such as Facebook, Youtube, X, and Reddit comment area, and Gmail text input area.
-- Support proxy and custom headers for the people who use a proxy to access ChatGPT.
-- Support 20+ languages.
+- Automatically detects the language of the selected text and translates it into your preferred language.
+- Supports shortcut keys to translate selected text.
+- Supports translation of any editable area text, such as text in input boxes, text areas, and comment sections on platforms like Facebook, YouTube, X, Reddit, and Gmail.
+- Allows use of proxy and custom headers for users who access AI models through a proxy.
+- Supports 20+ languages.
 
 ## Installation
-Go to [ChatGPT Translation Bot](https://chromewebstore.google.com/detail/chatgpt-translation-bot/fglemdfemikhijpgojdobdgplbcfomdf) and install extension for your browser.
+Go to [AI Translation Bot](https://chromewebstore.google.com/detail/chatgpt-translation-bot/fglemdfemikhijpgojdobdgplbcfomdf) and install extension for your browser.
 
 ## How to setting
 - Open the Translation Bot settings.
-- Choose your preferred translator and model.
+- Choose your preferred translator and AI model.
 - Enter your API Key.
 - Set your desired shortcuts and target languages for each translation type.
 - Click 'Save' to apply your settings. 
@@ -27,7 +28,7 @@ Go to [ChatGPT Translation Bot](https://chromewebstore.google.com/detail/chatgpt
 But if you change the target language, you don't need to refresh the page, the new language will take effect immediately.
 
 #### Advanced Features:
-- If you use a proxy to access ChatGPT, you can check the `Use proxy` option and fill in a proxy address.
+- If you use a proxy to access an AI model, check the `Use proxy` option and fill in a proxy address.
 if your proxy needs some custom headers, You can fill in the custom headers by checking the `Add custom headers` option.
 
 
@@ -60,14 +61,14 @@ if your proxy needs some custom headers, You can fill in the custom headers by c
 Click this link to see the [demo video](https://www.youtube.com/watch?v=tr90eCvougE).
 
 ## About use proxy in this extension  
-If you use a VPN tool to access ChatGPT or it's API, you need to turn on the VPN while using this extension. 
-If you use a proxy to access ChatGPT, you can fill in the proxy address in the settings page of this extension. (see below screenshot)
+If you use a VPN tool to access an AI model or its API, ensure the VPN is active when using this extension.
+If you use a proxy to access an AI model, you can fill in the proxy address in the settings page of the extension. (see below screenshot)
 ![config the proxy](/images/free-proxy.png)   
 
 ## Common issues   
 - **Can't translate the selected text and always show 'Translating...'**   
 
-  **Solution:** Please check your network connection and make sure the ChatGPT([chat.openai.com](https://chat.openai.com)) is accessible. If you need a VPN to access the ChatGPT, to confirm the VPN is turned on. If all of these didn't work, please to confirm you have pre-billed your OpenAI API account. Since a couple of months ago, OpenAI has changed its policy, you need to pre-bill your account to use the ChatGPT API.  
+  **Solution:** Please check your network connection and ensure the AI model’s website (e.g., ChatGPT or others) is accessible. If you require a VPN to access the AI models, confirm that the VPN is turned on. If these steps don't resolve the issue, confirm that you’ve pre-billed your API account, as some models now require pre-billing to use their API.  
 
 
 ## How to contribute

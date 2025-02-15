@@ -1,18 +1,25 @@
 import React, { useEffect } from "react";
 
 import styles from "./settings.scss";
-import { TextSelectionMethod, TranslateStore, UserSettings } from "../service/store";
+import {
+  TextSelectionMethod,
+  TranslateStore,
+  UserSettings,
+} from "../service/store";
 import { TargetLanguage, TranslatorType } from "../service/translator";
 
 import CustomHeaders from "./custom_headers";
-import { DEFAULT_EDITABLE_SHORT_CUT, DEFAULT_GENERAL_SHORT_CUT, DEFAULT_HOVER_ONOFF_SHORT_CUT } from "../service/utils";
-
+import {
+  DEFAULT_EDITABLE_SHORT_CUT,
+  DEFAULT_GENERAL_SHORT_CUT,
+  DEFAULT_HOVER_ONOFF_SHORT_CUT,
+} from "../service/utils";
 
 const TranslatorDefaultModel: Record<TranslatorType, string> = {
   [TranslatorType.ChatGPT]: "gpt-4o-mini",
   [TranslatorType.DeepSeek]: "deepseek-chat",
-  [TranslatorType.Gemini]: "gemini-2.0-flash",
-}
+  [TranslatorType.Gemini]: "gemini-1.5-flash",
+};
 
 const ChineseDialectOptions = () => {
   return (
@@ -22,6 +29,7 @@ const ChineseDialectOptions = () => {
       <option value="四川话">四川话</option>
       <option value="重庆话">重庆话</option>
       <option value="天津话">天津话</option>
+      <option value="东北话">东北话</option>
       <option value="河南话">河南话</option>
       <option value="陕西话">陕西话</option>
       <option value="山西话">山西话</option>
@@ -30,11 +38,12 @@ const ChineseDialectOptions = () => {
       <option value="粤语">粤语</option>
       <option value="闽南语">闽南语</option>
     </>
-  )
-}
+  );
+};
 
 const Settings = () => {
-  const [disableSaveButton, setDisableSaveButton] = React.useState<boolean>(true);
+  const [disableSaveButton, setDisableSaveButton] =
+    React.useState<boolean>(true);
   const [userSettings, setUserSettings] = React.useState<UserSettings>({
     apiKey: "",
     useProxy: false,
@@ -50,121 +59,143 @@ const Settings = () => {
     translatorAPIKeys: {
       [TranslatorType.ChatGPT]: "",
       [TranslatorType.DeepSeek]: "",
-      [TranslatorType.Gemini]: ""
-    }
+      [TranslatorType.Gemini]: "",
+    },
   });
 
   const modelOptions = {
-    [TranslatorType.ChatGPT]: <>
-      <option value="gpt-4o-mini">gpt-4o-mini (cheapest)</option>
-      <option value="gpt-4o">gpt-4o</option>
-      <option value="gpt-4-turbo">gpt-4-turbo</option>
-      <option value="gpt-4">gpt-4</option>
-      <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
-      <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-    </>,
-    [TranslatorType.DeepSeek]: <>
-      <option value="deepseek-chat">deepseek-chat</option>
-      <option value="deepseek-reasoner">deepseek-reasoner</option>
-    </>,
-    [TranslatorType.Gemini]: <>
-      <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-      <option value="gemini-2.0-flash-thinking-exp-01-21">gemini-2.0-flash-thinking-exp-01-21</option>
-    </>
-  }
+    [TranslatorType.ChatGPT]: (
+      <>
+        <option value="gpt-4o-mini">gpt-4o-mini (cheapest)</option>
+        <option value="gpt-4o">gpt-4o</option>
+        <option value="gpt-4-turbo">gpt-4-turbo</option>
+        <option value="gpt-4">gpt-4</option>
+        <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
+        <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+      </>
+    ),
+    [TranslatorType.DeepSeek]: (
+      <>
+        <option value="deepseek-chat">deepseek-chat</option>
+        <option value="deepseek-reasoner">deepseek-reasoner</option>
+      </>
+    ),
+    [TranslatorType.Gemini]: (
+      <>
+        <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
+        <option value="gemini-2.0-flash-thinking-exp-01-21">
+          gemini-2.0-flash-thinking-exp-01-21
+        </option>
+      </>
+    ),
+  };
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
       const settings = await TranslateStore.getUserSettings();
       // console.log('ok...', settings);
       setUserSettings(settings);
-    }
+    };
     funcGetUserSettings();
-
-  },[]);
+  }, []);
 
   const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserSettings({
       ...userSettings,
       translatorAPIKeys: {
         ...userSettings.translatorAPIKeys,
-        [userSettings.translatorType]: e.target.value
-      }
+        [userSettings.translatorType]: e.target.value,
+      },
     });
-  }
+  };
 
   const handleUseProxyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserSettings({
       ...userSettings,
-      useProxy: e.target.checked
+      useProxy: e.target.checked,
     });
     setDisableSaveButton(false);
-  }
+  };
 
-  const saveShortCut = (e: React.KeyboardEvent<HTMLInputElement>, key: string, keyName: string) => {
+  const saveShortCut = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    key: string,
+    keyName: string
+  ) => {
     if (!/^[A-Z,0-9]$/.test(key)) {
       return;
     }
 
-    if (e.ctrlKey) key = 'Ctrl + ' + key;
-    if (e.shiftKey) key = 'Shift + ' + key;
-    if (e.metaKey) key = 'Cmd + ' + key;
+    if (e.ctrlKey) key = "Ctrl + " + key;
+    if (e.shiftKey) key = "Shift + " + key;
+    if (e.metaKey) key = "Cmd + " + key;
 
     setUserSettings({
       ...userSettings,
-      [keyName]: key
+      [keyName]: key,
     });
 
     setDisableSaveButton(false);
-  }
+  };
 
-  const handleTranslateShortCutChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleTranslateShortCutChange = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     e.preventDefault();
     let key = e.key.toUpperCase();
-    if(key === userSettings.translateInEditableShortCut) {
+    if (key === userSettings.translateInEditableShortCut) {
       return;
     }
 
-    saveShortCut(e, key, 'translateShortCut');
-  }
+    saveShortCut(e, key, "translateShortCut");
+  };
 
-  const handleTranslateInEditableShortCutChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleTranslateInEditableShortCutChange = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     e.preventDefault();
     let key = e.key.toUpperCase();
-    if(key === userSettings.translateShortCut) {
+    if (key === userSettings.translateShortCut) {
       return;
     }
 
-    saveShortCut(e, key, 'translateInEditableShortCut');
-  }
+    saveShortCut(e, key, "translateInEditableShortCut");
+  };
 
-  const handleHoverOnOffShortCutChange = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleHoverOnOffShortCutChange = (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     e.preventDefault();
     let key = e.key.toUpperCase();
-    if(key === userSettings.translateShortCut) {
+    if (key === userSettings.translateShortCut) {
       return;
     }
 
-    saveShortCut(e, key, 'hoverOnOffShortCut');
-  }
+    saveShortCut(e, key, "hoverOnOffShortCut");
+  };
 
-  const handleUseCustomHeadersChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUseCustomHeadersChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setUserSettings({
       ...userSettings,
-      useCustomHeaders: e.target.checked
+      useCustomHeaders: e.target.checked,
     });
     setDisableSaveButton(false);
-  }
+  };
 
   const handleProxyUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserSettings({
       ...userSettings,
-      proxyUrl: e.target.value
+      proxyUrl: e.target.value,
     });
     setDisableSaveButton(false);
-  }
+  };
 
-  const handleTranslatorTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTranslatorTypeChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const translatorType = e.target.value as TranslatorType;
     setUserSettings({
       ...userSettings,
@@ -173,7 +204,7 @@ const Settings = () => {
     });
 
     setDisableSaveButton(false);
-  }
+  };
 
   const handleLLMModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setUserSettings({
@@ -181,65 +212,77 @@ const Settings = () => {
       llmMode: e.target.value,
     });
     setDisableSaveButton(false);
-  }
+  };
 
-  const handleCustomHeadersChange = (headers: Record<string,string>) => {
+  const handleCustomHeadersChange = (headers: Record<string, string>) => {
     setUserSettings({
       ...userSettings,
-      customHeaders: headers
+      customHeaders: headers,
     });
     setDisableSaveButton(false);
-  }
+  };
 
-  const handleTargetTransLangChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleTargetTransLangChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setUserSettings({
       ...userSettings,
-      targetTransLang: e.target.value as TargetLanguage
+      targetTransLang: e.target.value as TargetLanguage,
     });
     setDisableSaveButton(false);
-  }
+  };
 
-  const handleGeneralAreaDialectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleGeneralAreaDialectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setUserSettings({
       ...userSettings,
-      generalAreaDialect: e.target.value as TargetLanguage
+      generalAreaDialect: e.target.value as TargetLanguage,
     });
     setDisableSaveButton(false);
-  }
+  };
 
-  const handleEditAreaTargetTransLangChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleEditAreaTargetTransLangChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setUserSettings({
       ...userSettings,
-      editAareTargetTransLang: e.target.value as TargetLanguage
+      editAareTargetTransLang: e.target.value as TargetLanguage,
     });
     setDisableSaveButton(false);
-  }
+  };
 
   const checkApiKey = () => {
-    setDisableSaveButton(userSettings.translatorAPIKeys[userSettings.translatorType] === "");
-  }
+    setDisableSaveButton(
+      userSettings.translatorAPIKeys[userSettings.translatorType] === ""
+    );
+  };
 
   const handlehowToUseAddress = () => {
-    chrome.tabs.create({ url: "https://github.com/raymondmars/chatgpt-chrome-translate-plugin"});
-  }
+    chrome.tabs.create({
+      url: "https://github.com/raymondmars/chatgpt-chrome-translate-plugin",
+    });
+  };
 
   const handleContactUs = () => {
-    chrome.tabs.create({ url: "mailto:i@raymondjiang.net"});
-  }
+    chrome.tabs.create({ url: "mailto:i@raymondjiang.net" });
+  };
 
   const handleSave = () => {
     TranslateStore.setUserSettings(userSettings);
     setDisableSaveButton(true);
     window.setTimeout(() => window.close(), 300);
-  }
+  };
 
-  const handleSelectionMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectionMethodChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setUserSettings({
       ...userSettings,
-      selectionMethod: parseInt(e.target.value) as TextSelectionMethod
+      selectionMethod: parseInt(e.target.value) as TextSelectionMethod,
     });
     setDisableSaveButton(false);
-  }
+  };
 
   const languageOptions = () => {
     return (
@@ -276,24 +319,32 @@ const Settings = () => {
         <option value="Turkish">Türkçe</option>
         <option value="Ukrainian">Українська</option>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <div className={styles.settings}>
-      <div className={styles.title}>Translation Bot - {chrome.i18n.getMessage("settingsTitle")}</div>
+      <div className={styles.title}>
+        Translation Bot - {chrome.i18n.getMessage("settingsTitle")}
+      </div>
       <div className={styles.content}>
         <ul>
           <li>
             <span>{chrome.i18n.getMessage("settingsTranslator")}</span>
             <span className={styles.models}>
-              <select value={userSettings.translatorType} onChange={handleTranslatorTypeChange}>
+              <select
+                value={userSettings.translatorType}
+                onChange={handleTranslatorTypeChange}
+              >
                 <option value="ChatGPT">ChatGPT</option>
                 <option value="DeepSeek">DeepSeek</option>
-                {/* <option value="Gemini">Gemini</option> */}
+                <option value="Gemini">Gemini</option>
               </select>
               {
-                <select value={userSettings.llmMode} onChange={handleLLMModeChange}>
+                <select
+                  value={userSettings.llmMode}
+                  onChange={handleLLMModeChange}
+                >
                   {modelOptions[userSettings.translatorType]}
                 </select>
               }
@@ -302,11 +353,18 @@ const Settings = () => {
           <li>
             <span>{chrome.i18n.getMessage("settingsAPIKey")}</span>
             <span>
-              <input type="password"
-                value={userSettings.translatorAPIKeys[userSettings.translatorType] || ''}
-                placeholder={chrome.i18n.getMessage("settingsAPIKeyPlaceholder")}
+              <input
+                type="password"
+                value={
+                  userSettings.translatorAPIKeys[userSettings.translatorType] ||
+                  ""
+                }
+                placeholder={chrome.i18n.getMessage(
+                  "settingsAPIKeyPlaceholder"
+                )}
                 onChange={handleApiKeyChange}
-                onBlur={checkApiKey} />
+                onBlur={checkApiKey}
+              />
             </span>
           </li>
           <li className={styles.divider}></li>
@@ -316,13 +374,18 @@ const Settings = () => {
               <div className={styles.labelgroup}>
                 <label>{chrome.i18n.getMessage("shortCut")}</label>
                 <label>
-                  <input type="text"
+                  <input
+                    type="text"
                     value={userSettings.translateShortCut}
-                    onKeyDown={handleTranslateShortCutChange} />
+                    onKeyDown={handleTranslateShortCutChange}
+                  />
                 </label>
                 <label>{chrome.i18n.getMessage("targetLanguage")}</label>
                 <label>
-                  <select value={userSettings.targetTransLang} onChange={handleTargetTransLangChange}>
+                  <select
+                    value={userSettings.targetTransLang}
+                    onChange={handleTargetTransLangChange}
+                  >
                     {languageOptions()}
                   </select>
                 </label>
@@ -330,59 +393,87 @@ const Settings = () => {
             </span>
           </li>
 
-          { userSettings.translatorType === TranslatorType.DeepSeek && userSettings.targetTransLang === TargetLanguage.ChineseCN && <li>
-            <span></span>
-            <span className={styles.dualLabel}>
-              <div className={styles.labelgroup}>
-                <label>{chrome.i18n.getMessage("dialect")}&nbsp;&nbsp;</label>
-                <label>
-                  <select value={userSettings.generalAreaDialect || ''} onChange={handleGeneralAreaDialectChange}>
-                    {ChineseDialectOptions()}
-                  </select>
-                </label>
-                <label></label>
-                <label></label>
-              </div>
-            </span>
-          </li>
-          }
+          {(userSettings.translatorType === TranslatorType.DeepSeek ||
+            userSettings.translatorType === TranslatorType.Gemini) &&
+            userSettings.targetTransLang === TargetLanguage.ChineseCN && (
+              <li>
+                <span></span>
+                <span className={styles.dualLabel}>
+                  <div className={styles.labelgroup}>
+                    <label>
+                      {chrome.i18n.getMessage("dialect")}&nbsp;&nbsp;
+                    </label>
+                    <label>
+                      <select
+                        value={userSettings.generalAreaDialect || ""}
+                        onChange={handleGeneralAreaDialectChange}
+                      >
+                        {ChineseDialectOptions()}
+                      </select>
+                    </label>
+                    <label></label>
+                    <label></label>
+                  </div>
+                </span>
+              </li>
+            )}
 
           <li>
             <span>{chrome.i18n.getMessage("textSelectionMethod")}</span>
             <span className={styles.dualLabel}>
               <div className={styles.labelgroup}>
                 <label>
-                  <input type="radio"
+                  <input
+                    type="radio"
                     name="selectMethod"
-                    checked={userSettings.selectionMethod === TextSelectionMethod.MouseSelection}
-                    onChange={handleSelectionMethodChange} value={1} /> {chrome.i18n.getMessage("mouseSelection")}
+                    checked={
+                      userSettings.selectionMethod ===
+                      TextSelectionMethod.MouseSelection
+                    }
+                    onChange={handleSelectionMethodChange}
+                    value={1}
+                  />{" "}
+                  {chrome.i18n.getMessage("mouseSelection")}
                 </label>
                 <label></label>
                 <label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <label>
-                  <input type="radio"
+                  <input
+                    type="radio"
                     name="selectMethod"
-                    checked={userSettings.selectionMethod === TextSelectionMethod.HoverOverText}
-                    onChange={handleSelectionMethodChange} value={2} /> {chrome.i18n.getMessage("hoverOverText")}
+                    checked={
+                      userSettings.selectionMethod ===
+                      TextSelectionMethod.HoverOverText
+                    }
+                    onChange={handleSelectionMethodChange}
+                    value={2}
+                  />{" "}
+                  {chrome.i18n.getMessage("hoverOverText")}
                 </label>
               </div>
             </span>
           </li>
-          { userSettings.selectionMethod === TextSelectionMethod.HoverOverText && <li>
-            <span></span>
-            <span className={styles.dualLabel}>
-              <div className={styles.labelgroup}>
-                <label>&nbsp;&nbsp;</label>
-                <label>&nbsp;&nbsp;&nbsp;</label>
-                <label>{chrome.i18n.getMessage("hoverOnOffShortCut")}</label>
-                <label>
-                  <input className={styles.hovershortcut} type="text"
-                    value={userSettings.hoverOnOffShortCut}
-                    onKeyDown={handleHoverOnOffShortCutChange} />
-                </label>
-              </div>
-            </span>
-          </li> }
+          {userSettings.selectionMethod ===
+            TextSelectionMethod.HoverOverText && (
+            <li>
+              <span></span>
+              <span className={styles.dualLabel}>
+                <div className={styles.labelgroup}>
+                  <label>&nbsp;&nbsp;</label>
+                  <label>&nbsp;&nbsp;&nbsp;</label>
+                  <label>{chrome.i18n.getMessage("hoverOnOffShortCut")}</label>
+                  <label>
+                    <input
+                      className={styles.hovershortcut}
+                      type="text"
+                      value={userSettings.hoverOnOffShortCut}
+                      onKeyDown={handleHoverOnOffShortCutChange}
+                    />
+                  </label>
+                </div>
+              </span>
+            </li>
+          )}
           <li>
             <span></span>
             <span className={styles.tooltip}>
@@ -396,13 +487,18 @@ const Settings = () => {
               <div className={styles.labelgroup}>
                 <label>{chrome.i18n.getMessage("shortCut")}</label>
                 <label>
-                  <input type="text"
+                  <input
+                    type="text"
                     value={userSettings.translateInEditableShortCut}
-                    onKeyDown={handleTranslateInEditableShortCutChange} />
+                    onKeyDown={handleTranslateInEditableShortCutChange}
+                  />
                 </label>
                 <label>{chrome.i18n.getMessage("targetLanguage")}</label>
                 <label>
-                  <select value={userSettings.editAareTargetTransLang} onChange={handleEditAreaTargetTransLangChange}>
+                  <select
+                    value={userSettings.editAareTargetTransLang}
+                    onChange={handleEditAreaTargetTransLangChange}
+                  >
                     {languageOptions()}
                   </select>
                 </label>
@@ -412,12 +508,8 @@ const Settings = () => {
           <li>
             <span></span>
             <span className={styles.tooltip}>
-              <p>
-              {chrome.i18n.getMessage("editableTransDesc")}
-              </p>
-              <p>
-              {chrome.i18n.getMessage("editableTransUseTip")}
-              </p>
+              <p>{chrome.i18n.getMessage("editableTransDesc")}</p>
+              <p>{chrome.i18n.getMessage("editableTransUseTip")}</p>
             </span>
           </li>
           <li className={styles.divider}></li>
@@ -425,53 +517,72 @@ const Settings = () => {
             <span>{chrome.i18n.getMessage("advancedFeatures")}</span>
             <span>
               <label>
-                <input type="checkbox"
+                <input
+                  type="checkbox"
                   checked={userSettings.useProxy}
-                  onChange={handleUseProxyChange} />{chrome.i18n.getMessage("settingsUseProxy")}
+                  onChange={handleUseProxyChange}
+                />
+                {chrome.i18n.getMessage("settingsUseProxy")}
               </label>
               <label>
-                <input type="checkbox"
+                <input
+                  type="checkbox"
                   checked={userSettings.useCustomHeaders}
-                  onChange={handleUseCustomHeadersChange} />{chrome.i18n.getMessage("settingsUseCustomHeaders")}
+                  onChange={handleUseCustomHeadersChange}
+                />
+                {chrome.i18n.getMessage("settingsUseCustomHeaders")}
               </label>
             </span>
           </li>
-          {
-            userSettings.useProxy && <li>
+          {userSettings.useProxy && (
+            <li>
               <span>{chrome.i18n.getMessage("settingsProxy")}</span>
               <span>
-                <input type="text"
+                <input
+                  type="text"
                   value={userSettings.proxyUrl}
                   onChange={handleProxyUrlChange}
-                  placeholder={chrome.i18n.getMessage("settingsProxyPlaceholder")} />
+                  placeholder={chrome.i18n.getMessage(
+                    "settingsProxyPlaceholder"
+                  )}
+                />
               </span>
             </li>
-          }
-          {
-            userSettings.useCustomHeaders && <li>
+          )}
+          {userSettings.useCustomHeaders && (
+            <li>
               <span>{chrome.i18n.getMessage("settingsCustomHeaders")}</span>
               <span>
-                <CustomHeaders headers={userSettings.customHeaders || {}} onChange={handleCustomHeadersChange}/>
+                <CustomHeaders
+                  headers={userSettings.customHeaders || {}}
+                  onChange={handleCustomHeadersChange}
+                />
               </span>
             </li>
-          }
+          )}
           <li className={styles.divider}></li>
           <li>
             <span></span>
             <span>
-              <button disabled={disableSaveButton} onClick={handleSave}>{chrome.i18n.getMessage("settingsSave")}</button>
+              <button disabled={disableSaveButton} onClick={handleSave}>
+                {chrome.i18n.getMessage("settingsSave")}
+              </button>
             </span>
           </li>
         </ul>
         <div className={styles.howToUse}>
-          <a href="#" onClick={handlehowToUseAddress}>{chrome.i18n.getMessage("howToUse")}</a>
+          <a href="#" onClick={handlehowToUseAddress}>
+            {chrome.i18n.getMessage("howToUse")}
+          </a>
         </div>
         <div className={styles.contactUs}>
-          <a href="#" onClick={handleContactUs}>{chrome.i18n.getMessage("contactUs")}</a>
+          <a href="#" onClick={handleContactUs}>
+            {chrome.i18n.getMessage("contactUs")}
+          </a>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Settings;
