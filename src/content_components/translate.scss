@@ -18,7 +18,7 @@
     position: relative;
     span.close {
       display: inline-block;
-      color: rgb(97, 96, 96);
+      color: rgb(40, 40, 40);
       font-size: 18px !important;
       &:hover {
         cursor: pointer;
@@ -32,6 +32,10 @@
   .result {
     background: transparent !important;
     position: relative;
+    .loading {
+      color: rgb(13, 13, 14) !important;
+      font-weight: 700;
+    }
   }
 
   .error {

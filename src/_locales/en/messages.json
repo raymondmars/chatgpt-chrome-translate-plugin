@@ -20,8 +20,17 @@
   "settingsAPIKey": {
     "message": "API Key"
   },
-  "settingsAPIKeyPlaceholder": {
+  "settingsOpenAIAPIKeyPlaceholder": {
     "message": "Please input OpenAI API Key"
+  },
+  "settingsGeminiAPIKeyPlaceholder": {
+    "message": "Please input Gemini API Key"
+  },
+  "settingsDeepSeekAPIKeyPlaceholder": {
+    "message": "Please input DeepSeek API Key"
+  },
+  "getAPIKeyDesc": {
+    "message": "Get an API key"
   },
   "settingsUseProxy": {
     "message": "Use Proxy"
