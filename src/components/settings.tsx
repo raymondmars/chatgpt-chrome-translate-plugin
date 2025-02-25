@@ -85,7 +85,7 @@ const Settings = () => {
     ),
     [TranslatorType.Gemini]: (
       <>
-        <option value="gemini-1.5-flash">gemini-1.5-flash</option>
+        {/* <option value="gemini-1.5-flash">gemini-1.5-flash</option> */}
         <option value="gemini-2.0-flash">gemini-2.0-flash</option>
         <option value="gemini-2.0-flash-thinking-exp-01-21">
           gemini-2.0-flash-thinking-exp-01-21
@@ -93,6 +93,21 @@ const Settings = () => {
       </>
     ),
   };
+
+  const uiConfig = {
+    [TranslatorType.ChatGPT]: {
+      apiAddress: "https://platform.openai.com/api-keys",
+      apiKeyPlaceholder: chrome.i18n.getMessage("settingsOpenAIAPIKeyPlaceholder"),
+    },
+    [TranslatorType.DeepSeek]: {
+      apiAddress: "https://platform.deepseek.com/api_keys",
+      apiKeyPlaceholder: chrome.i18n.getMessage("settingsDeepSeekAPIKeyPlaceholder"),
+    },
+    [TranslatorType.Gemini]: {
+      apiAddress: "https://aistudio.google.com/apikey",
+      apiKeyPlaceholder: chrome.i18n.getMessage("settingsGeminiAPIKeyPlaceholder"),
+    },
+  }
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
@@ -261,10 +276,8 @@ const Settings = () => {
     );
   };
 
-  const handlehowToUseAddress = () => {
-    chrome.tabs.create({
-      url: "https://github.com/raymondmars/chatgpt-chrome-translate-plugin",
-    });
+  const openLink = (url: string) => {
+    chrome.tabs.create({ url: url });
   };
 
   const handleContactUs = () => {
@@ -362,12 +375,13 @@ const Settings = () => {
                   userSettings.translatorAPIKeys[userSettings.translatorType] ||
                   ""
                 }
-                placeholder={chrome.i18n.getMessage(
-                  "settingsAPIKeyPlaceholder"
-                )}
+                placeholder={uiConfig[userSettings.translatorType].apiKeyPlaceholder}
                 onChange={handleApiKeyChange}
                 onBlur={checkApiKey}
               />
+              {
+                (userSettings.translatorAPIKeys[userSettings.translatorType] || "") === "" && <div className={styles.apikeyLink}>{chrome.i18n.getMessage("getAPIKeyDesc")}: <a href="#" onClick={() => { openLink(uiConfig[userSettings.translatorType].apiAddress) }}>{uiConfig[userSettings.translatorType].apiAddress}</a></div>
+              }
             </span>
           </li>
           <li className={styles.divider}></li>
@@ -574,7 +588,7 @@ const Settings = () => {
           </li>
         </ul>
         <div className={styles.howToUse}>
-          <a href="#" onClick={handlehowToUseAddress}>
+          <a href="#" onClick={() => { openLink("https://github.com/raymondmars/chatgpt-chrome-translate-plugin") } }>
             {chrome.i18n.getMessage("howToUse")}
           </a>
         </div>

@@ -11,6 +11,18 @@
   "geminiApiKeyRequired": {
     "message": "请在设置页面中配置您的 Gemini API 密钥。"
   },
+  "getAPIKeyDesc": {
+    "message": "获得一个 API 密钥"
+  },
+  "settingsOpenAIAPIKeyPlaceholder": {
+    "message": "请输入 OpenAI API 密钥"
+  },
+  "settingsGeminiAPIKeyPlaceholder": {
+    "message": "请输入 Gemini API 密钥"
+  },
+  "settingsDeepSeekAPIKeyPlaceholder": {
+    "message": "请输入 DeepSeek API 密钥"
+  },
   "settingsTitle": {
     "message": "设置"
   },
@@ -19,9 +31,6 @@
   },
   "settingsAPIKey": {
     "message": "API 密钥"
-  },
-  "settingsAPIKeyPlaceholder": {
-    "message": "请输入 OpenAI API 密钥"
   },
   "settingsUseProxy": {
     "message": "使用代理"
