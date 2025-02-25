@@ -80,6 +80,15 @@
   "hoverOverText": {
     "message": "Passar o Mouse Sobre o Texto"
   },
+  "translationDisplayMode": {
+    "message": "Modo de exibição da tradução"
+  },
+  "replaceOriginalText": {
+    "message": "Substituir texto original"
+  },
+  "appendAtBottom": {
+    "message": "Adicionar ao final"
+  },
   "hoverOnOffShortCut": {
     "message": "Atalho para Ativar/Desativar Hover"
   }
