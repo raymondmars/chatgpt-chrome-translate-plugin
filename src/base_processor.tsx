@@ -57,19 +57,29 @@ export default abstract class BaseProcessor {
   }
 
   protected processTranslate() {
-    if(this.selectedText === '' || !this.selectedElement) {
+    if (this.selectedText === '' || !this.selectedElement) {
       return;
     }
-
-    if(this.selectedElement.getElementsByClassName(this.translateContainerClassName).length > 0) {
-      this.selectedElement.getElementsByClassName(this.translateContainerClassName)[0].remove();
+  
+    const existing = this.selectedElement.getElementsByClassName(this.translateContainerClassName);
+    if (existing.length > 0) {
+      existing[0].remove();
     }
-
+  
     const div = document.createElement("div");
     div.className = this.translateContainerClassName;
     createRoot(div).render(<Translate inputText={this.selectedText} />);
-    this.selectedElement.appendChild(div);
+  
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      range.collapse(false);
+      range.insertNode(div);
+    } else {
+      this.selectedElement.appendChild(div);
+    }
   }
+  
 
   protected initPoptipRoot() {
     if(!document.getElementById(this.poptipContainerId)) {
