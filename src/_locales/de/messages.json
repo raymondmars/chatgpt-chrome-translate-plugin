@@ -80,6 +80,15 @@
   "hoverOverText": {
     "message": "Text überfahren"
   },
+  "translationDisplayMode": {
+    "message": "Übersetzungsanzeigemodus"
+  },
+  "replaceOriginalText": {
+    "message": "Originaltext ersetzen"
+  },
+  "appendAtBottom": {
+    "message": "Am Ende hinzufügen"
+  },
   "hoverOnOffShortCut": {
     "message": "Hover Ein/Aus-Tastenkürzel"
   }

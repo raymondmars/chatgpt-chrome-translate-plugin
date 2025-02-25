@@ -89,6 +89,15 @@
   "hoverOnOffShortCut": {
     "message": "Hover On/Off Shortcut"
   },
+  "translationDisplayMode": {
+    "message": "Translation Display Mode"
+  },
+  "replaceOriginalText": {
+    "message": "Replace Original Text"
+  },
+  "appendAtBottom": {
+    "message": "Append at Bottom"
+  },
   "dialect": {
     "message": "Dialect"
   }
