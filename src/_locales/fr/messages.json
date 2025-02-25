@@ -80,6 +80,15 @@
   "hoverOverText": {
     "message": "Survoler le texte"
   },
+  "translationDisplayMode": {
+    "message": "Mode d'affichage de la traduction"
+  },
+  "replaceOriginalText": {
+    "message": "Remplacer le texte original"
+  },
+  "appendAtBottom": {
+    "message": "Ajouter en bas"
+  },
   "hoverOnOffShortCut": {
     "message": "Raccourci activation/désactivation du survol"
   }

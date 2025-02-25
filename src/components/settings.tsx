@@ -59,6 +59,7 @@ const Settings = () => {
     translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
     selectionMethod: TextSelectionMethod.MouseSelection,
     hoverOnOffShortCut: DEFAULT_HOVER_ONOFF_SHORT_CUT,
+    translationDisplayMode: "replace",
     translatorAPIKeys: {
       [TranslatorType.ChatGPT]: "",
       [TranslatorType.DeepSeek]: "",
@@ -287,6 +288,15 @@ const Settings = () => {
     setDisableSaveButton(false);
   };
 
+  const handleTranslationDisplayModeChange = (mode: "replace" | "append") => {
+    setUserSettings({
+      ...userSettings,
+      translationDisplayMode: mode,
+    });
+    setDisableSaveButton(false);
+  };
+  
+
   const languageOptions = () => {
     return (
       <>
@@ -481,6 +491,30 @@ const Settings = () => {
             <span></span>
             <span className={styles.tooltip}>
               {chrome.i18n.getMessage("generalTransDesc")}
+            </span>
+          </li>
+          <li className={styles.divider}></li>
+          <li>
+            <span>{chrome.i18n.getMessage("translationDisplayMode")}</span>
+            <span className={styles.dualLabel}>
+              <div className={styles.labelgroup}>
+                <label>
+                  <input 
+                    type="radio" 
+                    name="translationDisplayMode" 
+                    checked={userSettings.translationDisplayMode === "replace"}
+                    onChange={() => handleTranslationDisplayModeChange("replace")}
+                  /> {chrome.i18n.getMessage("replaceOriginalText")}
+                </label>
+                <label>
+                  <input 
+                    type="radio" 
+                    name="translationDisplayMode" 
+                    checked={userSettings.translationDisplayMode === "append"}
+                    onChange={() => handleTranslationDisplayModeChange("append")}
+                  /> {chrome.i18n.getMessage("appendAtBottom")}
+                </label>
+              </div>
             </span>
           </li>
           <li className={styles.divider}></li>

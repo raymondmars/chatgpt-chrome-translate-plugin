@@ -22,6 +22,7 @@ export interface UserSettings {
   hoverOnOffShortCut: string;
   translatorAPIKeys: Record<TranslatorType, string>;
   generalAreaDialect?: string;
+  translationDisplayMode: "replace" | "append";
 }
 
 export interface Store {
@@ -72,7 +73,8 @@ class UserStore implements Store {
         [TranslatorType.ChatGPT]: '',
         [TranslatorType.DeepSeek]: '',
         [TranslatorType.Gemini]: '',
-      }
+      },
+      translationDisplayMode: "replace",
     };
   }
 

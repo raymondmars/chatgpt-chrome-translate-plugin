@@ -69,14 +69,27 @@ export default abstract class BaseProcessor {
     const div = document.createElement("div");
     div.className = this.translateContainerClassName;
     createRoot(div).render(<Translate inputText={this.selectedText} />);
-  
+    
+    const displayMode = this.settings.translationDisplayMode || "replace";
     const selection = window.getSelection();
-    if (selection && selection.rangeCount > 0) {
-      const range = selection.getRangeAt(0);
-      range.collapse(false);
-      range.insertNode(div);
+  
+    if (displayMode === "replace") {
+      if (selection && selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        range.deleteContents();
+        range.insertNode(div);
+      } else {
+        this.selectedElement.innerHTML = "";
+        this.selectedElement.appendChild(div);
+      }
     } else {
-      this.selectedElement.appendChild(div);
+      if (selection && selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        range.collapse(false);
+        range.insertNode(div);
+      } else {
+        this.selectedElement.appendChild(div);
+      }
     }
   }
   
