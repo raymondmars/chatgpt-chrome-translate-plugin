@@ -32,8 +32,11 @@ export default class MouseSelectProcessor extends BaseProcessor {
     const selection = document.getSelection();
     const target = event.target as HTMLElement;
 
-    if (selection && selection?.toString().trim().length > 0 && !selection.isCollapsed) {
-      this.selectedText = selection?.toString().trim();
+    if (selection && !selection.isCollapsed) {
+      const range = selection.getRangeAt(0);
+      const container = document.createElement("div");
+      container.appendChild(range.cloneContents());
+      this.selectedText = container.innerHTML.trim();
       this.selectedElement = target;
     } else {
       this.selectedText = '';
