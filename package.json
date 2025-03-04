@@ -11,6 +11,7 @@
     "@types/chrome": "^0.0.122",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
+    "@types/turndown": "^5.0.5",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
@@ -27,6 +28,8 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "react-intl": "^6.5.5"
+    "@mozilla/readability": "^0.6.0",
+    "react-intl": "^6.5.5",
+    "turndown": "^7.2.0"
   }
 }

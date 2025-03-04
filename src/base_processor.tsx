@@ -5,6 +5,8 @@ import { Root, createRoot } from 'react-dom/client';
 import { UserSettings } from "./service/store";
 import Translate from './content_components/translate';
 import { DEFAULT_GENERAL_SHORT_CUT } from './service/utils';
+import { Readability } from '@mozilla/readability';
+import TurndownService from 'turndown';
 
 export default abstract class BaseProcessor {
   protected translateContainerClassName = "__translator_translate_container__";
@@ -28,6 +30,32 @@ export default abstract class BaseProcessor {
 
     if (this.selectedText !== '' && translateShortCut === key) {
       event.preventDefault();
+
+      // let documentClone = document.cloneNode(true);
+      // const article = new Readability(documentClone as Document, {keepClasses: true}).parse();
+      // console.log(article?.content);
+      // if (article && article.content) {
+      //   const turndownService = new TurndownService();
+      //   const markdown = turndownService.turndown(article.content);
+        
+      //   // 创建 Blob 对象
+      //   const blob = new Blob([markdown], { type: 'text/markdown' });
+        
+      //   // 创建 URL
+      //   const url = URL.createObjectURL(blob);
+        
+      //   // 创建一个临时链接并触发下载
+      //   const a = document.createElement('a');
+      //   a.href = url;
+      //   a.download = `${article.title}.md`;
+      //   document.body.appendChild(a);
+      //   a.click();
+      //   document.body.removeChild(a);
+        
+      //   // 释放 URL 对象
+      //   URL.revokeObjectURL(url);
+      // }
+      
       this.processTranslate();
     }
   }
