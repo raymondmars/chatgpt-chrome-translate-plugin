@@ -3,14 +3,14 @@ import { DeepSeekTranslator } from "./deepseek_translator";
 import { GeminiTranslator } from "./gemini_translator";
 
 export enum TranslatorType {
-  ChatGPT = 'ChatGPT',
-  DeepSeek = 'DeepSeek',
-  Gemini = 'Gemini'
+  ChatGPT = "ChatGPT",
+  DeepSeek = "DeepSeek",
+  Gemini = "Gemini",
 }
 
 export enum TranslateMessageType {
   Message = 1,
-  End  = 2,
+  End = 2,
   Error = 0,
 }
 
@@ -46,6 +46,7 @@ export enum TargetLanguage {
   Turkish = "Turkish",
   Ukrainian = "Ukrainian",
   Vietnamese = "Vietnamese",
+  Persian = "Persian",
 }
 
 export enum OutputFormat {
@@ -71,6 +72,6 @@ export const createTranslator = (type: TranslatorType): Translator => {
     case TranslatorType.Gemini:
       return new GeminiTranslator();
     default:
-      throw new Error('Invalid translator type');
+      throw new Error("Invalid translator type");
   }
 };
