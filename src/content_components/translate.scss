@@ -45,3 +45,15 @@
     position: relative;
   }
 }
+
+.rtl {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: embed;
+}
+
+.rtlText {
+  direction: rtl;
+  text-align: right;
+  font-family: Tahoma, Arial, sans-serif; /* Ensures Persian text is readable */
+}
