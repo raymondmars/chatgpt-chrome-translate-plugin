@@ -3,7 +3,7 @@
   .title {
     font-size: 16px;
     font-weight: bold;
-    padding: 2px 15px;
+    padding: 1px 10px;
   }
   .apikeyLink {
     padding: 6px 0px 5px 0px;
@@ -17,7 +17,7 @@
     }
   }
   .content {
-    padding: 5px 15px;
+    padding: 0px 10px;
     position: relative;
     ul {
       width: 100%;
@@ -80,7 +80,7 @@
           }
         }
         span:first-child {
-          width: 180px;
+          width: 178px;
           font-size: 14px;
         }
         input[type="text"], input[type="password"], input[type="email"], select {
@@ -95,14 +95,14 @@
         button {
           font-size: 14px;
           width: 80px;
-          padding: 3px 3px;
+          padding: 4px 4px;
           border-radius: 5px;
           border: solid 2px #0550ae;
           box-sizing: border-box;
           background-color: #0550ae;
           color: white;
           cursor: pointer;
-          margin-top: 10px;
+          margin-top: 5px;
         }
         button:disabled {
           border: solid 2px grey;

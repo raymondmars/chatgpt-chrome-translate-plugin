@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "AI Translation Bot",
   "description": "Use AI tools(ChatGPT, DeepSeek and Gemini) to translate any selected text on the website into your set language.",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "permissions": [
     "storage"
   ],

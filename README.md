@@ -1,5 +1,5 @@
 ### AI Translation Bot
-([English](README.md) | [简体中文](README_zh.md))
+([English](README.md) | [简体中文](README_zh.md) | [日本語](README_ja.md))
 
 This extension uses multiple AI models (such as DeepSeek, Gemini, ChatGPT) via their respective APIs to translate the selected text into your desired language. It supports 20+ languages and can be used with a proxy.
 
