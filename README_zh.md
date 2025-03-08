@@ -23,7 +23,7 @@
 - 设置每种翻译类型的快捷键和目标语言。
 - 点击 "保存" 以应用您的设置。
 
-![how to config](/images/how-to-config.png)
+![how to config](/images/how-to-config-zh.png)
 
 **注意：** 每次更改快捷键后，您需要刷新页面才能使新的快捷键生效。但如果更改目标语言，则无需刷新页面，新的语言会立即生效。
 
@@ -47,7 +47,7 @@
 (2) **鼠标悬停选中文本** - 当鼠标悬停在文本上时，内容会自动选中。  
 **注意：** 由于此功能可能会导致页面杂乱，因此提供了一个快捷键来开启或关闭此功能。即使选择了该模式，默认情况下该功能是关闭的。您需要按下快捷键来启用此功能。启用后再次按下快捷键将会关闭此功能。
 
-![how to config](/images/how-to-config-1.png)
+![how to config](/images/how-to-config-1-zh.png)
 
 **2. 可编辑区域翻译：**
 
@@ -61,7 +61,7 @@
 ## 关于在此扩展中使用代理
 如果您使用 VPN 工具访问 AI 模型或其 API，请确保在使用此扩展时启用 VPN。
 如果您通过代理访问 AI 模型，可以在扩展的设置页面填写代理地址。（见下方截图）
-![config the proxy](/images/free-proxy.png)
+![config the proxy](/images/free-proxy-zh.png)
 
 ## 常见问题
 - **无法翻译选中的文本，且总是显示 “正在翻译...”**

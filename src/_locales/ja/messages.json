@@ -93,10 +93,10 @@
     "message": "マウス選択（デフォルト）"
   },
   "hoverOverText": {
-    "message": "テキストにカーソルを乗せる"
+    "message": "テキストの上にカーソルを置きます"
   },
   "hoverOnOffShortCut": {
-    "message": "カーソルオン/オフのショートカット"
+    "message": "ホバー選択をオンまたはオフにする"
   },
   "dialect": {
     "message": "方言"
