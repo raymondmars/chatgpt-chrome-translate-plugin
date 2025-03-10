@@ -95,6 +95,15 @@
   "hoverOverText": {
     "message": "テキストの上にカーソルを置きます"
   },
+  "translationDisplayMode": {
+    "message": "翻訳表示モード"
+  },
+  "replaceOriginalText": {
+    "message": "元のテキストを置き換える"
+  },
+  "appendAtBottom": {
+    "message": "下部に追加する"
+  },
   "hoverOnOffShortCut": {
     "message": "ホバー選択をオンまたはオフにする"
   },
