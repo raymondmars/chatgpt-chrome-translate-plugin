@@ -97,17 +97,23 @@ const Settings = () => {
   const uiConfig = {
     [TranslatorType.ChatGPT]: {
       apiAddress: "https://platform.openai.com/api-keys",
-      apiKeyPlaceholder: chrome.i18n.getMessage("settingsOpenAIAPIKeyPlaceholder"),
+      apiKeyPlaceholder: chrome.i18n.getMessage(
+        "settingsOpenAIAPIKeyPlaceholder"
+      ),
     },
     [TranslatorType.DeepSeek]: {
       apiAddress: "https://platform.deepseek.com/api_keys",
-      apiKeyPlaceholder: chrome.i18n.getMessage("settingsDeepSeekAPIKeyPlaceholder"),
+      apiKeyPlaceholder: chrome.i18n.getMessage(
+        "settingsDeepSeekAPIKeyPlaceholder"
+      ),
     },
     [TranslatorType.Gemini]: {
       apiAddress: "https://aistudio.google.com/apikey",
-      apiKeyPlaceholder: chrome.i18n.getMessage("settingsGeminiAPIKeyPlaceholder"),
+      apiKeyPlaceholder: chrome.i18n.getMessage(
+        "settingsGeminiAPIKeyPlaceholder"
+      ),
     },
-  }
+  };
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
@@ -334,6 +340,7 @@ const Settings = () => {
         <option value="Thai">ไทย</option>
         <option value="Turkish">Türkçe</option>
         <option value="Ukrainian">Українська</option>
+        <option value="Persian">فارسی</option>
       </>
     );
   };
@@ -375,13 +382,28 @@ const Settings = () => {
                   userSettings.translatorAPIKeys[userSettings.translatorType] ||
                   ""
                 }
-                placeholder={uiConfig[userSettings.translatorType].apiKeyPlaceholder}
+                placeholder={
+                  uiConfig[userSettings.translatorType].apiKeyPlaceholder
+                }
                 onChange={handleApiKeyChange}
                 onBlur={checkApiKey}
               />
-              {
-                (userSettings.translatorAPIKeys[userSettings.translatorType] || "") === "" && <div className={styles.apikeyLink}>{chrome.i18n.getMessage("getAPIKeyDesc")}: <a href="#" onClick={() => { openLink(uiConfig[userSettings.translatorType].apiAddress) }}>{uiConfig[userSettings.translatorType].apiAddress}</a></div>
-              }
+              {(userSettings.translatorAPIKeys[userSettings.translatorType] ||
+                "") === "" && (
+                <div className={styles.apikeyLink}>
+                  {chrome.i18n.getMessage("getAPIKeyDesc")}:{" "}
+                  <a
+                    href="#"
+                    onClick={() => {
+                      openLink(
+                        uiConfig[userSettings.translatorType].apiAddress
+                      );
+                    }}
+                  >
+                    {uiConfig[userSettings.translatorType].apiAddress}
+                  </a>
+                </div>
+              )}
             </span>
           </li>
           <li className={styles.divider}></li>
@@ -588,7 +610,14 @@ const Settings = () => {
           </li>
         </ul>
         <div className={styles.howToUse}>
-          <a href="#" onClick={() => { openLink("https://github.com/raymondmars/chatgpt-chrome-translate-plugin") } }>
+          <a
+            href="#"
+            onClick={() => {
+              openLink(
+                "https://github.com/raymondmars/chatgpt-chrome-translate-plugin"
+              );
+            }}
+          >
             {chrome.i18n.getMessage("howToUse")}
           </a>
         </div>
