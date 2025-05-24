@@ -3,14 +3,13 @@
   span.close {
     display: none;
     position: absolute;
-    right: 10px;
-    bottom: -2px;
+    right: 18px;
+    bottom: -5px;
   }
   span.end {
     display: inline-block;
     margin-left: 10px;
     font-size: 18px;
-    color: grey !important;
   }
   &:hover {
     cursor: pointer;
@@ -18,7 +17,6 @@
     position: relative;
     span.close {
       display: inline-block;
-      color: rgb(40, 40, 40);
       font-size: 18px !important;
       &:hover {
         cursor: pointer;
@@ -33,7 +31,6 @@
     background: transparent !important;
     position: relative;
     .loading {
-      color: rgb(13, 13, 14) !important;
       font-weight: 700;
     }
   }
