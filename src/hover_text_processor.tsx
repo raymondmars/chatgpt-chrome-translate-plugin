@@ -96,7 +96,7 @@ export default class HoverTextProcessor extends BaseProcessor {
   }
 
   private getElementText(element: Element): string {
-    return element.textContent?.trim() || '';
+    return element.innerHTML.trim();
   }
 
   private showPoptip(text: string) {
