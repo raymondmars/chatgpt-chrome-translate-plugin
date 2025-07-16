@@ -1,9 +1,12 @@
 .settings {
   width: 100%;
+  label {
+    font-size: 13px !important;
+  }
   .title {
     font-size: 16px;
     font-weight: bold;
-    padding: 1px 10px;
+    padding: 10px 10px;
   }
   .apikeyLink {
     padding: 6px 0px 5px 0px;
@@ -31,7 +34,7 @@
         span {
           display: table-cell;
           box-sizing: border-box;
-          padding: 5px 0px;
+          padding: 10px 0px;
           img {
             cursor: pointer;
           }
@@ -123,7 +126,7 @@
         }
         span.tooltip {
           color: grey;
-          font-size: 13px;
+          font-size: 14px;
         }
       }
     }

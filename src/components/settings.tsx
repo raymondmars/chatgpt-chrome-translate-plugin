@@ -14,6 +14,7 @@ import {
   DEFAULT_GENERAL_SHORT_CUT,
   DEFAULT_HOVER_ONOFF_SHORT_CUT,
 } from "../service/utils";
+import { LanguageOptions } from './language_options';
 
 const TranslatorDefaultModel: Record<TranslatorType, string> = {
   [TranslatorType.ChatGPT]: "gpt-4o-mini",
@@ -292,7 +293,7 @@ const Settings = () => {
   const handleSave = () => {
     TranslateStore.setUserSettings(userSettings);
     setDisableSaveButton(true);
-    window.setTimeout(() => window.close(), 300);
+    // window.setTimeout(() => window.close(), 300);
   };
 
   const handleSelectionMethodChange = (
@@ -303,44 +304,6 @@ const Settings = () => {
       selectionMethod: parseInt(e.target.value) as TextSelectionMethod,
     });
     setDisableSaveButton(false);
-  };
-
-  const languageOptions = () => {
-    return (
-      <>
-        <option value="Arabic">العربية</option>
-        <option value="Bulgarian">Български</option>
-        <option value="Chinese">简体中文</option>
-        <option value="Traditional Chinese">繁體中文</option>
-        <option value="Croatian">Hrvatski</option>
-        <option value="Czech">Čeština</option>
-        <option value="Danish">Dansk</option>
-        <option value="Dutch">Nederlands</option>
-        <option value="English">English</option>
-        <option value="Finnish">Suomi</option>
-        <option value="French">Français</option>
-        <option value="German">Deutsch</option>
-        <option value="Greek">Ελληνικά</option>
-        <option value="Hungarian">Magyar</option>
-        <option value="Indonesian">Indonesia</option>
-        <option value="Italian">Italiano</option>
-        <option value="Japanese">日本語</option>
-        <option value="Korean">한국어</option>
-        <option value="Vietnamese">Tiếng Việt</option>
-        <option value="Norwegian">Norsk</option>
-        <option value="Polish">Polski</option>
-        <option value="Portuguese">Português</option>
-        <option value="Romanian">Română</option>
-        <option value="Russian">Русский</option>
-        <option value="Slovak">Slovenčina</option>
-        <option value="Slovenian">Slovenščina</option>
-        <option value="Spanish">Español</option>
-        <option value="Swedish">Svenska</option>
-        <option value="Thai">ไทย</option>
-        <option value="Turkish">Türkçe</option>
-        <option value="Ukrainian">Українська</option>
-      </>
-    );
   };
 
   return (
@@ -408,7 +371,7 @@ const Settings = () => {
                     value={userSettings.targetTransLang}
                     onChange={handleTargetTransLangChange}
                   >
-                    {languageOptions()}
+                    <LanguageOptions />
                   </select>
                 </label>
               </div>
@@ -521,7 +484,7 @@ const Settings = () => {
                     value={userSettings.editAareTargetTransLang}
                     onChange={handleEditAreaTargetTransLangChange}
                   >
-                    {languageOptions()}
+                    <LanguageOptions />
                   </select>
                 </label>
               </div>

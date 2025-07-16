@@ -11,6 +11,7 @@ module.exports = {
     popup: path.join(__dirname, 'src', 'popup.tsx'),
     background: path.join(__dirname, 'src', 'background.ts'),
     contentScript: path.join(__dirname, 'src', 'content_script.tsx'),
+    options: path.join(__dirname, 'src', 'options.tsx'), // 新增 options 入口
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -49,6 +50,12 @@ module.exports = {
       template: path.join(__dirname, 'src', 'popup.html'),
       filename: 'popup.html',
       chunks: ['popup'],
+    }),
+    new HtmlWebpackPlugin({
+      templateContent: `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><title>插件设置与翻译</title></head><body></body></html>`,
+      filename: 'options.html',
+      chunks: ['options'],
+      inject: 'body',
     }),
     new CopyPlugin({
       patterns: [
