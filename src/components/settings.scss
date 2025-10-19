@@ -78,6 +78,18 @@
             padding: 0px 0px;
             cursor: pointer;
           }
+          .diagnosticMessage {
+            margin-top: 6px;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+          }
+          .diagnosticSuccess {
+            color: #1a7f37;
+          }
+          .diagnosticError {
+            color: #b42318;
+          }
         }
         span:first-child {
           width: 178px;
@@ -109,16 +121,63 @@
           background-color: grey;
           cursor: not-allowed;
         }
+        .connectionButton {
+          width: 140px;
+          background-color: #f6f6f6;
+          border: solid 1px #bfbfbf;
+          color: #2f2f2f;
+        }
+        .connectionButton:disabled {
+          background-color: #e4e4e4;
+          border: solid 1px #c8c8c8;
+          color: #7a7a7a;
+        }
+        .actionRow {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-top: 8px;
+        }
+        .actionSpacer {
+          flex: 1;
+        }
+        .updateModelsLink {
+          font-size: 14px;
+          color: #0550ae;
+          cursor: pointer;
+          text-decoration: underline;
+        }
+        .updateModelsLink:hover {
+          color: #0b69d0;
+        }
+        .updateModelsLinkDisabled {
+          color: #7a7a7a;
+          cursor: not-allowed;
+          text-decoration: none;
+        }
+        .updateMessage {
+          margin-top: 6px;
+          font-size: 13px;
+          color: #555;
+          line-height: 1.4;
+        }
+        .updateSuccess {
+          color: #1a7f37;
+        }
+        .updateError {
+          color: #b42318;
+        }
         .models {
           width: 100%;
           display: flex;
-          justify-content: space-between;
-          select {
-            width: 100%;
-          }
-          select:first-child {
-            width: 70%;
-            margin-right: 10px;
+          flex-direction: column;
+          gap: 8px;
+          .modelSelectors {
+            display: flex;
+            gap: 10px;
+            select {
+              flex: 1;
+            }
           }
         }
         span.tooltip {

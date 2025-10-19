@@ -2,6 +2,8 @@ import OpenAI from 'openai';
 
 import { OutputFormat, TargetLanguage, TranslateMessageType, Translator, TranslatorType } from "./translator";
 import { TranslateStore } from './store';
+import { extractAPIErrorMessage } from './error_utils';
+import { TranslationCache } from './translation_cache';
 
 const TIME_OUT_MS = 60000;
 
@@ -18,6 +20,16 @@ export class ChatGPTTranslator implements Translator {
             return;
         }
 
+        const textHash = await TranslationCache.generateHash(text);
+        const cached = await TranslationCache.get(textHash, targetLng, outputFormat, TranslatorType.ChatGPT);
+        if(cached) {
+            onMessage(cached, TranslateMessageType.Message);
+            onMessage('', TranslateMessageType.End);
+            return;
+        }
+
+        const modelName = settings.llmMode ?? "gpt-4o-mini";
+
         const openai = new OpenAI({
             apiKey: apiKey,
             baseURL: settings.useProxy ? (settings.proxyUrl || '') : undefined,
@@ -26,31 +38,40 @@ export class ChatGPTTranslator implements Translator {
             timeout: TIME_OUT_MS,
         });
 
-        const stream = await openai.chat.completions.create({
-            model: settings.llmMode ?? "gpt-4o-mini",
-            messages: [{
-                role: "system",
-                content: this.getPrompt(targetLng, outputFormat),
-            },
-            {
-                role: "user",
-                content: text,
-            }
-            ],
-            stream: true,
-            temperature: 0.9,
-        });
+        try {
+            const stream = await openai.chat.completions.create({
+                model: modelName,
+                messages: [{
+                    role: "system",
+                    content: this.getPrompt(targetLng, outputFormat),
+                },
+                {
+                    role: "user",
+                    content: text,
+                }
+                ],
+                stream: true,
+                temperature: 0.9,
+            });
 
-        let responseText = "";
+            let responseText = "";
 
-        for await (const chunk of stream) {
-            const words = chunk.choices[0]?.delta?.content || ''
-            if (words !== undefined && this.shouldBeRemovedCharacters.indexOf(words.trim()) === -1) {
-              responseText += words;
-              onMessage(responseText, TranslateMessageType.Message);
+            for await (const chunk of stream) {
+                const words = chunk.choices[0]?.delta?.content || ''
+                if (words !== undefined && this.shouldBeRemovedCharacters.indexOf(words.trim()) === -1) {
+                  responseText += words;
+                  onMessage(responseText, TranslateMessageType.Message);
+                }
             }
+            if(responseText.trim() !== '') {
+                await TranslationCache.set(textHash, targetLng, outputFormat, TranslatorType.ChatGPT, responseText);
+            }
+            onMessage('', TranslateMessageType.End);
+        } catch (error) {
+            const message = extractAPIErrorMessage(error);
+            const formatted = `${TranslatorType.ChatGPT} (${modelName}) - ${message}`;
+            onMessage(formatted, TranslateMessageType.Error);
         }
-        onMessage('', TranslateMessageType.End);
     }
 
     // public getEndIdentity(): string {

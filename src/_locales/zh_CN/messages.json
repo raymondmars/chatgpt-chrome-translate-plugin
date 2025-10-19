@@ -3,25 +3,25 @@
     "message": "翻译中..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "请在设置页面中配置您的 OpenAI API 密钥。"
+    "message": "请在设置页填写 OpenAI API 密钥。"
   },
   "deepSeekApiKeyRequired": {
-    "message": "请在设置页面中配置您的 DeepSeek API 密钥。"
+    "message": "请在设置页填写 DeepSeek API 密钥。"
   },
   "geminiApiKeyRequired": {
-    "message": "请在设置页面中配置您的 Gemini API 密钥。"
+    "message": "请在设置页填写 Gemini API 密钥。"
   },
   "getAPIKeyDesc": {
-    "message": "获得一个 API 密钥"
+    "message": "获取 API 密钥"
   },
   "settingsOpenAIAPIKeyPlaceholder": {
-    "message": "请输入 OpenAI API 密钥"
+    "message": "请输入 OpenAI 密钥"
   },
   "settingsGeminiAPIKeyPlaceholder": {
-    "message": "请输入 Gemini API 密钥"
+    "message": "请输入 Gemini 密钥"
   },
   "settingsDeepSeekAPIKeyPlaceholder": {
-    "message": "请输入 DeepSeek API 密钥"
+    "message": "请输入 DeepSeek 密钥"
   },
   "settingsTitle": {
     "message": "设置"
@@ -31,6 +31,33 @@
   },
   "settingsAPIKey": {
     "message": "API 密钥"
+  },
+  "diagnoseConnection": {
+    "message": "检测连接"
+  },
+  "diagnosticChecking": {
+    "message": "正在检测连接..."
+  },
+  "diagnosticSuccess": {
+    "message": "连接正常。"
+  },
+  "diagnosticFailed": {
+    "message": "连接失败。"
+  },
+  "diagnosticMissingApiKey": {
+    "message": "请先填写 API 密钥再检测。"
+  },
+  "updateModels": {
+    "message": "更新模型"
+  },
+  "updateModelsLoading": {
+    "message": "正在更新模型..."
+  },
+  "updateModelsSuccess": {
+    "message": "模型已更新。"
+  },
+  "updateModelsFailed": {
+    "message": "模型更新失败。"
   },
   "settingsUseProxy": {
     "message": "使用代理"
@@ -42,13 +69,13 @@
     "message": "请输入代理 URL"
   },
   "settingsUseCustomHeaders": {
-    "message": "添加自定义 Headers"
+    "message": "启用自定义 Header"
   },
   "settingsCustomHeaders": {
-    "message": "自定义 Headers"
+    "message": "自定义 Header"
   },
   "settingsTranslateTo": {
-    "message": "翻译成该语言"
+    "message": "翻译为"
   },
   "settingsSave": {
     "message": "保存"
@@ -72,13 +99,13 @@
     "message": "目标语言"
   },
   "generalTransDesc": {
-    "message": "用于翻译网页上选中的文本"
+    "message": "用于翻译网页选中文本"
   },
   "editableTransDesc": {
-    "message": "可以翻译各大平台的输入字段和文本区域内容，例如 Facebook、YouTube、X、Reddit 的评论区，以及 Gmail 的文本输入框。"
+    "message": "可翻译输入框、评论区等内容，如 Facebook、YouTube、X、Reddit、Gmail。"
   },
   "editableTransUseTip": {
-    "message": "只需用鼠标或使用快捷键（macOS 为 Cmd + A，Windows 为 Ctrl + A）选中需要翻译的文本，然后使用在此处配置的快捷键，即可完成翻译。"
+    "message": "先选中文本（Cmd/Ctrl + A），再按这里的快捷键即可翻译。"
   },
   "advancedFeatures": {
     "message": "高级功能"
@@ -87,16 +114,16 @@
     "message": "联系我们"
   },
   "textSelectionMethod": {
-    "message": "文本选择方法"
+    "message": "取词方式"
   },
   "mouseSelection": {
-    "message": "鼠标选择（默认）"
+    "message": "鼠标取词（默认）"
   },
   "hoverOverText": {
-    "message": "悬停文本"
+    "message": "悬停取词"
   },
   "hoverOnOffShortCut": {
-    "message": "悬停开关快捷键"
+    "message": "悬停开关"
   },
   "dialect": {
     "message": "方言"

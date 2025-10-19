@@ -3,7 +3,7 @@
     "message": "翻譯中..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "請在設置頁面中設置您的 OpenAI API 密鑰。"
+    "message": "請在設定頁填寫 OpenAI API 金鑰。"
   },
   "settingsTitle": {
     "message": "設置"
@@ -14,8 +14,35 @@
   "settingsAPIKey": {
     "message": "API 密鑰"
   },
+  "diagnoseConnection": {
+    "message": "測試連線"
+  },
+  "diagnosticChecking": {
+    "message": "正在測試連線..."
+  },
+  "diagnosticSuccess": {
+    "message": "連線正常。"
+  },
+  "diagnosticFailed": {
+    "message": "連線失敗。"
+  },
+  "diagnosticMissingApiKey": {
+    "message": "請先輸入 API 金鑰再測試。"
+  },
+  "updateModels": {
+    "message": "更新模型"
+  },
+  "updateModelsLoading": {
+    "message": "正在更新模型..."
+  },
+  "updateModelsSuccess": {
+    "message": "模型已更新。"
+  },
+  "updateModelsFailed": {
+    "message": "模型更新失敗。"
+  },
   "settingsAPIKeyPlaceholder": {
-    "message": "請輸入 OpenAI API 密鑰"
+    "message": "請輸入 OpenAI 金鑰"
   },
   "settingsUseProxy": {
     "message": "使用代理"
@@ -27,13 +54,13 @@
     "message": "請輸入代理 URL"
   },
   "settingsUseCustomHeaders": {
-    "message": "添加自定義 Headers"
+    "message": "啟用自訂 Header"
   },
   "settingsCustomHeaders": {
-    "message": "自定義 Headers"
+    "message": "自訂 Header"
   },
   "settingsTranslateTo": {
-    "message": "翻譯成該語言"
+    "message": "翻譯為"
   },
   "settingsSave": {
     "message": "保存"
@@ -57,13 +84,13 @@
     "message": "目標語言"
   },
   "generalTransDesc": {
-    "message": "用於翻譯網頁上選中的文本"
+    "message": "用於翻譯網頁選中文本"
   },
   "editableTransDesc": {
-    "message": "用於翻譯輸入字段、文本區域等中的文本，例如 Facebook、YouTube、X、Reddit 評論區和 Gmail 文本輸入區。"
+    "message": "可翻譯輸入框、留言區內容，如 Facebook、YouTube、X、Reddit、Gmail。"
   },
   "editableTransUseTip": {
-    "message": "只需用鼠標或快捷鍵（macOS 為 Cmd + A，Windows 為 Ctrl + A）選擇文本，然後使用在這裡配置的快捷鍵立即翻譯您輸入的文本。"
+    "message": "先選取文字（Cmd/Ctrl + A），再按這裡設定的快捷鍵即可翻譯。"
   },
   "advancedFeatures": {
     "message": "高級特性"
@@ -72,15 +99,15 @@
     "message": "聯繫我們"
   },
   "textSelectionMethod": {
-    "message": "文字選擇方法"
+    "message": "取詞方式"
   },
   "mouseSelection": {
-    "message": "滑鼠選擇（預設）"
+    "message": "滑鼠取詞（預設）"
   },
   "hoverOverText": {
-    "message": "懸停文字"
+    "message": "懸停取詞"
   },
   "hoverOnOffShortCut": {
-    "message": "懸停開關快捷鍵"
+    "message": "懸停開關"
   }
 }

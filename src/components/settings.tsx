@@ -7,6 +7,8 @@ import {
   UserSettings,
 } from "../service/store";
 import { TargetLanguage, TranslatorType } from "../service/translator";
+import { testTranslatorConnection } from "../service/diagnostic";
+import { ModelService, ModelList } from "../service/model_service";
 
 import CustomHeaders from "./custom_headers";
 import {
@@ -65,39 +67,25 @@ const Settings = () => {
       [TranslatorType.Gemini]: "",
     },
   });
-
-  const modelOptions = {
-    [TranslatorType.ChatGPT]: (
-      <>
-        <option value="gpt-4o-mini">gpt-4o-mini (cheapest)</option>
-        <option value="gpt-4o">gpt-4o</option>
-        <option value="gpt-4-turbo">gpt-4-turbo</option>
-        <option value="gpt-4">gpt-4</option>
-        <option value="gpt-3.5-turbo-0125">gpt-3.5-turbo-0125</option>
-        <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
-      </>
-    ),
-    [TranslatorType.DeepSeek]: (
-      <>
-        <option value="deepseek-chat">deepseek-chat</option>
-        <option value="deepseek-reasoner">deepseek-reasoner</option>
-      </>
-    ),
-    [TranslatorType.Gemini]: (
-      <>
-        <option value="gemini-2.5-flash-preview-05-20">gemini-2.5-flash-preview-05-20</option>
-        <option value="gemini-2.5-pro-preview-05-06">gemini-2.5-pro-preview-05-06</option>
-        <option value="gemini-2.0-flash">gemini-2.0-flash</option>
-        <option value="gemini-2.0-flash-lite">gemini-2.0-flash-lite</option>
-        <option value="gemini-2.0-flash-thinking-exp-01-21">
-          gemini-2.0-flash-thinking-exp-01-21
-        </option>
-        <option value="gemini-1.5-flash">
-          gemini-1.5-flash
-        </option>
-      </>
-    ),
-  };
+  const [isTestingConnection, setIsTestingConnection] =
+    React.useState<boolean>(false);
+  const [diagnosticMessage, setDiagnosticMessage] = React.useState<
+    string | null
+  >(null);
+  const [diagnosticStatus, setDiagnosticStatus] = React.useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [modelList, setModelList] = React.useState<ModelList>(
+    ModelService.getDefaultModelList()
+  );
+  const [isUpdatingModels, setIsUpdatingModels] =
+    React.useState<boolean>(false);
+  const [updateModelMessage, setUpdateModelMessage] = React.useState<
+    string | null
+  >(null);
+  const [updateModelStatus, setUpdateModelStatus] = React.useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
   const uiConfig = {
     [TranslatorType.ChatGPT]: {
@@ -116,12 +104,25 @@ const Settings = () => {
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
-      const settings = await TranslateStore.getUserSettings();
-      // console.log('ok...', settings);
-      setUserSettings(settings);
+      const [settings, storedModelList] = await Promise.all([
+        TranslateStore.getUserSettings(),
+        ModelService.getModelList(),
+      ]);
+      setModelList(storedModelList);
+      const { settings: normalizedSettings, changed } =
+        ModelService.ensureValidModelSelection(settings, storedModelList);
+      setUserSettings(normalizedSettings);
+      if (changed) {
+        TranslateStore.setUserSettings(normalizedSettings);
+      }
     };
     funcGetUserSettings();
   }, []);
+
+  const resetDiagnosticFeedback = () => {
+    setDiagnosticStatus("idle");
+    setDiagnosticMessage(null);
+  };
 
   const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserSettings({
@@ -131,6 +132,7 @@ const Settings = () => {
         [userSettings.translatorType]: e.target.value,
       },
     });
+    resetDiagnosticFeedback();
   };
 
   const handleUseProxyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -139,6 +141,7 @@ const Settings = () => {
       useProxy: e.target.checked,
     });
     setDisableSaveButton(false);
+    resetDiagnosticFeedback();
   };
 
   const saveShortCut = (
@@ -206,6 +209,7 @@ const Settings = () => {
       useCustomHeaders: e.target.checked,
     });
     setDisableSaveButton(false);
+    resetDiagnosticFeedback();
   };
 
   const handleProxyUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -214,19 +218,28 @@ const Settings = () => {
       proxyUrl: e.target.value,
     });
     setDisableSaveButton(false);
+    resetDiagnosticFeedback();
   };
 
   const handleTranslatorTypeChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const translatorType = e.target.value as TranslatorType;
+    const models = ModelService.getModelsForTranslator(translatorType, modelList);
+    const nextMode =
+      models.length > 0
+        ? models[0].value
+        : TranslatorDefaultModel[translatorType];
     setUserSettings({
       ...userSettings,
       translatorType: translatorType,
-      llmMode: TranslatorDefaultModel[translatorType],
+      llmMode: nextMode,
     });
 
     setDisableSaveButton(false);
+    resetDiagnosticFeedback();
+    setUpdateModelMessage(null);
+    setUpdateModelStatus("idle");
   };
 
   const handleLLMModeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -235,6 +248,7 @@ const Settings = () => {
       llmMode: e.target.value,
     });
     setDisableSaveButton(false);
+    resetDiagnosticFeedback();
   };
 
   const handleCustomHeadersChange = (headers: Record<string, string>) => {
@@ -243,6 +257,7 @@ const Settings = () => {
       customHeaders: headers,
     });
     setDisableSaveButton(false);
+    resetDiagnosticFeedback();
   };
 
   const handleTargetTransLangChange = (
@@ -273,6 +288,74 @@ const Settings = () => {
       editAareTargetTransLang: e.target.value as TargetLanguage,
     });
     setDisableSaveButton(false);
+  };
+
+  const handleUpdateModels = async () => {
+    if (isUpdatingModels) {
+      return;
+    }
+    setIsUpdatingModels(true);
+    setUpdateModelStatus("loading");
+    setUpdateModelMessage(
+      chrome.i18n.getMessage("updateModelsLoading") || "Updating models..."
+    );
+    try {
+      const updatedList = await ModelService.updateModelListForTranslator(
+        userSettings.translatorType
+      );
+      setModelList(updatedList);
+      const { settings: normalizedSettings, changed } =
+        ModelService.ensureValidModelSelection(userSettings, updatedList);
+      setUserSettings(normalizedSettings);
+      if (changed) {
+        TranslateStore.setUserSettings(normalizedSettings);
+      }
+      setUpdateModelStatus("success");
+      setUpdateModelMessage(
+        chrome.i18n.getMessage("updateModelsSuccess") ||
+          "Model list updated."
+      );
+    } catch (error) {
+      setUpdateModelStatus("error");
+      const message =
+        error instanceof Error ? error.message : String(error);
+      setUpdateModelMessage(
+        `${
+          chrome.i18n.getMessage("updateModelsFailed") ||
+          "Failed to update models."
+        } ${message}`.trim()
+      );
+    } finally {
+      setIsUpdatingModels(false);
+    }
+  };
+
+  const handleTestConnection = async () => {
+    if (isTestingConnection) {
+      return;
+    }
+
+    setIsTestingConnection(true);
+    setDiagnosticStatus("loading");
+    setDiagnosticMessage(
+      chrome.i18n.getMessage("diagnosticChecking") ||
+        "Testing connection..."
+    );
+
+    try {
+      const result = await testTranslatorConnection(userSettings);
+      setDiagnosticStatus(result.success ? "success" : "error");
+      setDiagnosticMessage(result.message);
+    } catch (error) {
+      const failedMessage =
+        chrome.i18n.getMessage("diagnosticFailed") || "Connection failed.";
+      const extra =
+        error instanceof Error ? error.message : String(error || "");
+      setDiagnosticStatus("error");
+      setDiagnosticMessage(`${failedMessage} ${extra}`.trim());
+    } finally {
+      setIsTestingConnection(false);
+    }
   };
 
   const checkApiKey = () => {
@@ -353,22 +436,29 @@ const Settings = () => {
           <li>
             <span>{chrome.i18n.getMessage("settingsTranslator")}</span>
             <span className={styles.models}>
-              <select
-                value={userSettings.translatorType}
-                onChange={handleTranslatorTypeChange}
-              >
-                <option value="ChatGPT">ChatGPT</option>
-                <option value="DeepSeek">DeepSeek</option>
-                <option value="Gemini">Gemini</option>
-              </select>
-              {
+              <div className={styles.modelSelectors}>
+                <select
+                  value={userSettings.translatorType}
+                  onChange={handleTranslatorTypeChange}
+                >
+                  <option value="ChatGPT">ChatGPT</option>
+                  <option value="DeepSeek">DeepSeek</option>
+                  <option value="Gemini">Gemini</option>
+                </select>
                 <select
                   value={userSettings.llmMode}
                   onChange={handleLLMModeChange}
                 >
-                  {modelOptions[userSettings.translatorType]}
+                  {ModelService.getModelsForTranslator(
+                    userSettings.translatorType,
+                    modelList
+                  ).map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
-              }
+              </div>
             </span>
           </li>
           <li>
@@ -387,9 +477,74 @@ const Settings = () => {
               {
                 (userSettings.translatorAPIKeys[userSettings.translatorType] || "") === "" && <div className={styles.apikeyLink}>{chrome.i18n.getMessage("getAPIKeyDesc")}: <a href="#" onClick={() => { openLink(uiConfig[userSettings.translatorType].apiAddress) }}>{uiConfig[userSettings.translatorType].apiAddress}</a></div>
               }
+              <div className={styles.actionRow}>
+                <button
+                  type="button"
+                  className={styles.connectionButton}
+                  onClick={handleTestConnection}
+                  disabled={isTestingConnection}
+                >
+                  {isTestingConnection
+                    ? chrome.i18n.getMessage("diagnosticChecking") ||
+                      "Testing connection..."
+                    : chrome.i18n.getMessage("diagnoseConnection") ||
+                      "Test Connection"}
+                </button>
+                <div className={styles.actionSpacer}></div>
+                <a
+                  className={[
+                    styles.updateModelsLink,
+                    isUpdatingModels ? styles.updateModelsLinkDisabled : "",
+                  ]
+                    .join(" ")
+                    .trim()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (!isUpdatingModels) {
+                      handleUpdateModels();
+                    }
+                  }}
+                >
+                  {isUpdatingModels
+                    ? chrome.i18n.getMessage("updateModelsLoading") ||
+                      "Updating models..."
+                    : chrome.i18n.getMessage("updateModels") || "Update models"}
+                </a>
+              </div>
+              {diagnosticMessage && (
+                <div
+                  className={[
+                    styles.diagnosticMessage,
+                    diagnosticStatus === "success"
+                      ? styles.diagnosticSuccess
+                      : "",
+                    diagnosticStatus === "error"
+                      ? styles.diagnosticError
+                      : "",
+                  ].join(" ").trim()}
+                >
+                  {diagnosticMessage}
+                </div>
+              )}
+              {updateModelMessage && (
+                <div
+                  className={[
+                    styles.updateMessage,
+                    updateModelStatus === "success"
+                      ? styles.updateSuccess
+                      : "",
+                    updateModelStatus === "error"
+                      ? styles.updateError
+                      : "",
+                  ]
+                    .join(" ")
+                    .trim()}
+                >
+                  {updateModelMessage}
+                </div>
+              )}
             </span>
           </li>
-          <li className={styles.divider}></li>
           <li>
             <span>{chrome.i18n.getMessage("generalTranslation")}</span>
             <span className={styles.dualLabel}>

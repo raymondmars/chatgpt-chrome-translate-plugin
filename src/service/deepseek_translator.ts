@@ -2,6 +2,8 @@ import OpenAI from 'openai';
 
 import { OutputFormat, TargetLanguage, TranslateMessageType, Translator, TranslatorType } from "./translator";
 import { TranslateStore } from './store';
+import { extractAPIErrorMessage } from './error_utils';
+import { TranslationCache } from './translation_cache';
 
 const TIME_OUT_MS = 60000;
 
@@ -18,6 +20,14 @@ export class DeepSeekTranslator implements Translator {
             return;
         }
 
+        const textHash = await TranslationCache.generateHash(text);
+        const cached = await TranslationCache.get(textHash, targetLng, outputFormat, TranslatorType.DeepSeek);
+        if(cached) {
+            onMessage(cached, TranslateMessageType.Message);
+            onMessage('', TranslateMessageType.End);
+            return;
+        }
+
         const openai = new OpenAI({
             apiKey: apiKey,
             baseURL: settings.useProxy && settings.proxyUrl?.trim() !== '' ? settings.proxyUrl : 'https://api.deepseek.com/',
@@ -26,31 +36,42 @@ export class DeepSeekTranslator implements Translator {
             timeout: TIME_OUT_MS,
         });
 
-        const stream = await openai.chat.completions.create({
-            model: settings.llmMode ?? "deepseek-chat",
-            messages: [{
-                role: "system",
-                content: this.getPrompt(targetLng, outputFormat, settings.generalAreaDialect),
-            },
-            {
-                role: "user",
-                content: text,
-            }
-            ],
-            stream: true,
-            temperature: 0.9,
-        });
+        const modelName = settings.llmMode ?? "deepseek-chat";
 
-        let responseText = "";
+        try {
+            const stream = await openai.chat.completions.create({
+                model: modelName,
+                messages: [{
+                    role: "system",
+                    content: this.getPrompt(targetLng, outputFormat, settings.generalAreaDialect),
+                },
+                {
+                    role: "user",
+                    content: text,
+                }
+                ],
+                stream: true,
+                temperature: 0.9,
+            });
 
-        for await (const chunk of stream) {
-            const words = chunk.choices[0]?.delta?.content || ''
-            if (words !== undefined && this.shouldBeRemovedCharacters.indexOf(words.trim()) === -1) {
-              responseText += words;
-              onMessage(responseText, TranslateMessageType.Message);
+            let responseText = "";
+
+            for await (const chunk of stream) {
+                const words = chunk.choices[0]?.delta?.content || ''
+                if (words !== undefined && this.shouldBeRemovedCharacters.indexOf(words.trim()) === -1) {
+                  responseText += words;
+                  onMessage(responseText, TranslateMessageType.Message);
+                }
             }
+            if(responseText.trim() !== '') {
+                await TranslationCache.set(textHash, targetLng, outputFormat, TranslatorType.DeepSeek, responseText);
+            }
+            onMessage('', TranslateMessageType.End);
+        } catch (error) {
+            const message = extractAPIErrorMessage(error);
+            const formatted = `${TranslatorType.DeepSeek} (${modelName}) - ${message}`;
+            onMessage(formatted, TranslateMessageType.Error);
         }
-        onMessage('', TranslateMessageType.End);
     }
 
     protected getPrompt(targetLang: TargetLanguage, outputFormat: OutputFormat, dialect?: string): string {

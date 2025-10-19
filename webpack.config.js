@@ -54,7 +54,8 @@ module.exports = {
       patterns: [
         { from: 'manifest.json', to: '.' },
         { from: 'src/static/images', to: 'images' },
-        { from: 'src/_locales', to: '_locales'}
+        { from: 'src/_locales', to: '_locales'},
+        { from: 'src/static/model-list.json', to: '.' }
         // { from: 'src/static/styles.css', to: '.' },
       ],
     }),

@@ -3,25 +3,25 @@
     "message": "翻訳中..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "設定画面でOpenAI APIキーを設定してください。"
+    "message": "設定でOpenAI APIキーを入力してください。"
   },
   "deepSeekApiKeyRequired": {
-    "message": "設定画面でDeepSeek APIキーを設定してください。"
+    "message": "設定でDeepSeek APIキーを入力してください。"
   },
   "geminiApiKeyRequired": {
-    "message": "設定画面でGemini APIキーを設定してください。"
+    "message": "設定でGemini APIキーを入力してください。"
   },
   "getAPIKeyDesc": {
-    "message": "APIキーを取得する"
+    "message": "APIキーを取得"
   },
   "settingsOpenAIAPIKeyPlaceholder": {
-    "message": "OpenAI APIキーを入力してください"
+    "message": "OpenAI APIキーを入力"
   },
   "settingsGeminiAPIKeyPlaceholder": {
-    "message": "Gemini APIキーを入力してください"
+    "message": "Gemini APIキーを入力"
   },
   "settingsDeepSeekAPIKeyPlaceholder": {
-    "message": "DeepSeek APIキーを入力してください"
+    "message": "DeepSeek APIキーを入力"
   },
   "settingsTitle": {
     "message": "設定"
@@ -31,6 +31,33 @@
   },
   "settingsAPIKey": {
     "message": "APIキー"
+  },
+  "diagnoseConnection": {
+    "message": "接続をテスト"
+  },
+  "diagnosticChecking": {
+    "message": "接続をテストしています..."
+  },
+  "diagnosticSuccess": {
+    "message": "接続に成功しました。"
+  },
+  "diagnosticFailed": {
+    "message": "接続に失敗しました。"
+  },
+  "diagnosticMissingApiKey": {
+    "message": "テスト前にAPIキーを入力してください。"
+  },
+  "updateModels": {
+    "message": "モデルを更新"
+  },
+  "updateModelsLoading": {
+    "message": "モデルを更新しています..."
+  },
+  "updateModelsSuccess": {
+    "message": "モデルを更新しました。"
+  },
+  "updateModelsFailed": {
+    "message": "モデルの更新に失敗しました。"
   },
   "settingsUseProxy": {
     "message": "プロキシを使用"
@@ -42,19 +69,19 @@
     "message": "プロキシURLを入力してください"
   },
   "settingsUseCustomHeaders": {
-    "message": "カスタムヘッダーを追加"
+    "message": "カスタムヘッダーを有効化"
   },
   "settingsCustomHeaders": {
     "message": "カスタムヘッダー"
   },
   "settingsTranslateTo": {
-    "message": "この言語に翻訳"
+    "message": "翻訳先の言語"
   },
   "settingsSave": {
     "message": "保存"
   },
   "addRequestHeader": {
-    "message": "リクエストヘッダーを追加"
+    "message": "ヘッダーを追加"
   },
   "howToUse": {
     "message": "使い方"
@@ -72,13 +99,13 @@
     "message": "ターゲット言語"
   },
   "generalTransDesc": {
-    "message": "Webページで選択したテキストを翻訳"
+    "message": "選択したWebテキストを翻訳"
   },
   "editableTransDesc": {
-    "message": "Facebook、YouTube、X、Redditのコメント欄やGmailの入力欄など、多くのプラットフォームの入力フィールドやテキストエリアを翻訳できます。"
+    "message": "入力欄やコメント欄（Facebook、YouTube、X、Reddit、Gmailなど）を翻訳します。"
   },
   "editableTransUseTip": {
-    "message": "マウスやショートカットキー（macOSはCmd+A、WindowsはCtrl+A）で翻訳したいテキストを選択し、ここで設定したショートカットキーを使うだけで翻訳できます。"
+    "message": "テキストを選択（Cmd/Ctrl + A）し、ここで設定したショートカットを押してください。"
   },
   "advancedFeatures": {
     "message": "高度な機能"
@@ -87,16 +114,16 @@
     "message": "お問い合わせ"
   },
   "textSelectionMethod": {
-    "message": "テキストの選択方法"
+    "message": "選択方法"
   },
   "mouseSelection": {
-    "message": "マウス選択（デフォルト）"
+    "message": "マウス選択（標準）"
   },
   "hoverOverText": {
-    "message": "テキストの上にカーソルを置きます"
+    "message": "ホバー選択"
   },
   "hoverOnOffShortCut": {
-    "message": "ホバー選択をオンまたはオフにする"
+    "message": "ホバー切替ショートカット"
   },
   "dialect": {
     "message": "方言"
