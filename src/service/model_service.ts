@@ -13,7 +13,7 @@ export type ModelList = Record<TranslatorType, ModelOption[]>;
 const STORAGE_KEY = '__translator_model_list';
 
 const REMOTE_MODEL_LIST_URL =
-  'https://raw.githubusercontent.com/raymondmars/translate-everything/main/src/static/model-list.json';
+  'https://raw.githubusercontent.com/raymondmars/chatgpt-chrome-translate-plugin/refs/heads/master/src/static/model-list.json';
 
 const DEFAULT_MODEL_LIST = defaultModelList as ModelList;
 
