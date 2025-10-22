@@ -3,7 +3,7 @@
     "message": "Traduction en cours..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "Veuillez définir votre clé API OpenAI dans la page des paramètres."
+    "message": "Ajoutez votre clé API OpenAI dans les paramètres."
   },
   "settingsTitle": {
     "message": "Paramètres"
@@ -14,8 +14,35 @@
   "settingsAPIKey": {
     "message": "Clé API"
   },
+  "diagnoseConnection": {
+    "message": "Tester la connexion"
+  },
+  "diagnosticChecking": {
+    "message": "Test de connexion..."
+  },
+  "diagnosticSuccess": {
+    "message": "Connexion réussie."
+  },
+  "diagnosticFailed": {
+    "message": "Échec de la connexion."
+  },
+  "diagnosticMissingApiKey": {
+    "message": "Saisissez une clé API avant le test."
+  },
+  "updateModels": {
+    "message": "Actualiser les modèles"
+  },
+  "updateModelsLoading": {
+    "message": "Mise à jour des modèles..."
+  },
+  "updateModelsSuccess": {
+    "message": "Modèles mis à jour."
+  },
+  "updateModelsFailed": {
+    "message": "Échec de l'actualisation des modèles."
+  },
   "settingsAPIKeyPlaceholder": {
-    "message": "Veuillez entrer la clé API OpenAI"
+    "message": "Entrez la clé API OpenAI"
   },
   "settingsUseProxy": {
     "message": "Utiliser un proxy"
@@ -27,19 +54,19 @@
     "message": "Veuillez entrer l'URL du proxy"
   },
   "settingsUseCustomHeaders": {
-    "message": "Ajouter des en-têtes personnalisés"
+    "message": "Activer les en-têtes perso"
   },
   "settingsCustomHeaders": {
     "message": "En-têtes personnalisés"
   },
   "settingsTranslateTo": {
-    "message": "Traduire dans cette langue"
+    "message": "Langue cible"
   },
   "settingsSave": {
     "message": "Enregistrer"
   },
   "addRequestHeader": {
-    "message": "Ajouter un en-tête de requête"
+    "message": "Ajouter un en-tête"
   },
   "howToUse": {
     "message": "Comment l'utiliser"
@@ -57,13 +84,13 @@
     "message": "Langue cible"
   },
   "generalTransDesc": {
-    "message": "Pour traduire le texte sélectionné sur les pages Web"
+    "message": "Traduit le texte sélectionné sur la page"
   },
   "editableTransDesc": {
-    "message": "Pour traduire le texte dans les champs de saisie, les zones de texte, etc., tels que les zones de commentaire de Facebook, YouTube, X, Reddit et la zone de saisie de texte de Gmail."
+    "message": "Traduit champs ou commentaires (Facebook, YouTube, X, Reddit, Gmail...)."
   },
   "editableTransUseTip": {
-    "message": "Il suffit de sélectionner le texte avec votre souris ou les raccourcis clavier (Cmd + A pour macOS, Ctrl + A pour Windows), puis d'utiliser les raccourcis configurés ici pour traduire immédiatement le texte que vous avez saisi."
+    "message": "Sélectionnez le texte (Cmd/Ctrl + A) puis utilisez le raccourci défini ici."
   },
   "advancedFeatures": {
     "message": "Fonctionnalités avancées"
@@ -72,15 +99,15 @@
     "message": "Contactez-nous"
   },
   "textSelectionMethod": {
-    "message": "Méthode de sélection du texte"
+    "message": "Mode de sélection"
   },
   "mouseSelection": {
-    "message": "Sélection à la souris (par défaut)"
+    "message": "Souris (défaut)"
   },
   "hoverOverText": {
-    "message": "Survoler le texte"
+    "message": "Sélection au survol"
   },
   "hoverOnOffShortCut": {
-    "message": "Raccourci activation/désactivation du survol"
+    "message": "Raccourci du survol"
   }
 }

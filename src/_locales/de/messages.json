@@ -3,7 +3,7 @@
     "message": "Übersetzen..."
   },
   "chatGPTApiKeyRequired": {
-    "message": "Bitte geben Sie Ihren OpenAI-API-Schlüssel auf der Einstellungsseite ein."
+    "message": "Bitte den OpenAI-API-Schlüssel in den Einstellungen eintragen."
   },
   "settingsTitle": {
     "message": "Einstellungen"
@@ -13,6 +13,33 @@
   },
   "settingsAPIKey": {
     "message": "API-Schlüssel"
+  },
+  "diagnoseConnection": {
+    "message": "Verbindung testen"
+  },
+  "diagnosticChecking": {
+    "message": "Verbindung wird getestet..."
+  },
+  "diagnosticSuccess": {
+    "message": "Verbindung erfolgreich."
+  },
+  "diagnosticFailed": {
+    "message": "Verbindung fehlgeschlagen."
+  },
+  "diagnosticMissingApiKey": {
+    "message": "Bitte vor dem Test einen API-Schlüssel angeben."
+  },
+  "updateModels": {
+    "message": "Modelle neu laden"
+  },
+  "updateModelsLoading": {
+    "message": "Modelle werden aktualisiert..."
+  },
+  "updateModelsSuccess": {
+    "message": "Modelle aktualisiert."
+  },
+  "updateModelsFailed": {
+    "message": "Aktualisieren der Modelle fehlgeschlagen."
   },
   "settingsAPIKeyPlaceholder": {
     "message": "Bitte geben Sie den OpenAI-API-Schlüssel ein"
@@ -27,19 +54,19 @@
     "message": "Bitte geben Sie die Proxy-URL ein"
   },
   "settingsUseCustomHeaders": {
-    "message": "Benutzerdefinierte Header hinzufügen"
+    "message": "Eigene Header aktivieren"
   },
   "settingsCustomHeaders": {
-    "message": "Benutzerdefinierte Header"
+    "message": "Eigene Header"
   },
   "settingsTranslateTo": {
-    "message": "In diese Sprache übersetzen"
+    "message": "Zielsprache"
   },
   "settingsSave": {
     "message": "Speichern"
   },
   "addRequestHeader": {
-    "message": "Anforderungsheader hinzufügen"
+    "message": "Header hinzufügen"
   },
   "howToUse": {
     "message": "Anleitung"
@@ -57,13 +84,13 @@
     "message": "Zielsprache"
   },
   "generalTransDesc": {
-    "message": "Zum Übersetzen von ausgewähltem Text auf Webseiten"
+    "message": "Übersetzt markierten Webseiten-Text"
   },
   "editableTransDesc": {
-    "message": "Zum Übersetzen von Text in Eingabefeldern, Textbereichen usw., wie z.B. im Kommentarbereich von Facebook, YouTube, X, Reddit und dem Texteingabebereich von Gmail."
+    "message": "Übersetzt Eingabefeld- oder Kommentartext, z.B. auf Facebook, YouTube, X, Reddit oder Gmail."
   },
   "editableTransUseTip": {
-    "message": "Wählen Sie einfach den Text mit Ihrer Maus oder den Tastenkombinationen (Cmd + A für macOS, Ctrl + A für Windows) aus, und verwenden Sie dann die hier konfigurierten Tastenkombinationen, um den eingegebenen Text sofort zu übersetzen."
+    "message": "Text markieren (Cmd/Ctrl + A) und das hier festgelegte Kürzel drücken."
   },
   "advancedFeatures": {
     "message": "Erweiterte Funktionen"
@@ -72,15 +99,15 @@
     "message": "Kontaktieren Sie uns"
   },
   "textSelectionMethod": {
-    "message": "Textauswahlmethode"
+    "message": "Auswahlmethode"
   },
   "mouseSelection": {
-    "message": "Mausauswahl (Standard)"
+    "message": "Maus (Standard)"
   },
   "hoverOverText": {
-    "message": "Text überfahren"
+    "message": "Hover-Auswahl"
   },
   "hoverOnOffShortCut": {
-    "message": "Hover Ein/Aus-Tastenkürzel"
+    "message": "Hover-Kürzel"
   }
 }

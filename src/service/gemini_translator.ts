@@ -2,6 +2,8 @@ import OpenAI from 'openai';
 
 import { OutputFormat, TargetLanguage, TranslateMessageType, Translator, TranslatorType } from "./translator";
 import { TranslateStore } from './store';
+import { extractAPIErrorMessage } from './error_utils';
+import { TranslationCache } from './translation_cache';
 
 const TIME_OUT_MS = 60000;
 
@@ -18,6 +20,14 @@ export class GeminiTranslator implements Translator {
           return;
         }
 
+        const textHash = await TranslationCache.generateHash(text);
+        const cached = await TranslationCache.get(textHash, targetLng, outputFormat, TranslatorType.Gemini);
+        if(cached) {
+            onMessage(cached, TranslateMessageType.Message);
+            onMessage('', TranslateMessageType.End);
+            return;
+        }
+
         let headers = settings.useCustomHeaders ? (settings.customHeaders || {}) : undefined;
         
         const openai = new OpenAI({
@@ -28,34 +38,44 @@ export class GeminiTranslator implements Translator {
             timeout: TIME_OUT_MS,
         });
 
+        const modelName = settings.llmMode ?? "gemini-2.0-flash";
 
-        const stream = await openai.chat.completions.create({
-            model: settings.llmMode ?? "gemini-2.0-flash",
-            messages: [{
-                role: "system",
-                content: this.getPrompt(targetLng, outputFormat, settings.generalAreaDialect),
-            },
-            {
-                role: "user",
-                content: text,
+        try {
+            const stream = await openai.chat.completions.create({
+                model: modelName,
+                messages: [{
+                    role: "system",
+                    content: this.getPrompt(targetLng, outputFormat, settings.generalAreaDialect),
+                },
+                {
+                    role: "user",
+                    content: text,
+                }
+                ],
+                stream: true,
+                temperature: 0.9,
+            });
+
+            let responseText = "";
+
+            for await (const chunk of stream) {
+                let words = chunk.choices[0]?.delta?.content || ''
+                words = words.replace(/html\n/g, '');
+                words = words.replace(/```/g, '');
+                if (words !== undefined && this.shouldBeRemovedCharacters.indexOf(words.trim()) === -1) {
+                  responseText += words;
+                  onMessage(responseText, TranslateMessageType.Message);
+                }
             }
-            ],
-            stream: true,
-            temperature: 0.9,
-        });
-
-        let responseText = "";
-
-        for await (const chunk of stream) {
-            let words = chunk.choices[0]?.delta?.content || ''
-            words = words.replace(/html\n/g, '');
-            words = words.replace(/```/g, '');
-            if (words !== undefined && this.shouldBeRemovedCharacters.indexOf(words.trim()) === -1) {
-              responseText += words;
-              onMessage(responseText, TranslateMessageType.Message);
+            if(responseText.trim() !== '') {
+                await TranslationCache.set(textHash, targetLng, outputFormat, TranslatorType.Gemini, responseText);
             }
+            onMessage('', TranslateMessageType.End);
+        } catch (error) {
+            const message = extractAPIErrorMessage(error);
+            const formatted = `${TranslatorType.Gemini} (${modelName}) - ${message}`;
+            onMessage(formatted, TranslateMessageType.Error);
         }
-        onMessage('', TranslateMessageType.End);
     }
 
     protected getPrompt(targetLang: TargetLanguage, outputFormat: OutputFormat, dialect?: string): string {

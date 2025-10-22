@@ -20,6 +20,33 @@
   "settingsAPIKey": {
     "message": "API Key"
   },
+  "diagnoseConnection": {
+    "message": "Test Connection"
+  },
+  "diagnosticChecking": {
+    "message": "Testing connection..."
+  },
+  "diagnosticSuccess": {
+    "message": "Connection successful."
+  },
+  "diagnosticFailed": {
+    "message": "Connection failed."
+  },
+  "diagnosticMissingApiKey": {
+    "message": "Please enter an API key before testing."
+  },
+  "updateModels": {
+    "message": "Update models"
+  },
+  "updateModelsLoading": {
+    "message": "Updating models..."
+  },
+  "updateModelsSuccess": {
+    "message": "Model list updated."
+  },
+  "updateModelsFailed": {
+    "message": "Failed to update models."
+  },
   "settingsOpenAIAPIKeyPlaceholder": {
     "message": "Please input OpenAI API Key"
   },

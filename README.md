@@ -11,6 +11,8 @@ This is a completely free and open-source project. You can configure your API ke
 - Supports translation of any editable area text, such as text in input boxes, text areas, and comment sections on platforms like Facebook, YouTube, X, Reddit, and Gmail.
 - Allows use of proxy and custom headers for users who access AI models through a proxy.
 - Supports 20+ languages.
+- Provides one-click API connection diagnostics and remote model list updates directly from the settings page.
+- Caches recent translations locally (up to 500 entries by default) to avoid repeated API calls for the same text.
 
 ## Installation
 Go to [AI Translation Bot](https://chromewebstore.google.com/detail/chatgpt-translation-bot/fglemdfemikhijpgojdobdgplbcfomdf) and install extension for your browser.
