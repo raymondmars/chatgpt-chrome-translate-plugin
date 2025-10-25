@@ -90,17 +90,23 @@ const Settings = () => {
   const uiConfig = {
     [TranslatorType.ChatGPT]: {
       apiAddress: "https://platform.openai.com/api-keys",
-      apiKeyPlaceholder: chrome.i18n.getMessage("settingsOpenAIAPIKeyPlaceholder"),
+      apiKeyPlaceholder: chrome.i18n.getMessage(
+        "settingsOpenAIAPIKeyPlaceholder"
+      ),
     },
     [TranslatorType.DeepSeek]: {
       apiAddress: "https://platform.deepseek.com/api_keys",
-      apiKeyPlaceholder: chrome.i18n.getMessage("settingsDeepSeekAPIKeyPlaceholder"),
+      apiKeyPlaceholder: chrome.i18n.getMessage(
+        "settingsDeepSeekAPIKeyPlaceholder"
+      ),
     },
     [TranslatorType.Gemini]: {
       apiAddress: "https://aistudio.google.com/apikey",
-      apiKeyPlaceholder: chrome.i18n.getMessage("settingsGeminiAPIKeyPlaceholder"),
+      apiKeyPlaceholder: chrome.i18n.getMessage(
+        "settingsGeminiAPIKeyPlaceholder"
+      ),
     },
-  }
+  };
 
   useEffect(() => {
     const funcGetUserSettings = async () => {
@@ -422,6 +428,7 @@ const Settings = () => {
         <option value="Thai">ไทย</option>
         <option value="Turkish">Türkçe</option>
         <option value="Ukrainian">Українська</option>
+        <option value="Persian">فارسی</option>
       </>
     );
   };
@@ -470,77 +477,26 @@ const Settings = () => {
                   userSettings.translatorAPIKeys[userSettings.translatorType] ||
                   ""
                 }
-                placeholder={uiConfig[userSettings.translatorType].apiKeyPlaceholder}
+                placeholder={
+                  uiConfig[userSettings.translatorType].apiKeyPlaceholder
+                }
                 onChange={handleApiKeyChange}
                 onBlur={checkApiKey}
               />
-              {
-                (userSettings.translatorAPIKeys[userSettings.translatorType] || "") === "" && <div className={styles.apikeyLink}>{chrome.i18n.getMessage("getAPIKeyDesc")}: <a href="#" onClick={() => { openLink(uiConfig[userSettings.translatorType].apiAddress) }}>{uiConfig[userSettings.translatorType].apiAddress}</a></div>
-              }
-              <div className={styles.actionRow}>
-                <button
-                  type="button"
-                  className={styles.connectionButton}
-                  onClick={handleTestConnection}
-                  disabled={isTestingConnection}
-                >
-                  {isTestingConnection
-                    ? chrome.i18n.getMessage("diagnosticChecking") ||
-                      "Testing connection..."
-                    : chrome.i18n.getMessage("diagnoseConnection") ||
-                      "Test Connection"}
-                </button>
-                <div className={styles.actionSpacer}></div>
-                <a
-                  className={[
-                    styles.updateModelsLink,
-                    isUpdatingModels ? styles.updateModelsLinkDisabled : "",
-                  ]
-                    .join(" ")
-                    .trim()}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (!isUpdatingModels) {
-                      handleUpdateModels();
-                    }
-                  }}
-                >
-                  {isUpdatingModels
-                    ? chrome.i18n.getMessage("updateModelsLoading") ||
-                      "Updating models..."
-                    : chrome.i18n.getMessage("updateModels") || "Update models"}
-                </a>
-              </div>
-              {diagnosticMessage && (
-                <div
-                  className={[
-                    styles.diagnosticMessage,
-                    diagnosticStatus === "success"
-                      ? styles.diagnosticSuccess
-                      : "",
-                    diagnosticStatus === "error"
-                      ? styles.diagnosticError
-                      : "",
-                  ].join(" ").trim()}
-                >
-                  {diagnosticMessage}
-                </div>
-              )}
-              {updateModelMessage && (
-                <div
-                  className={[
-                    styles.updateMessage,
-                    updateModelStatus === "success"
-                      ? styles.updateSuccess
-                      : "",
-                    updateModelStatus === "error"
-                      ? styles.updateError
-                      : "",
-                  ]
-                    .join(" ")
-                    .trim()}
-                >
-                  {updateModelMessage}
+              {(userSettings.translatorAPIKeys[userSettings.translatorType] ||
+                "") === "" && (
+                <div className={styles.apikeyLink}>
+                  {chrome.i18n.getMessage("getAPIKeyDesc")}:{" "}
+                  <a
+                    href="#"
+                    onClick={() => {
+                      openLink(
+                        uiConfig[userSettings.translatorType].apiAddress
+                      );
+                    }}
+                  >
+                    {uiConfig[userSettings.translatorType].apiAddress}
+                  </a>
                 </div>
               )}
             </span>
@@ -748,7 +704,14 @@ const Settings = () => {
           </li>
         </ul>
         <div className={styles.howToUse}>
-          <a href="#" onClick={() => { openLink("https://github.com/raymondmars/chatgpt-chrome-translate-plugin") } }>
+          <a
+            href="#"
+            onClick={() => {
+              openLink(
+                "https://github.com/raymondmars/chatgpt-chrome-translate-plugin"
+              );
+            }}
+          >
             {chrome.i18n.getMessage("howToUse")}
           </a>
         </div>
