@@ -107,6 +107,15 @@
   "hoverOverText": {
     "message": "Hover-Auswahl"
   },
+  "translationDisplayMode": {
+    "message": "Übersetzungsanzeigemodus"
+  },
+  "replaceOriginalText": {
+    "message": "Originaltext ersetzen"
+  },
+  "appendAtBottom": {
+    "message": "Am Ende hinzufügen"
+  },
   "hoverOnOffShortCut": {
     "message": "Hover-Kürzel"
   }

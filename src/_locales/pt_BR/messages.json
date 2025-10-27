@@ -107,6 +107,15 @@
   "hoverOverText": {
     "message": "Seleção por hover"
   },
+  "translationDisplayMode": {
+    "message": "Modo de exibição da tradução"
+  },
+  "replaceOriginalText": {
+    "message": "Substituir texto original"
+  },
+  "appendAtBottom": {
+    "message": "Adicionar ao final"
+  },
   "hoverOnOffShortCut": {
     "message": "Atalho do hover"
   }

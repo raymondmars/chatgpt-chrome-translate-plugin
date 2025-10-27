@@ -107,6 +107,15 @@
   "hoverOverText": {
     "message": "Sélection au survol"
   },
+  "translationDisplayMode": {
+    "message": "Mode d'affichage de la traduction"
+  },
+  "replaceOriginalText": {
+    "message": "Remplacer le texte original"
+  },
+  "appendAtBottom": {
+    "message": "Ajouter en bas"
+  },
   "hoverOnOffShortCut": {
     "message": "Raccourci du survol"
   }
