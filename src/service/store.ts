@@ -22,6 +22,7 @@ export interface UserSettings {
   hoverOnOffShortCut: string;
   translatorAPIKeys: Record<TranslatorType, string>;
   generalAreaDialect?: string;
+  translationDisplayMode: "replace" | "append";
 }
 
 export interface Store {
@@ -53,6 +54,7 @@ class UserStore implements Store {
       cacheVal.translatorAPIKeys = cacheVal.translatorAPIKeys || {
         [TranslatorType.ChatGPT]: cacheVal.apiKey,
       };
+      cacheVal.translationDisplayMode = cacheVal.translationDisplayMode || "append";
       return cacheVal;
     }
 
@@ -72,7 +74,8 @@ class UserStore implements Store {
         [TranslatorType.ChatGPT]: '',
         [TranslatorType.DeepSeek]: '',
         [TranslatorType.Gemini]: '',
-      }
+      },
+      translationDisplayMode: "append",
     };
   }
 

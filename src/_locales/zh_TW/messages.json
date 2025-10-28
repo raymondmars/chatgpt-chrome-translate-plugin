@@ -83,6 +83,10 @@
   "targetLanguage": {
     "message": "目標語言"
   },
+
+  "persian": {
+    "message": "波斯語"
+  },
   "generalTransDesc": {
     "message": "用於翻譯網頁選中文本"
   },
@@ -106,6 +110,15 @@
   },
   "hoverOverText": {
     "message": "懸停取詞"
+  },
+  "translationDisplayMode": {
+    "message": "翻譯顯示模式"
+  },
+  "replaceOriginalText": {
+    "message": "替換原文"
+  },
+  "appendAtBottom": {
+    "message": "附加在底部"
   },
   "hoverOnOffShortCut": {
     "message": "懸停開關"

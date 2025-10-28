@@ -61,6 +61,7 @@ const Settings = () => {
     translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
     selectionMethod: TextSelectionMethod.MouseSelection,
     hoverOnOffShortCut: DEFAULT_HOVER_ONOFF_SHORT_CUT,
+    translationDisplayMode: "append",
     translatorAPIKeys: {
       [TranslatorType.ChatGPT]: "",
       [TranslatorType.DeepSeek]: "",
@@ -388,6 +389,15 @@ const Settings = () => {
     setDisableSaveButton(false);
   };
 
+  const handleTranslationDisplayModeChange = (mode: "replace" | "append") => {
+    setUserSettings({
+      ...userSettings,
+      translationDisplayMode: mode,
+    });
+    setDisableSaveButton(false);
+  };
+  
+
   const languageOptions = () => {
     return (
       <>
@@ -414,6 +424,7 @@ const Settings = () => {
         <option value="Polish">Polski</option>
         <option value="Portuguese">Português</option>
         <option value="Romanian">Română</option>
+        <option value="Persian">فارسی</option>
         <option value="Russian">Русский</option>
         <option value="Slovak">Slovenčina</option>
         <option value="Slovenian">Slovenščina</option>
@@ -655,6 +666,30 @@ const Settings = () => {
             <span></span>
             <span className={styles.tooltip}>
               {chrome.i18n.getMessage("generalTransDesc")}
+            </span>
+          </li>
+          <li className={styles.divider}></li>
+          <li>
+            <span>{chrome.i18n.getMessage("translationDisplayMode")}</span>
+            <span className={styles.dualLabel}>
+              <div className={styles.labelgroup}>
+                <label>
+                  <input 
+                    type="radio" 
+                    name="translationDisplayMode" 
+                    checked={userSettings.translationDisplayMode === "replace"}
+                    onChange={() => handleTranslationDisplayModeChange("replace")}
+                  /> {chrome.i18n.getMessage("replaceOriginalText")}
+                </label>
+                <label>
+                  <input 
+                    type="radio" 
+                    name="translationDisplayMode" 
+                    checked={userSettings.translationDisplayMode === "append"}
+                    onChange={() => handleTranslationDisplayModeChange("append")}
+                  /> {chrome.i18n.getMessage("appendAtBottom")}
+                </label>
+              </div>
             </span>
           </li>
           <li className={styles.divider}></li>

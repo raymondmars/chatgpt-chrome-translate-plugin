@@ -2,6 +2,7 @@ import React from 'react';
 import BaseProcessor from "./base_processor";
 import { UserSettings } from "./service/store";
 import PopupTip from "./content_components/popup_tip";
+import { sanitize } from "./utils/sanitize";
 
 export default class HoverTextProcessor extends BaseProcessor {
   private isEnabled: boolean = false;
@@ -96,7 +97,7 @@ export default class HoverTextProcessor extends BaseProcessor {
   }
 
   private getElementText(element: Element): string {
-    return element.textContent?.trim() || '';
+    return sanitize(element.innerHTML.trim());
   }
 
   private showPoptip(text: string) {

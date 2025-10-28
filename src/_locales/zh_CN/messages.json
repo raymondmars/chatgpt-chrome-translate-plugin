@@ -98,6 +98,10 @@
   "targetLanguage": {
     "message": "目标语言"
   },
+
+  "persian": {
+    "message": "波斯语"
+  },
   "generalTransDesc": {
     "message": "用于翻译网页选中文本"
   },
@@ -124,6 +128,15 @@
   },
   "hoverOnOffShortCut": {
     "message": "悬停开关"
+  },
+  "translationDisplayMode": {
+    "message": "翻译显示模式"
+  },
+  "replaceOriginalText": {
+    "message": "替换原文"
+  },
+  "appendAtBottom": {
+    "message": "追加在底部"
   },
   "dialect": {
     "message": "方言"

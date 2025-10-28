@@ -83,6 +83,10 @@
   "targetLanguage": {
     "message": "Zielsprache"
   },
+
+  "persian": {
+    "message": "Persisch"
+  },
   "generalTransDesc": {
     "message": "Übersetzt markierten Webseiten-Text"
   },
@@ -106,6 +110,15 @@
   },
   "hoverOverText": {
     "message": "Hover-Auswahl"
+  },
+  "translationDisplayMode": {
+    "message": "Übersetzungsanzeigemodus"
+  },
+  "replaceOriginalText": {
+    "message": "Originaltext ersetzen"
+  },
+  "appendAtBottom": {
+    "message": "Am Ende hinzufügen"
   },
   "hoverOnOffShortCut": {
     "message": "Hover-Kürzel"
