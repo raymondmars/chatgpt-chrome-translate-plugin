@@ -83,6 +83,10 @@
   "targetLanguage": {
     "message": "Langue cible"
   },
+
+  "persian": {
+    "message": "Persan"
+  },
   "generalTransDesc": {
     "message": "Traduit le texte sélectionné sur la page"
   },

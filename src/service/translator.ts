@@ -37,6 +37,7 @@ export enum TargetLanguage {
   Polish = "Polish",
   Portuguese = "Portuguese",
   Romanian = "Romanian",
+  Persian = "Persian",
   Russian = "Russian",
   Slovak = "Slovak",
   Slovenian = "Slovenian",

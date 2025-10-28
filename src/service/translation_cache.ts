@@ -20,13 +20,20 @@ const DEFAULT_MAX_ENTRIES = 500;
 
 const encoder = new TextEncoder();
 
-const trimEdgePunctuationRegex = /^(?:[\s\p{P}\p{S}]+)|(?:[\s\p{P}\p{S}]+)$/gu;
+const trimEdgePunctuationRegex = /^[\s\p{P}\p{S}]+|[\s\p{P}\p{S}]+$/gu;
 
 function normalizeTextForHash(text: string): string {
   if (!text) {
     return "";
   }
   const trimmed = text.trim();
+  const firstChar = trimmed.charAt(0);
+  const lastChar = trimmed.charAt(trimmed.length - 1);
+
+  if (firstChar === "<" || lastChar === ">") {
+    return trimmed;
+  }
+
   const normalized = trimmed.replace(trimEdgePunctuationRegex, "");
   return normalized.trim() || trimmed;
 }

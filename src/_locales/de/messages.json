@@ -83,6 +83,10 @@
   "targetLanguage": {
     "message": "Zielsprache"
   },
+
+  "persian": {
+    "message": "Persisch"
+  },
   "generalTransDesc": {
     "message": "Übersetzt markierten Webseiten-Text"
   },

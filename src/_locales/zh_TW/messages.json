@@ -83,6 +83,10 @@
   "targetLanguage": {
     "message": "目標語言"
   },
+
+  "persian": {
+    "message": "波斯語"
+  },
   "generalTransDesc": {
     "message": "用於翻譯網頁選中文本"
   },

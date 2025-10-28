@@ -61,7 +61,7 @@ const Settings = () => {
     translateInEditableShortCut: DEFAULT_EDITABLE_SHORT_CUT,
     selectionMethod: TextSelectionMethod.MouseSelection,
     hoverOnOffShortCut: DEFAULT_HOVER_ONOFF_SHORT_CUT,
-    translationDisplayMode: "replace",
+    translationDisplayMode: "append",
     translatorAPIKeys: {
       [TranslatorType.ChatGPT]: "",
       [TranslatorType.DeepSeek]: "",
@@ -424,6 +424,7 @@ const Settings = () => {
         <option value="Polish">Polski</option>
         <option value="Portuguese">Português</option>
         <option value="Romanian">Română</option>
+        <option value="Persian">فارسی</option>
         <option value="Russian">Русский</option>
         <option value="Slovak">Slovenčina</option>
         <option value="Slovenian">Slovenščina</option>

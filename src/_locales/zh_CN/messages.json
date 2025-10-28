@@ -98,6 +98,10 @@
   "targetLanguage": {
     "message": "目标语言"
   },
+
+  "persian": {
+    "message": "波斯语"
+  },
   "generalTransDesc": {
     "message": "用于翻译网页选中文本"
   },

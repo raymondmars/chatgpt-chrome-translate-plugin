@@ -54,6 +54,7 @@ class UserStore implements Store {
       cacheVal.translatorAPIKeys = cacheVal.translatorAPIKeys || {
         [TranslatorType.ChatGPT]: cacheVal.apiKey,
       };
+      cacheVal.translationDisplayMode = cacheVal.translationDisplayMode || "append";
       return cacheVal;
     }
 
@@ -74,7 +75,7 @@ class UserStore implements Store {
         [TranslatorType.DeepSeek]: '',
         [TranslatorType.Gemini]: '',
       },
-      translationDisplayMode: "replace",
+      translationDisplayMode: "append",
     };
   }
 

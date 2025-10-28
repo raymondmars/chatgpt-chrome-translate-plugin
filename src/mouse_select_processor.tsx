@@ -1,6 +1,6 @@
 import BaseProcessor from "./base_processor";
 import { UserSettings } from "./service/store";
-
+import { sanitize } from "./utils/sanitize";
 
 export default class MouseSelectProcessor extends BaseProcessor {
   private isEnabled: boolean = false;
@@ -36,7 +36,7 @@ export default class MouseSelectProcessor extends BaseProcessor {
       const range = selection.getRangeAt(0);
       const container = document.createElement("div");
       container.appendChild(range.cloneContents());
-      this.selectedText = container.innerHTML.trim();
+      this.selectedText = sanitize(container.innerHTML.trim());
       this.selectedElement = target;
     } else {
       this.selectedText = '';
