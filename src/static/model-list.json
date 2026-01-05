@@ -12,6 +12,7 @@
     { "value": "deepseek-reasoner", "label": "deepseek-reasoner" }
   ],
   "Gemini": [
+    { "value": "gemini-2.5-flash", "label": "gemini-2.5-flash" },
     { "value": "gemini-2.5-flash-preview-05-20", "label": "gemini-2.5-flash-preview-05-20" },
     { "value": "gemini-2.5-pro-preview-05-06", "label": "gemini-2.5-pro-preview-05-06" },
     { "value": "gemini-2.0-flash", "label": "gemini-2.0-flash" },
