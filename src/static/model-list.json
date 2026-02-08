@@ -1,17 +1,20 @@
 {
   "ChatGPT": [
-    { "value": "gpt-4o-mini", "label": "gpt-4o-mini (cheapest)" },
-    { "value": "gpt-4o", "label": "gpt-4o" },
-    { "value": "gpt-4-turbo", "label": "gpt-4-turbo" },
-    { "value": "gpt-4", "label": "gpt-4" }
+    { "value": "gpt-5-mini", "label": "gpt-5-mini (recommended)" },
+    { "value": "gpt-5.2", "label": "gpt-5.2" },
+    { "value": "gpt-5-nano", "label": "gpt-5-nano (cheapest)" },
+    { "value": "gpt-4.1-mini", "label": "gpt-4.1-mini" },
+    { "value": "gpt-4.1", "label": "gpt-4.1" },
+    { "value": "gpt-4o-mini", "label": "gpt-4o-mini" },
+    { "value": "gpt-4o", "label": "gpt-4o" }
   ],
   "DeepSeek": [
     { "value": "deepseek-chat", "label": "deepseek-chat" },
     { "value": "deepseek-reasoner", "label": "deepseek-reasoner" }
   ],
   "Gemini": [
+    { "value": "gemini-2.5-flash-lite", "label": "gemini-2.5-flash-lite (cheapest)" },
     { "value": "gemini-2.5-flash", "label": "gemini-2.5-flash" },
-    { "value": "gemini-2.5-flash-lite", "label": "gemini-2.5-flash-lite" },
     { "value": "gemini-2.5-pro", "label": "gemini-2.5-pro" },
     { "value": "gemini-3-flash-preview", "label": "gemini-3-flash-preview" },
     { "value": "gemini-3-pro-preview", "label": "gemini-3-pro-preview" }
