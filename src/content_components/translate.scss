@@ -35,6 +35,12 @@
     }
   }
 
+  .translatedText {
+    text-align: start;
+    unicode-bidi: plaintext;
+    word-break: break-word;
+  }
+
   .error {
     padding: 10px;
     background-color: white;

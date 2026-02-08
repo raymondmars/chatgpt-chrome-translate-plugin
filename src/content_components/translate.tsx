@@ -3,12 +3,43 @@ import styles from './translate.scss';
 import { OutputFormat, TargetLanguage, TranslateMessageType, TranslatorType, createTranslator } from '../service/translator';
 import { TranslateStore } from '../service/store';
 
+type TextDirection = 'ltr' | 'rtl';
+
+const RTL_LANGUAGES = new Set<string>([
+  TargetLanguage.Arabic,
+  TargetLanguage.Persian,
+  'Hebrew',
+]);
+
+const getDirectionForLanguage = (language?: string): TextDirection => {
+  if (!language) {
+    return 'ltr';
+  }
+
+  return RTL_LANGUAGES.has(language) ? 'rtl' : 'ltr';
+};
+
+const getLangAttribute = (language?: string): string | undefined => {
+  switch (language) {
+    case TargetLanguage.Arabic:
+      return 'ar';
+    case TargetLanguage.Persian:
+      return 'fa';
+    case 'Hebrew':
+      return 'he';
+    default:
+      return undefined;
+  }
+};
+
 const Translate = (props: { inputText: string }) => {
   const [show, setShow] = React.useState<boolean>(true);
   const [resultContent, setResultContent] = React.useState<string>('');
   const [showEnd, setShowEnd] = React.useState<boolean>(false);
   const [showError, setShowError] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [contentDirection, setContentDirection] = React.useState<TextDirection>('ltr');
+  const [contentLang, setContentLang] = React.useState<string | undefined>(undefined);
 
   const escapeHtml = (text: string) => {
     return text
@@ -36,6 +67,8 @@ const Translate = (props: { inputText: string }) => {
       const settings = await TranslateStore.getUserSettings();
       const type = settings.translatorType || TranslatorType.ChatGPT;
       const targetLang = settings.targetTransLang || TargetLanguage.English;
+      setContentDirection(getDirectionForLanguage(targetLang));
+      setContentLang(getLangAttribute(targetLang));
       const translator = createTranslator(type);
       translator.translate(props.inputText, targetLang, OutputFormat.HTML, (message, msgType) => {
         if(loading) {
@@ -69,6 +102,9 @@ const Translate = (props: { inputText: string }) => {
       <div className={showError ? styles.error : styles.result}>
         { loading && <div className={styles.loading}>&#9998; {chrome.i18n.getMessage("translateLoading")}</div> }
         <div
+          className={styles.translatedText}
+          dir={contentDirection}
+          lang={contentLang}
           dangerouslySetInnerHTML={{
             __html: showError ? escapeHtml(resultContent) : resultContent,
           }}
