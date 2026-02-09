@@ -370,7 +370,7 @@ const Settings = () => {
   };
 
   const handleContactUs = () => {
-    chrome.tabs.create({ url: "mailto:i@raymondjiang.net" });
+    chrome.tabs.create({ url: "mailto:i@raymondjiang.com" });
   };
 
   const handleSave = () => {
