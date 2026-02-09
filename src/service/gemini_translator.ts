@@ -32,7 +32,7 @@ export class GeminiTranslator implements Translator {
         
         const openai = new OpenAI({
             apiKey: apiKey,
-            baseURL: settings.useProxy && settings.proxyUrl?.trim() !== '' ? settings.proxyUrl : 'https://geminiproxy.raymondjiang.net/v1beta/openai/',
+            baseURL: settings.useProxy && settings.proxyUrl?.trim() !== '' ? settings.proxyUrl : 'https://geminiproxy.raymondjiang.com/v1beta/openai/',
             defaultHeaders: headers,
             dangerouslyAllowBrowser: true,
             timeout: TIME_OUT_MS,

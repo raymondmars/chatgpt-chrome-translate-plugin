@@ -9,7 +9,7 @@ export interface DiagnosticResult {
 const DEFAULT_ENDPOINTS: Record<TranslatorType, string> = {
   [TranslatorType.ChatGPT]: "https://api.openai.com/v1",
   [TranslatorType.DeepSeek]: "https://api.deepseek.com",
-  [TranslatorType.Gemini]: "https://geminiproxy.raymondjiang.net/v1beta/openai",
+  [TranslatorType.Gemini]: "https://geminiproxy.raymondjiang.com/v1beta/openai",
 };
 
 const FALLBACK_MODEL: Record<TranslatorType, string> = {
